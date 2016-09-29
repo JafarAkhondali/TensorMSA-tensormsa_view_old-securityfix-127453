@@ -2,13 +2,16 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './js/app.js',
+    entry: {
+        TensorMSA: './js/app.js',
+        playground: './ts/playground.ts'
+    }, // Multiple Entry
     devtool: 'sourcemaps',
     cache: true,
     debug: true,
     output: {
         path: __dirname,
-        filename: './../static/TensorMSA.js'
+        filename: './../static/dist/[name].js' // Output for the multiple entry
     },
     module: {
         loaders: [
@@ -20,6 +23,12 @@ module.exports = {
                 {
                     presets:['es2015','react']
                 }
+            },
+            {
+                // test: A condition that must be met <-> exclude
+                test: /\.ts$/,
+                exclude: /node_modules/,  
+                loader: 'ts-loader'
             }
         ]
     }
