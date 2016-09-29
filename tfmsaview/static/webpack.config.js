@@ -13,7 +13,15 @@ module.exports = {
         path: __dirname,
         filename: './../static/dist/[name].js' // Output for the multiple entry
     },
-    module: {
+    resolve: {
+        // Add `.ts` and `.tsx` as a resolvable extension. 
+        extensions: ['', '.webpack.js', '.web.js', '.js', '.ts', '.tsx']
+    },  
+    // When to use Minification, 
+    plugins : [
+        //new webpack.optimize.UglifyJsPlugin()
+    ]  ,
+    module: { // An array of extensions that should be used to resolve modules.
         loaders: [
             { 
                 test: /\.jsx?$/,         // Match both .js and .jsx files
@@ -31,5 +39,8 @@ module.exports = {
                 loader: 'ts-loader'
             }
         ]
+    },
+    ts : { // set compiler which is used by ts-loader
+        compiler : 'typescript'
     }
 };
