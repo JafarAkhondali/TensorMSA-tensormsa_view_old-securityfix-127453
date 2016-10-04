@@ -1,6 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var envPlugin = new webpack.DefinePlugin({
+    __API_SERVER__: JSON.stringify(process.env.API_SERVER)
+});
+
 module.exports = {
     entry: {
         TensorMSA: './js/app.js',
@@ -40,7 +44,12 @@ module.exports = {
             }
         ]
     },
+<<<<<<< HEAD
     ts : { // set compiler which is used by ts-loader
         compiler : 'typescript'
     }
 };
+=======
+    plugins: [envPlugin]
+};
+>>>>>>> 56c0a6a3caaa1c2df93a5bfd88a08c91db411d39

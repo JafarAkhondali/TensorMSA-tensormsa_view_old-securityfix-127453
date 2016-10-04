@@ -16027,8 +16027,7 @@
 	  if (x === y) {
 	    // Steps 1-5, 7-10
 	    // Steps 6.b-6.e: +0 != -0
-	    // Added the nonzero y check to make Flow happy, but it is redundant
-	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+	    return x !== 0 || 1 / x === 1 / y;
 	  } else {
 	    // Step 6.a: NaN == NaN
 	    return x !== x && y !== y;
@@ -27441,8 +27440,9 @@
 	    console.log(_EnvConstants2.default.getApiServerUrl() + url + params);
 	    return fetch(_EnvConstants2.default.getApiServerUrl() + url + params, {
 	        method: 'GET',
+	        mode: "cors",
 	        headers: new Headers({
-	            'Content-Type': 'application/json'
+	            'Accept': 'application/json'
 	        })
 	    }).then(function (response) {
 	        return response.json();
@@ -27457,9 +27457,10 @@
 	    console.log(_EnvConstants2.default.getApiServerUrl());
 	    return fetch(_EnvConstants2.default.getApiServerUrl() + url, {
 	        method: 'POST',
+	        mode: "cors",
 	        body: JSON.stringify(params),
 	        headers: new Headers({
-	            'Content-Type': 'application/json'
+	            'Accept': 'application/json'
 	        })
 	    }).then(function (response) {
 	        return response.json();
@@ -27474,9 +27475,10 @@
 	    console.log(_EnvConstants2.default.getApiServerUrl());
 	    return fetch(_EnvConstants2.default.getApiServerUrl() + url, {
 	        method: 'PUT',
+	        mode: "cors",
 	        body: JSON.stringify(params),
 	        headers: new Headers({
-	            'Content-Type': 'application/json'
+	            'Accept': 'application/json'
 	        })
 	    }).then(function (response) {
 	        return response.json();
@@ -27491,9 +27493,10 @@
 	    console.log(_EnvConstants2.default.getApiServerUrl());
 	    return fetch(_EnvConstants2.default.getApiServerUrl() + url, {
 	        method: 'DELETE',
+	        mode: "cors",
 	        body: JSON.stringify(params),
 	        headers: new Headers({
-	            'Content-Type': 'application/json'
+	            'Accept': 'application/json'
 	        })
 	    }).then(function (response) {
 	        return response.json();
@@ -27508,16 +27511,16 @@
 
 /***/ },
 /* 238 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.default = {
 	    getApiServerUrl: function getApiServerUrl() {
-	        return 'http://52.78.19.96:8989'; //__API_SERVER__;
+	        return ("http://localhost:8989");
 	    }
 	};
 
