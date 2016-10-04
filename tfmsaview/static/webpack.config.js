@@ -44,12 +44,7 @@ module.exports = {
             }
         ]
     },
-<<<<<<< HEAD
     ts : { // set compiler which is used by ts-loader
         compiler : 'typescript'
     }
 };
-=======
-    plugins: [envPlugin]
-};
->>>>>>> 56c0a6a3caaa1c2df93a5bfd88a08c91db411d39
