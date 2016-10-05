@@ -22,3 +22,9 @@ assert 'value' in value
 - linux : export API_SERVER=localhost:8989
 - windows : set API_SERVER=localhost:8989
 - MAC : API_SERVER=localhost:8989
+10. jenkins (git push and triggered build)
+- Jenkins set and github add plugin
+11. get super user in linux
+- su - then passwd
+12. git push cancel
+- git push -f origin +master
