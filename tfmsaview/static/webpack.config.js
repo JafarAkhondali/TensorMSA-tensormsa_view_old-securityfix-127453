@@ -23,6 +23,7 @@ module.exports = {
     },  
     // When to use Minification, 
     plugins : [
+        envPlugin
         //new webpack.optimize.UglifyJsPlugin()
     ]  ,
     module: { // An array of extensions that should be used to resolve modules.

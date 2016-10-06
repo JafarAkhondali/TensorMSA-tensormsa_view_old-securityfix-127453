@@ -27161,6 +27161,10 @@
 	
 	var _ReportRepository2 = _interopRequireDefault(_ReportRepository);
 	
+	var _PersonalDataTableComponent = __webpack_require__(244);
+	
+	var _PersonalDataTableComponent2 = _interopRequireDefault(_PersonalDataTableComponent);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27177,7 +27181,9 @@
 	
 	        var _this = _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).call(this, props));
 	
-	        _this.state = { data: null };
+	        _this.state = { data: null,
+	            tableData: null
+	        };
 	        return _this;
 	    }
 	
@@ -27232,7 +27238,6 @@
 	                    }]
 	                }
 	            };
-	            this.checkApiData(params);
 	            this.props.reportRepository.postConfigNnCnn(params).then(function (data) {
 	                _this2.setState({ data: data });
 	            });
@@ -27243,7 +27248,6 @@
 	            var _this3 = this;
 	
 	            var params = "nn0000009";
-	            this.checkApiData(params);
 	            this.props.reportRepository.getConfigNnCnn(params).then(function (data) {
 	                _this3.setState({ data: data });
 	            });
@@ -27259,7 +27263,6 @@
 	                data: [{ 'name': 'Andy', 'univ': 'SKKU', 'org': '1', 'eng': '800', 'grade': 'A', 'gender': 'female', 'age': '50' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '2', 'eng': '800', 'grade': 'A', 'gender': 'female', 'age': '35' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '3', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '65' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '4', 'eng': '800', 'grade': 'A', 'gender': 'female', 'age': '70' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '5', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '5', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '5', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'd', 'org': '4', 'eng': '800', 'grade': 'B', 'gender': 'female', 'age': '70' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'd', 'org': '4', 'eng': '800', 'grade': 'B', 'gender': 'female', 'age': '70' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'd', 'org': '4', 'eng': '800', 'grade': 'B', 'gender': 'female', 'age': '70' }],
 	                query: ""
 	            };
-	            this.checkApiData(params);
 	            this.props.reportRepository.postDataNnCnn(params).then(function (data) {
 	                _this4.setState({ data: data });
 	            });
@@ -27270,7 +27273,6 @@
 	            var _this5 = this;
 	
 	            var params = "TEST2";
-	            this.checkApiData(params);
 	            this.props.reportRepository.getDataNnCnn(params).then(function (data) {
 	                _this5.setState({ data: data });
 	            });
@@ -27286,7 +27288,6 @@
 	                data: [{ 'name': 'Andy', 'univ': 'SKKU', 'org': '1', 'eng': '800', 'grade': 'A', 'gender': 'female', 'age': '50' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '2', 'eng': '800', 'grade': 'A', 'gender': 'female', 'age': '35' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '3', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '65' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '4', 'eng': '800', 'grade': 'A', 'gender': 'female', 'age': '70' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '5', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '5', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'SKKU', 'org': '5', 'eng': '800', 'grade': 'A', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'd', 'org': '4', 'eng': '800', 'grade': 'B', 'gender': 'female', 'age': '70' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }, { 'name': 'Kim', 'univ': 'e', 'org': '5', 'eng': '800', 'grade': 'B', 'gender': 'male', 'age': '25' }],
 	                query: ""
 	            };
-	            this.checkApiData(params);
 	            this.props.reportRepository.putDataNnCnn(params).then(function (data) {
 	                _this6.setState({ data: data });
 	            });
@@ -27304,7 +27305,6 @@
 	                testset: 10,
 	                predict_data: ""
 	            };
-	            this.checkApiData(params);
 	            this.props.reportRepository.postTrainNnCnn(params).then(function (data) {
 	                _this7.setState({ data: data });
 	            });
@@ -27322,18 +27322,23 @@
 	                testset: 10,
 	                predict_data: [{ 'name': 'Andy', 'univ': 'a', 'org': '1', 'eng': '800', 'gender': 'female', 'age': '50' }]
 	            };
-	            this.checkApiData(params);
 	            this.props.reportRepository.postPredictNnCnn(params).then(function (data) {
 	                _this8.setState({ data: data });
 	            });
 	        }
 	    }, {
-	        key: 'checkApiData',
-	        value: function checkApiData(params) {}
+	        key: 'getJson',
+	        value: function getJson(params) {
+	            var _this9 = this;
+	
+	            this.props.reportRepository.getJsonTestData(params).then(function (tableData) {
+	                _this9.setState({ tableData: tableData });
+	            });
+	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this9 = this;
+	            var _this10 = this;
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -27349,57 +27354,69 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI1', onClick: function onClick() {
-	                                return _this9.case1();
+	                                return _this10.case1();
 	                            } },
 	                        ' create NN conf '
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI2', onClick: function onClick() {
-	                                return _this9.case2();
+	                                return _this10.case2();
 	                            } },
 	                        ' Search NN conf '
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI3', onClick: function onClick() {
-	                                return _this9.case3();
+	                                return _this10.case3();
 	                            } },
 	                        ' Create Data Table'
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI4', onClick: function onClick() {
-	                                return _this9.case4();
+	                                return _this10.case4();
 	                            } },
 	                        ' Search Data Table'
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI5', onClick: function onClick() {
-	                                return _this9.case5();
+	                                return _this10.case5();
 	                            } },
 	                        ' Add Data Table '
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI6', onClick: function onClick() {
-	                                return _this9.case6();
+	                                return _this10.case6();
 	                            } },
 	                        ' Start Tarining '
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'getAPI7', onClick: function onClick() {
-	                                return _this9.case7();
+	                                return _this10.case7();
 	                            } },
 	                        ' Predict Result '
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'testJson', onClick: function onClick() {
+	                                return _this10.getJson();
+	                            } },
+	                        ' Test JSON Table'
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'displayAPI' },
 	                    this.state.data
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'jsonTestTable' },
+	                    _react2.default.createElement(_PersonalDataTableComponent2.default, { tableData: this.state.tableData })
 	                )
 	            );
 	        }
@@ -27507,11 +27524,28 @@
 	    });
 	};
 	
+	Api.prototype.getJson = function (url, params) {
+	    return fetch(url, {
+	        method: 'POST',
+	        mode: "cors",
+	        body: JSON.stringify(params),
+	        headers: new Headers({
+	            'Accept': 'application/json'
+	        })
+	    }).then(function (response) {
+	        return response.json();
+	    }).then(function (json) {
+	        return json;
+	    }).catch(function (e) {
+	        console.log("An Error has occurred :" + e);
+	    });
+	};
+	
 	exports.default = Api;
 
 /***/ },
 /* 238 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -27520,7 +27554,7 @@
 	});
 	exports.default = {
 	    getApiServerUrl: function getApiServerUrl() {
-	        return __API_SERVER__;
+	        return ("192.168.92.175:8989");
 	    }
 	};
 
@@ -29145,7 +29179,7 @@
 /* 243 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -29163,71 +29197,79 @@
 	    }
 	
 	    _createClass(ReportRepository, [{
-	        key: "getConfigs",
+	        key: 'getConfigs',
 	        value: function getConfigs(param) {
-	            return this.api.get("/config/nn/" + param + "/param").then(function (data) {
+	            return this.api.get('/config/nn/' + param + '/param').then(function (data) {
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "postConfigNnCnn",
+	        key: 'postConfigNnCnn',
 	        value: function postConfigNnCnn(params) {
-	            return this.api.post("/api/v1/type/cnn/config/", params).then(function (data) {
+	            return this.api.post('/api/v1/type/cnn/config/', params).then(function (data) {
 	                console.log(data);
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "getConfigNnCnn",
+	        key: 'getConfigNnCnn',
 	        value: function getConfigNnCnn(params) {
-	            return this.api.get("/api/v1/type/cnn/config/", params).then(function (data) {
+	            return this.api.get('/api/v1/type/cnn/config/', params).then(function (data) {
 	                console.log(data);
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "putConfigNnCnn",
+	        key: 'putConfigNnCnn',
 	        value: function putConfigNnCnn(params) {
-	            return this.api.put("/api/v1/type/cnn/config/", params).then(function (data) {
+	            return this.api.put('/api/v1/type/cnn/config/', params).then(function (data) {
 	                console.log(data);
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "postDataNnCnn",
+	        key: 'postDataNnCnn',
 	        value: function postDataNnCnn(params) {
-	            return this.api.post("/api/v1/type/cnn/data/", params).then(function (data) {
+	            return this.api.post('/api/v1/type/cnn/data/', params).then(function (data) {
 	                console.log(data);
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "getDataNnCnn",
+	        key: 'getDataNnCnn',
 	        value: function getDataNnCnn(params) {
-	            return this.api.get("/api/v1/type/cnn/data/", params).then(function (data) {
+	            return this.api.get('/api/v1/type/cnn/data/', params).then(function (data) {
 	                console.log(data);
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "putDataNnCnn",
+	        key: 'putDataNnCnn',
 	        value: function putDataNnCnn(params) {
-	            return this.api.put("/api/v1/type/cnn/data/", params).then(function (data) {
+	            return this.api.put('/api/v1/type/cnn/data/', params).then(function (data) {
 	                console.log(data);
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "postTrainNnCnn",
+	        key: 'postTrainNnCnn',
 	        value: function postTrainNnCnn(params) {
-	            return this.api.post("/api/v1/type/cnn/train/", params).then(function (data) {
+	            return this.api.post('/api/v1/type/cnn/train/', params).then(function (data) {
 	                return data;
 	            });
 	        }
 	    }, {
-	        key: "postPredictNnCnn",
+	        key: 'postPredictNnCnn',
 	        value: function postPredictNnCnn(params) {
-	            return this.api.post("/api/v1/type/cnn/predict/", params).then(function (data) {
+	            return this.api.post('/api/v1/type/cnn/predict/', params).then(function (data) {
+	                return data;
+	            });
+	        }
+	    }, {
+	        key: 'getJsonTestData',
+	        value: function getJsonTestData(params) {
+	            var url = 'http://localhost:8888/json/testData.json'; //local test for JSON
+	            return this.api.getJson(url, params).then(function (data) {
 	                return data;
 	            });
 	        }
@@ -29237,6 +29279,170 @@
 	}();
 	
 	exports.default = ReportRepository;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _PersonalDataTableRowComponent = __webpack_require__(245);
+	
+	var _PersonalDataTableRowComponent2 = _interopRequireDefault(_PersonalDataTableRowComponent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PersonalDataTableComponent = function (_React$Component) {
+	    _inherits(PersonalDataTableComponent, _React$Component);
+	
+	    function PersonalDataTableComponent(props) {
+	        _classCallCheck(this, PersonalDataTableComponent);
+	
+	        return _possibleConstructorReturn(this, (PersonalDataTableComponent.__proto__ || Object.getPrototypeOf(PersonalDataTableComponent)).call(this, props));
+	    }
+	
+	    _createClass(PersonalDataTableComponent, [{
+	        key: 'render',
+	        value: function render() {
+	            var i = 0; //React needs key for make table
+	            if (!this.props.tableData) {
+	                return null;
+	            }
+	            var tableDataDatas = this.props.tableData.map(function (tableData) {
+	                return _react2.default.createElement(_PersonalDataTableRowComponent2.default, { key: i++, tableData: tableData });
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'table' },
+	                _react2.default.createElement(
+	                    'table',
+	                    null,
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Name'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Univ'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Org'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'eng'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        tableDataDatas
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return PersonalDataTableComponent;
+	}(_react2.default.Component);
+	
+	exports.default = PersonalDataTableComponent;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PersonalDataTableRowComponent = function (_React$Component) {
+	    _inherits(PersonalDataTableRowComponent, _React$Component);
+	
+	    function PersonalDataTableRowComponent(props) {
+	        _classCallCheck(this, PersonalDataTableRowComponent);
+	
+	        return _possibleConstructorReturn(this, (PersonalDataTableRowComponent.__proto__ || Object.getPrototypeOf(PersonalDataTableRowComponent)).call(this, props));
+	    }
+	
+	    _createClass(PersonalDataTableRowComponent, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    this.props.tableData.name
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    this.props.tableData.univ
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    this.props.tableData.org
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    this.props.tableData.eng
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return PersonalDataTableRowComponent;
+	}(_react2.default.Component);
+	
+	exports.default = PersonalDataTableRowComponent;
 
 /***/ }
 /******/ ]);

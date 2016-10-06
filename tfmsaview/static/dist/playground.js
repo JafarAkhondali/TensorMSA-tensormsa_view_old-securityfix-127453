@@ -46,14 +46,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var greeter = __webpack_require__(244);
+	var greeter = __webpack_require__(246);
 	greeter('World');
 	console.log('Hello World! This is entry of playground');
 
 
 /***/ },
 
-/***/ 244:
+/***/ 246:
 /***/ function(module, exports) {
 
 	"use strict";
