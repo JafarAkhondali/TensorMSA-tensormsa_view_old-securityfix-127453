@@ -8,7 +8,7 @@ var envPlugin = new webpack.DefinePlugin({
 module.exports = {
     entry: {
         TensorMSA: './js/app.js',
-        playground: './ts/playground.ts'
+        netconf: './ts/netconf.ts'
     }, // Multiple Entry
     devtool: 'sourcemaps',
     cache: true,
@@ -24,7 +24,7 @@ module.exports = {
     // When to use Minification, 
     plugins : [
         //new webpack.optimize.UglifyJsPlugin()
-    ]  ,
+    ],
     module: { // An array of extensions that should be used to resolve modules.
         loaders: [
             { 
@@ -38,9 +38,13 @@ module.exports = {
             },
             {
                 // test: A condition that must be met <-> exclude
-                test: /\.ts$/,
+                test: /\.tsx?$/,
                 exclude: /node_modules/,  
                 loader: 'ts-loader'
+            },
+            {
+                test: /\.css$/, 
+                loader: "style-loader!css-loader"
             }
         ]
     },
