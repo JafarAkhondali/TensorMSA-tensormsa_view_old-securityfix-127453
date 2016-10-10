@@ -11,7 +11,7 @@ run: env GIT_SSL_NO_VERIFY=true git pull
 6. Permission Directory on Linux
 run: chmod -R 777 "Directory"
 7. Add Path on linux
-run : PATH=$PATH:/data/myscripts  / export PATH / echo $PATH
+run : PATH=$PATH:/home/ictuser/dev/node-v4.5.0-linux-x64/bin  / export PATH / echo $PATH
 8. set API server (JS,Python)
 - process.env.API_SERVER 
 - import os, subprocess
@@ -22,3 +22,11 @@ assert 'value' in value
 - linux : export API_SERVER=localhost:8989
 - windows : set API_SERVER=localhost:8989
 - MAC : API_SERVER=localhost:8989
+10. jenkins (git push and triggered build)
+- Jenkins set and github add plugin
+11. get super user in linux
+- su - then passwd
+12. git push cancel
+- git push -f origin +master
+13. kill firefox or node on linux
+- killall firefox (node)
