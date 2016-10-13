@@ -173,8 +173,8 @@ export default class HomeComponent extends React.Component {
     render() {
         return (
             <div className="content">
-                <div className="reports">
-                    Hello TensorMSA
+                <div className="title">
+                    TensorMSA Title Area
                 </div>
                 <div>
                 <button className="getAPI1" onClick={() => this.case1()}> create NN conf </button>
