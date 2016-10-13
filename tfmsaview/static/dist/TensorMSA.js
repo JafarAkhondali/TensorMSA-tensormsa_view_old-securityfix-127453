@@ -27554,7 +27554,7 @@
 	});
 	exports.default = {
 	    getApiServerUrl: function getApiServerUrl() {
-	        return ("192.168.92.175:8989");
+	        return (undefined);
 	    }
 	};
 
