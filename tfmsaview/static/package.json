@@ -8,17 +8,9 @@
   },
   "license": "MIT",
   "scripts": {
-<<<<<<< HEAD
     "start": "node server.js",
     "test": "mocha --compilers js:babel-core/register",
     "build": "webpack --config webpack.config.js"
-||||||| merged common ancestors
-    "start": "node server.js",
-    "test": "mocha --compilers js:babel-core/register"
-=======
-    "start": "webpack && node server.js",
-    "test": "mocha --compilers js:babel-core/register"
->>>>>>> bd5389e70e164b95e5eec1786607c373bdebb7f7
   },
   "dependencies": {
     "@types/react": "^0.14.41",
