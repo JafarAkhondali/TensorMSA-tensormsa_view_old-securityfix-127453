@@ -2,6 +2,7 @@ import React from 'react'
 import Api from './utils/Api'
 import ReportRepository from './repositories/ReportRepository'
 import PersonalDataTableComponent from './tables/PersonalDataTableComponent'
+import NN_InfoListComponent from './NNConfiguration/NN_InfoListComponent'
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ export default class HomeComponent extends React.Component {
         this.state = {  data : null, 
                         tableData : null
                      };
+        this.addNewNNInfo = this.addNewNNInfo.bind(this);;
     }
 
     case1(){
@@ -170,12 +172,17 @@ export default class HomeComponent extends React.Component {
             });
     }
 
+    addNewNNInfo(){
+        //to add new NN
+        console.log("Parent Call Test!");
+    }
+
     render() {
         return (
-            <div className="content">
-                <div className="title">
+            <layout>
+                <header>
                     TensorMSA Title Area
-                </div>
+                </header>
                 <div>
                 <button className="getAPI1" onClick={() => this.case1()}> create NN conf </button>
                 <button className="getAPI2" onClick={() => this.case2()}> Search NN conf </button>
@@ -192,7 +199,15 @@ export default class HomeComponent extends React.Component {
                 <div className="jsonTestTable">
                     <PersonalDataTableComponent tableData={this.state.tableData} />
                 </div>
-            </div>
+                <nav>
+                </nav>
+                <section>
+                    Test NN Start
+                    <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>
+                </section>
+                <footer>Copy right TensorMSA
+                </footer>
+            </layout>
         )
     }
 }
