@@ -9,7 +9,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha --compilers js:babel-core/register"
+    "test": "mocha --compilers js:babel-core/register",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@types/react": "^0.14.41",
