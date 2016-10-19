@@ -172,10 +172,10 @@ export default class HomeComponent extends React.Component {
 
     render() {
         return (
-            <div className="content">
-                <div className="title">
+            <layout>
+                <header>
                     TensorMSA Title Area
-                </div>
+                </header>
                 <div>
                 <button className="getAPI1" onClick={() => this.case1()}> create NN conf </button>
                 <button className="getAPI2" onClick={() => this.case2()}> Search NN conf </button>
@@ -192,7 +192,13 @@ export default class HomeComponent extends React.Component {
                 <div className="jsonTestTable">
                     <PersonalDataTableComponent tableData={this.state.tableData} />
                 </div>
-            </div>
+                <nav>
+                </nav>
+                <section>
+                </section>
+                <footer>Copy right TensorMSA
+                </footer>
+            </layout>
         )
     }
 }

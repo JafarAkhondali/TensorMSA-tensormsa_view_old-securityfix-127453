@@ -5,11 +5,9 @@ import HomeComponent from './HomeComponent'
 export default class RouterComponent extends React.Component {
     render() {
         return (   
-            <div>
                 <Router history = {browserHistory}>
                     <Route path="/" component={HomeComponent} />
                 </Router>
-            </div>
         )
     }
 }
