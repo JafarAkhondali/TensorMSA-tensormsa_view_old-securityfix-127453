@@ -16,6 +16,8 @@ export default class NN_InfoListComponent extends React.Component {
                 return "Modify New NN";
             case 3:
                 return "Delete Selected NN";
+            case 4:
+                return "Set NetConfig";                
             default:
                 return "";
         }
@@ -30,6 +32,8 @@ export default class NN_InfoListComponent extends React.Component {
                 return "";
             case 3:
                 return "";
+            case 4:
+                return "";                
             default:
                 return "";
         }
@@ -49,6 +53,9 @@ export default class NN_InfoListComponent extends React.Component {
                 </button>
                 <button onClick={this.NNClickEvent(3)}>
                     {this.NNButtonText(3)}
+                </button>
+                <button onClick={() =>this.NNClickEvent(4)}>
+                    {this.NNButtonText(4)}
                 </button>
             </div>
         )

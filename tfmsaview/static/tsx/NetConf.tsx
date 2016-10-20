@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {render} from 'react-dom'
 import Header from './header'
-import Section from './section'
+import DiagramSection from './diagramSection'
+import TableSection from './tableSection'
 import Footer from './footer'
 import '../scss/app.scss';
 
@@ -10,10 +11,10 @@ class NetConf extends React.Component<any, any> {
         return (
             <div>
                 <Header/>
-                <Section/>
+                <DiagramSection/>
+                <TableSection/>
                 <Footer/>
             </div>
-            
         ) 
     }
 }

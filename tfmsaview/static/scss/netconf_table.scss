@@ -1,0 +1,27 @@
+section#netconf-table {
+    font-family: "Helvetica", "Arial", sans-serif;
+    height: 318px;
+
+    div {
+        height: inherit;
+        div.column{
+            height: inherit;
+            display: inline-block;
+        }
+
+        div.column.table.input-layers {
+            width: 20%;
+            background-color: greenyellow;
+        }
+
+        div.column.table.hidden-layers {
+            width: 40%;
+            background-color: limegreen;
+        }
+
+        div.column.table.output-layers {
+            width: 20%;
+            background-color: palegreen;
+        }
+    }
+}

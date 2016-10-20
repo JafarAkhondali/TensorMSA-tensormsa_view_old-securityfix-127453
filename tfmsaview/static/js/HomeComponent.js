@@ -3,6 +3,7 @@ import Api from './utils/Api'
 import ReportRepository from './repositories/ReportRepository'
 import PersonalDataTableComponent from './tables/PersonalDataTableComponent'
 import NN_InfoListComponent from './NNConfiguration/NN_InfoListComponent'
+import NetConf from '.././dist/netConf'
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -203,7 +204,8 @@ export default class HomeComponent extends React.Component {
                 </nav>
                 <section>
                     Test NN Start
-                    <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>
+                    <NetConf />
+                    <NN_InfoListComponent /* */addNewNNInfo={this.addNewNNInfo}/>
                 </section>
                 <footer>Copy right TensorMSA
                 </footer>

@@ -1,0 +1,27 @@
+section#netconf-diagram {
+    font-family: "Helvetica", "Arial", sans-serif;
+    height: 500px;
+
+    div {
+        height: inherit;
+        div.column{
+            display: inline-block;
+            height: inherit;
+        }
+
+        div.column.diagram.input-layers {
+            width: 20%;
+            background-color: indianred;
+        }
+
+        div.column.diagram.hidden-layers {
+            width: 40%;
+            background-color: palevioletred;
+        }
+
+        div.column.diagram.output-layers {
+            width: 20%;
+            background-color: orange;
+        }
+    }
+}
