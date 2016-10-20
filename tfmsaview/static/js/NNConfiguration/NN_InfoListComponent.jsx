@@ -3,7 +3,9 @@ import React from 'react';
 export default class NN_InfoListComponent extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.addNewNNInfo);
+    /*    this.state = {
+            step: null
+        };*/
     }
 
     NNButtonText(i) {
@@ -23,6 +25,8 @@ export default class NN_InfoListComponent extends React.Component {
     NNClickEvent(i){
         switch (i) {
             case 0:
+              //  this.setState({ step: 1 });
+              //  console.log("Basic Info 3 " + this.state.step);
                 this.props.addNewNNInfo(); //call parent function to render
             case 1:
                 return "";
