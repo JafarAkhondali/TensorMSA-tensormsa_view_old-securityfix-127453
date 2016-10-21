@@ -1,0 +1,50 @@
+button {
+  background: $defaultBtn-bg-color;
+  height:$btn-padding-height;
+  box-sizing:border-box;
+  display: inline-block;
+  font-family: $font-family-base;
+  vertical-align: middle;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  border: none;
+  outline: 0;
+  padding-left:$btn-padding;
+  padding-right:$btn-padding;
+  border-radius: $btn-border-radius;
+  color: $btn-color;
+  min-width:80px;
+}
+
+// table button
+.tblBtnArea {
+  float:right;
+  margin-bottom:5px;
+  button {
+    float:left;
+    color:$tblBtn-color;
+    @include background(#ffffff,#ededed);
+    border:1px solid #b6b6b6;
+    border-radius: $btn-border-radius;
+    margin:0 3px;
+    padding-left:$btn-img-padding;
+    padding-right:$btn-padding;
+    &:hover {
+      @include background(#f7f7f7,#e5e5e5);
+    }
+    &:active {
+      @include background(#f9f9f9,#e7e7e7);
+      box-shadow: inset 3px 3px 5px #e1e1e1;
+      border:1px solid $tblBtn-border-color-active;
+    }
+  }
+}
+
+.btnArea {
+  float:right;
+}
+
+.btn-sm {
+  height: $btn-sm-height;
+}
