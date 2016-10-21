@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import Header from './header'
 import Section from './section'
 import Footer from './footer'
-import '../scss/app.scss';
+import '../scss/style.scss';
 
 class NetConf extends React.Component<any, any> {
     render() {

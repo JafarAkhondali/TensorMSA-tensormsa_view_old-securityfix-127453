@@ -1,5 +1,46 @@
 nav {
-  position: absolute;
-  left: 0px;
-  width: 200px;
+  width: calc(100% - 460px);
+  box-sizing: border-box;
+  float:left;
+  height:100%;
+  ul {
+    margin:0 auto;
+    width:650px;
+  }
+  li {
+    margin-top:14px;
+    float:left;
+    a {
+      border-top:4px solid $nav-bar-color;
+      width:130px;
+      display:inline-block;
+      text-align:center;
+      padding-top:10px;
+      font-size: $nav-font-size;
+      color: $nav-font-color;
+      height:25px;
+    }
+    &:nth-child(2) a{
+        border-color: $nav-bar-color2;
+    }
+    &:nth-child(3) a {
+      border-color: $nav-bar-color3;
+    }
+    &:nth-child(4) a {
+      border-color: $nav-bar-color4;
+    }
+    &:nth-child(5) a {
+      border-color: $nav-bar-color5;
+    }
+    &:hover a {
+      border-color:$nav-bar-hover-color;
+      transition: border-color 1s;
+      background:#ececec;
+      transition: background 1s;
+    }
+    &.current a {
+      border-color:$nav-current-color;
+      transition: border-color 1s;
+    }
+  }
 }
