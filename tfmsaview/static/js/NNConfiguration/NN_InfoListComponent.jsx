@@ -11,13 +11,13 @@ export default class NN_InfoListComponent extends React.Component {
     NNButtonText(i) {
         switch (i) {
             case 0:
-                return "Search NN";
+                return "add New";
             case 1:
-                return "Add New NN";
+                return "Delete";
             case 2:
-                return "Modify New NN";
+                return "Modify";
             case 3:
-                return "Delete Selected NN";
+                return "Detail";
             default:
                 return "";
         }
@@ -25,8 +25,6 @@ export default class NN_InfoListComponent extends React.Component {
     NNClickEvent(i){
         switch (i) {
             case 0:
-              //  this.setState({ step: 1 });
-              //  console.log("Basic Info 3 " + this.state.step);
                 this.props.addNewNNInfo(); //call parent function to render
             case 1:
                 return "";
@@ -41,17 +39,17 @@ export default class NN_InfoListComponent extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={() => this.NNClickEvent(0)}>
+            <div className="tblBtnArea">
+                <button type="button" onClick={() => this.NNClickEvent(0)}>
                     {this.NNButtonText(0)}
                 </button>
-                <button onClick={this.NNClickEvent(1)}>
+                <button type="button" onClick={this.NNClickEvent(1)}>
                     {this.NNButtonText(1)}
                 </button>
-                <button onClick={this.NNClickEvent(2)}>
+                <button type="button" onClick={this.NNClickEvent(2)}>
                     {this.NNButtonText(2)}
                 </button>
-                <button onClick={this.NNClickEvent(3)}>
+                <button type="button" onClick={this.NNClickEvent(3)}>
                     {this.NNButtonText(3)}
                 </button>
             </div>
