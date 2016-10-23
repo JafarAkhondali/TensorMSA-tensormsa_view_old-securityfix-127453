@@ -1,37 +1,34 @@
 import React from 'react'
-import Api from './utils/Api'
-import ReportRepository from './repositories/ReportRepository'
 import NN_HeaderComponent from './NNLayout/NN_HeaderComponent'
 import NN_SectionComponent from './NNLayout/NN_SectionComponent'
 import NN_FooterComponent from './NNLayout/NN_FooterComponent'
+import NN_InfoListComponent from './NNConfiguration/NN_InfoListComponent'
+import NN_BasicInfoComponent from './NNConfiguration/NN_BasicInfoComponent'
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  
-                        tableData : null,
                         NN_InfoList : null
                      };
-        this.getJson = this.getJson.bind(this);
+        this.addNewNNInfo = this.addNewNNInfo.bind(this);
     }
 
-    getJson(params){
-           this.props.reportRepository.getJsonTestData(params).then((tableData) => {
-                this.setState({tableData: tableData})
-            });
+    componentDidMount(){
+        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
+    }
+
+    addNewNNInfo(){
+            this.setState({NN_InfoList: <NN_BasicInfoComponent/>});   
     }
 
     render() {
         return (
             <div>
-				<NN_HeaderComponent/>
-				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList} tableData={this.state.tableData}/>
+				<NN_HeaderComponent addNewNNInfo={this.addNewNNInfo}/>
+				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList}/>
 				<NN_FooterComponent/>
 			</div>
         )
     }
 }
-
-HomeComponent.defaultProps = {
-    reportRepository: new ReportRepository(new Api())
-};

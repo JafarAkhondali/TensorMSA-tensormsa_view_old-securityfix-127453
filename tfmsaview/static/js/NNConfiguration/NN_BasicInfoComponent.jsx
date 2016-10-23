@@ -7,7 +7,6 @@ export default class NN_BasicInfoComponent extends React.Component {
 
     render() {
         return (
-            <main>
                 <section>
                     <h1 className="hidden">tensor MSA main table</h1>
                     <ul className="tabHeader">
@@ -31,15 +30,15 @@ export default class NN_BasicInfoComponent extends React.Component {
                                             <th>GROUP(Business Category)</th>
                                             <td>
                                                 <select>
-                                                    <option value="" selected>GROUP(Business Category)</option>
-                                                    <option value=""></option>
+                                                    <option value="1" selected>GROUP(Business Category)</option>
+                                                    <option value="2"></option>
                                                 </select>
                                             </td>
                                             <th>Neural Network Type</th>
                                             <td>
                                                 <select>
-                                                <option value="" selected>Neural Network Type</option>
-                                                <option value=""></option>
+                                                <option value="1" selected>Neural Network Type</option>
+                                                <option value="2"></option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -58,7 +57,6 @@ export default class NN_BasicInfoComponent extends React.Component {
                             </div>
                         </div>
                 </section>
-            </main>
         )
     }
 }
