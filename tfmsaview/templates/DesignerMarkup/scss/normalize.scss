@@ -6,6 +6,7 @@ html {
 body {
   margin: 0;
   font-size: $font-size-base;
+  min-width:700px;
 }
 
 div,span,h1,h2,h3,h4,h5,h6,input[type=textarea],input[type="text"],textarea,button,ul,li,dl,dt,dd,table,tr,td,th {
