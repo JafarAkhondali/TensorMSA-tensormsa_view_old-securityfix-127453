@@ -5,14 +5,13 @@
 // Reset
 @import "normalize";
 
-// Layout
+//Component
 @import "header";
 @import "nav";
+@import "util-menu";
 @import "search-area";
 @import "main.scss";
 @import "container";
-
-//Component
 @import "button";
 @import "bullet";
 @import "input";
