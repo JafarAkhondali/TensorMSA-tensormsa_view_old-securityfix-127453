@@ -26,32 +26,34 @@ export default class NN_BasicInfoComponent extends React.Component {
                                         <col width="250" />
                                         <col width="500" />
                                         </colgroup> 
+                                        <tbody>
                                         <tr>
                                             <th>GROUP(Business Category)</th>
                                             <td>
                                                 <select>
-                                                    <option value="1" selected>GROUP(Business Category)</option>
+                                                    <option value="1">GROUP(Business Category)</option>
                                                     <option value="2"></option>
                                                 </select>
                                             </td>
                                             <th>Neural Network Type</th>
                                             <td>
                                                 <select>
-                                                <option value="1" selected>Neural Network Type</option>
+                                                <option value="1">Neural Network Type</option>
                                                 <option value="2"></option>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Title</th>
-                                            <td colspan="3"><input type="text" className="w100p"></input></td>
+                                            <td colSpan="3"><input type="text" className="w100p"></input></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4">
+                                            <td colSpan="4">
                                                 <span className="label-blue positionA">Description</span>
                                                 <textarea rows="30" className="w100p paddingT30"></textarea>
                                             </td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                 </article>
                             </div>

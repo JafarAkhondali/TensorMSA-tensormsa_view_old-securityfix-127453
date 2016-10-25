@@ -7,13 +7,8 @@ export default class NN_SectionComponent extends React.Component {
         super(props);
         this.state = {  
         	            tableData : null,
-                        NN_InfoList : null
                      };
         this.addNewNNInfo = this.addNewNNInfo.bind(this);
-    }
-
-    componentDidMount(){
-        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
     }
 
     addNewNNInfo(){
@@ -23,7 +18,7 @@ export default class NN_SectionComponent extends React.Component {
     render() {
         return (   
 					<main>
-					       {this.state.NN_InfoList}
+					       {this.props.NN_InfoList}
 					</main>
         )
     }

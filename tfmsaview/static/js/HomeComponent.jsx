@@ -14,7 +14,7 @@ export default class HomeComponent extends React.Component {
         this.addNewNNInfo = this.addNewNNInfo.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
     }
 
