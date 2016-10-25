@@ -2,18 +2,27 @@ import React from 'react';
 import PersonalDataTableComponent from './../tables/PersonalDataTableComponent'
 import ReportRepository from './../repositories/ReportRepository'
 import Api from './../utils/Api'
+import NN_InfoListTableComponent from './../tables/NN_InfoListTableComponent'
 
 export default class NN_InfoListComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tableData : null
+            tableData : null,
+            NN_TableData : null
         }
     }
 
     getJson(params){
            this.props.reportRepository.getJsonTestData(params).then((tableData) => {
                 this.setState({tableData: tableData})
+            });
+    }
+
+
+    getCommonNNInfo(params){
+           this.props.reportRepository.getCommonNNInfo(params).then((tableData) => {
+                this.setState({NN_TableData: tableData})
             });
     }
 
@@ -56,6 +65,7 @@ export default class NN_InfoListComponent extends React.Component {
                         <label className="bullet" for="Name2">Name2</label>
                         <input type="text" name="Name2" placeholder="Name" />
                         <button className="btn-sm" type="button" onClick={() => this.getJson()}>search</button>
+                        <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
                     </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">
@@ -74,6 +84,9 @@ export default class NN_InfoListComponent extends React.Component {
                     </div>
                     <article>
                         <PersonalDataTableComponent tableData={this.state.tableData} />
+                    </article>
+                    <article>
+                        <NN_InfoListTableComponent NN_TableData={this.state.NN_TableData} />
                     </article>
                 </div>
             </section>

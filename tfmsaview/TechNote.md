@@ -19,9 +19,9 @@ os.environ['ATESTVARIABLE'] = 'value'
 value = subprocess.check_output('echo $ATESTVARIABLE', shell=True)
 assert 'value' in value
 9. set env 
-- linux : export API_SERVER=localhost:8989
-- windows : set API_SERVER=localhost:8989
-- MAC : API_SERVER=localhost:8989
+- linux : export API_SERVER=http://localhost:8989
+- windows : set API_SERVER=http://localhost:8989
+- MAC : API_SERVER=http://localhost:8989
 10. jenkins (git push and triggered build)
 - Jenkins set and github add plugin
 11. get super user in linux
