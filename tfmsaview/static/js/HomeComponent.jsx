@@ -11,10 +11,15 @@ export default class HomeComponent extends React.Component {
         this.state = {  
                         NN_InfoList : null
                      };
-        this.addNewNNInfo = this.addNewNNInfo.bind(this);
+        this.addNewNNInfo = this.addNewNNInfo.bind(this); //need method to send child
+        this.getNetInfo = this.getNetInfo.bind(this);
     }
 
     componentWillMount(){
+        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
+    }
+
+    getNetInfo(){
         this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
     }
 
@@ -25,7 +30,7 @@ export default class HomeComponent extends React.Component {
     render() {
         return (
             <div>
-				<NN_HeaderComponent addNewNNInfo={this.addNewNNInfo}/>
+				<NN_HeaderComponent addNewNNInfo={this.addNewNNInfo} getNetInfo={this.getNetInfo} /> 
 				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList}/>
 				<NN_FooterComponent/>
 			</div>
