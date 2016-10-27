@@ -4,7 +4,7 @@ import Header from './header'
 import DiagramSection from './diagramSection'
 import TableSection from './tableSection'
 import Footer from './footer'
-import '../scss/app.scss';
+import '../scss/style.scss';
 
 class NetConf extends React.Component<any, any> {
     render() {
