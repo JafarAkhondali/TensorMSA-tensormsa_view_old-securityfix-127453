@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class DiagramSection extends React.Component<any,any> {
+export default class DiagramSectionComponent extends React.Component<any,any> {
     render() {
         return (
             <section id='netconf-diagram'>                    

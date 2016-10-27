@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class TableSection extends React.Component<any,any> {
+export default class TableSectionComponent extends React.Component<any,any> {
     render() {
         return (
             <section id='netconf-table'>                    

@@ -4,6 +4,7 @@ import NN_SectionComponent from './NNLayout/NN_SectionComponent'
 import NN_FooterComponent from './NNLayout/NN_FooterComponent'
 import NN_InfoListComponent from './NNConfiguration/NN_InfoListComponent'
 import NN_BasicInfoComponent from './NNConfiguration/NN_BasicInfoComponent'
+import NN_NetConfComponent from '.././dist/NetConf'
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class HomeComponent extends React.Component {
                      };
         this.addNewNNInfo = this.addNewNNInfo.bind(this); //need method to send child
         this.getNetInfo = this.getNetInfo.bind(this);
+        this.getNetConf = this.getNetConf.bind(this);
     }
 
     componentWillMount(){
@@ -21,7 +23,11 @@ export default class HomeComponent extends React.Component {
 
     getNetInfo(){
         this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
-    }
+    }   
+
+    getNetConf(){
+        this.setState({NN_InfoList: <NN_NetConfComponent/>});
+    } 
 
     addNewNNInfo(){
             this.setState({NN_InfoList: <NN_BasicInfoComponent/>});   
@@ -30,8 +36,8 @@ export default class HomeComponent extends React.Component {
     render() {
         return (
             <div>
-				<NN_HeaderComponent addNewNNInfo={this.addNewNNInfo} getNetInfo={this.getNetInfo} /> 
-				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList}/>
+				<NN_HeaderComponent addNewNNInfo={this.addNewNNInfo} getNetInfo={this.getNetInfo} getNetConf={this.getNetConf} /> 
+				<NN_NetConfComponent/>
 				<NN_FooterComponent/>
 			</div>
         )

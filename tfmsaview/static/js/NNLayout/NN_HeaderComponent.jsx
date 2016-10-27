@@ -17,7 +17,7 @@ export default class NN_HeaderComponent extends React.Component {
 					<ul>
 						<li><a href="#" onClick={() => this.props.getNetInfo()}>Net Info</a></li>
 						<li><a href="#" onClick={() => this.props.addNewNNInfo()}>Data</a></li>
-						<li><a href="#">Net conf</a></li>
+						<li><a href="#" onClick={() => this.props.getNetConf()}>Net conf</a></li>
 						<li><a href="#">Train Statistics</a></li>
 						<li><a href="#">Predict Test</a></li>
 					</ul>
