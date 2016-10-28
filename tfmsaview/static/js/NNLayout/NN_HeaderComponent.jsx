@@ -15,11 +15,11 @@ export default class NN_HeaderComponent extends React.Component {
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
-						<li><a href="#" onClick={() => this.props.getNetInfo()}>Net Info</a></li>
-						<li><a href="#" onClick={() => this.props.setDataConfiguration()}>Data</a></li>
-						<li><a href="#" onClick={() => this.props.setDataConfiguration()}>Net conf</a></li>  
-						<li><a href="#">Train Statistics</a></li>
-						<li><a href="#">Predict Test</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(0)}>Net Info</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(1)}>Data</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(2)}>Net conf</a></li>  
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(3)}>Train Statistics</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(4)}>Predict Test</a></li>
 					</ul>
 				</nav>
 				<dl className="utilMenu">

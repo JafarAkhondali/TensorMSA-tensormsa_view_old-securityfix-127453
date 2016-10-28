@@ -60,12 +60,18 @@ export default class NN_InfoListComponent extends React.Component {
             <section>
                 <h1 className="hidden">tensor MSA main table</h1>
                     <div className="searchArea">
-                        <label className="bullet" for="Name">Name</label>
+                        <label className="bullet" htmlFor="Name">Name</label>
                         <input type="text" name="Name" placeholder="Name" />
-                        <label className="bullet" for="Name2">Name2</label>
+                        <label className="bullet" htmlFor="Name2">Name2</label>
                         <input type="text" name="Name2" placeholder="Name" />
                         <button className="btn-sm" type="button" onClick={() => this.getJson()}>search</button>
                         <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
+                        <div className="btnArea">
+                            <div className="PNBtn">
+                                <button type="button" className=" prev">Prev</button>
+                                <button type="button" className="next">Next</button>
+                            </div>
+                        </div>
                     </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">

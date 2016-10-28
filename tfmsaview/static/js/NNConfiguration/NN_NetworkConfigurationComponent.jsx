@@ -7,7 +7,9 @@ export default class NN_NetworkConfigurationComponent extends React.Component {
 
     render() {
         return (
-
+            <section>
+                Network Configuration
+            </section>
         )
     }
 }

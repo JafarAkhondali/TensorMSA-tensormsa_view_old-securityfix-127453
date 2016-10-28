@@ -7,7 +7,9 @@ export default class NN_TrainStaticComponent extends React.Component {
 
     render() {
         return (
-
+            <section>
+                Train Statics
+            </section>
         )
     }
 }

@@ -8,9 +8,9 @@ export default class NN_DataConfigurationComponent extends React.Component {
     render() {
         return (
             <section>
+                    Net Configuration
                     <form action="/api/v1/type/wdnn/predict/nn0000014/"
-                        method="post"
-                        enctype="multipart/form-data">
+                        method="post">
                         File:
                         <input type="file"
                             name="file"

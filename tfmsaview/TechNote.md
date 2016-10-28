@@ -11,7 +11,7 @@ run: env GIT_SSL_NO_VERIFY=true git pull
 6. Permission Directory on Linux
 run: chmod -R 777 "Directory"
 7. Add Path on linux
-run : PATH=$PATH:/home/ictuser/dev/node-v4.5.0-linux-x64/bin  / export PATH / echo $PATH
+run : PATH=$PATH:/home/ictuser/Projects/node-v6.9.1-linux-x64/bin  / export PATH / echo $PATH
 8. set API server (JS,Python)
 - process.env.API_SERVER 
 - import os, subprocess
