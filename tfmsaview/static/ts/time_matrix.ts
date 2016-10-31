@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
+import * as d3 from 'd3';
 /** Settings for the time matrix visualization */
 export interface TimeMatrixSettings {
   [key: string]: any;

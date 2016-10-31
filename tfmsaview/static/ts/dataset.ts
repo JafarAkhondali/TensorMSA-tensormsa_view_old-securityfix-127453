@@ -18,7 +18,7 @@ limitations under the License.
  */
 
 //declare type d3
-
+import * as d3 from 'd3';
 export type Example2D = {
   x: number,
   y: number,
