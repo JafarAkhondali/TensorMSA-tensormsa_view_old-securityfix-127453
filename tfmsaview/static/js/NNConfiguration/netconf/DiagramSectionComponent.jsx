@@ -5,6 +5,59 @@ export default class DiagramSectionComponent extends React.Component {
         return (
             <section id='netconf-diagram'>
                 <div id="main-part" className="l--page">
+                    {/* Data Column */}
+                    <div className="column data">
+                        <h4>
+                            <span>Data</span>
+                        </h4>
+                        <div className="ui-dataset">
+                            <p>Which dataset do you want to use?</p>
+                            <div className="dataset-list">
+                                <div className="dataset" title="Circle">
+                                    <canvas className="data-thumbnail" data-dataset="circle"></canvas>
+                                </div>
+                                <div className="dataset" title="Exclusive or">
+                                    <canvas className="data-thumbnail" data-dataset="xor"></canvas>
+                                </div>
+                                <div className="dataset" title="Gaussian">
+                                    <canvas className="data-thumbnail" data-dataset="gauss"></canvas>
+                                </div>
+                                <div className="dataset" title="Spiral">
+                                    <canvas className="data-thumbnail" data-dataset="spiral"></canvas>
+                                </div>
+                                <div className="dataset" title="Plane">
+                                    <canvas className="data-thumbnail" data-regDataset="reg-plane"></canvas>
+                                </div>
+                                <div className="dataset" title="Multi gaussian">
+                                    <canvas className="data-thumbnail" data-regDataset="reg-gauss"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="ui-percTrainData">
+                                <label htmlFor="percTrainData">Ratio of training to test data:&nbsp;&nbsp;<span className="value">XX</span>%</label>
+                                <p className="slider">
+                                    <input className="mdl-slider mdl-js-slider" type="range" id="percTrainData" min="10" max="90" step="10"/>
+                                </p>
+                            </div>
+                            <div className="ui-noise">
+                                <label htmlFor="noise">Noise:&nbsp;&nbsp;<span className="value">XX</span></label>
+                                <p className="slider">
+                                    <input className="mdl-slider mdl-js-slider" type="range" id="noise" min="0" max="50" step="5"/>
+                                </p>
+                            </div>
+                            <div className="ui-batchSize">
+                                <label htmlFor="batchSize">Batch size:&nbsp;&nbsp;<span className="value">XX</span></label>
+                                <p className="slider">
+                                    <input className="mdl-slider mdl-js-slider" type="range" id="batchSize" min="1" max="30" step="1"/>
+                                </p>
+                            </div>
+                            <button className="basic-button" id="data-regen-button" title="Regenerate data">
+                                Regenerate
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Features Column */}
                     <div className='column features'>
                         <h4>Features</h4>

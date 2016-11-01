@@ -4,8 +4,8 @@ export default class TableSectionComponent extends React.Component {
     render() {
         return (
             <section id='netconf-table'>                    
-                <div>
-                    <div className='column table input-layers'>
+                <div className='l--page'>
+                    <div className='column table features'>
                         <h4>Input</h4>
                         <table id='input_table' className='form-table align-center'>
                             <thead>
@@ -37,7 +37,7 @@ export default class TableSectionComponent extends React.Component {
                             </tbody>
                         </table>                        
                     </div>
-                    <div className='column table output-layers'>
+                    <div className='column table output'>
                         <h4>Output</h4>
                         <table id='output_table' className=' table form-table align-center'>
                             <thead>

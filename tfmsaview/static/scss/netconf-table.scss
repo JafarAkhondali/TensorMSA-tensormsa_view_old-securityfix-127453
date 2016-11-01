@@ -9,19 +9,16 @@ section#netconf-table {
             display: inline-block;
         }
 
-        div.column.table.input-layers {
+        div.column.table.features {
             width: 20%;
-            background-color: greenyellow;
         }
 
         div.column.table.hidden-layers {
             width: 40%;
-            background-color: limegreen;
         }
 
-        div.column.table.output-layers {
+        div.column.table.output {
             width: 20%;
-            background-color: palegreen;
         }
     }
 }
