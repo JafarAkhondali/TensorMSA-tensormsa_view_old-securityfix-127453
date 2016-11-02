@@ -139,7 +139,6 @@ export default class DiagramSectionComponent extends React.Component {
                             <div>
                                 {/* Gradient color scale */}  
                                 <div className="label">
-                                    Colors shows data, neuron and weight values.
                                 </div>
                                 <svg width="150" height="30" id="colormap">
                                     <defs>
