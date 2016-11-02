@@ -1,0 +1,31 @@
+table {
+    thead {
+        tr.option-select {
+            td {
+                background: $option-select-bg-color;
+            }
+        }
+    }
+}
+
+.option-select {
+    background: $select-img-url no-repeat 96% 0;
+    height: 24px;
+    overflow: hidden;
+    width: 100%;
+    background-color: $option-select-bg-color;
+    select {
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        height: 24px;
+        padding: 0 5px;
+        width: calc(100% + 30px);
+        color: #fff;
+        outline: none;
+        option {
+            color: $option-select-color;
+            background: #f9f9f9;
+        }
+    }
+}

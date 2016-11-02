@@ -68,23 +68,23 @@ export default class NN_InfoListComponent extends React.Component {
                         <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
                         <div className="btnArea">
                             <div className="PNBtn">
-                                <button type="button" className=" prev">Prev</button>
+                                <button type="button" className="prev">Prev</button>
                                 <button type="button" className="next">Next</button>
                             </div>
                         </div>
                     </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">
-                        <button type="button" onClick={() => this.NNClickEvent(0)}>
+                        <button type="button" className="add" onClick={() => this.NNClickEvent(0)}>
                             {this.NNButtonText(0)}
                         </button>
-                        <button type="button" onClick={this.NNClickEvent(1)}>
+                        <button type="button" className="delete" onClick={this.NNClickEvent(1)}>
                             {this.NNButtonText(1)}
                         </button>
-                        <button type="button" onClick={this.NNClickEvent(2)}>
+                        <button type="button" className="modify" onClick={this.NNClickEvent(2)}>
                             {this.NNButtonText(2)}
                         </button>
-                        <button type="button" onClick={this.NNClickEvent(3)}>
+                        <button type="button" className="detail" onClick={this.NNClickEvent(3)}>
                             {this.NNButtonText(3)}
                         </button>
                     </div>
