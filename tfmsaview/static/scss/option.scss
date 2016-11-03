@@ -3,6 +3,10 @@
     width: 100% !important;
 }
 
+.hInherit {
+    height: inherit !important;
+}
+
 //position
 .positionA {
     position: absolute !important;
@@ -18,6 +22,10 @@
 
 .floatR {
     float: right !important
+}
+
+.clearB {
+    clear: both;
 }
 
 //padding & margin
@@ -45,6 +53,7 @@
 .right {
     text-align: right !important;
 }
+
 .center {
     text-align: center !important;
 }

@@ -13,6 +13,9 @@
         }
     }
     tr {
+        td {
+            background: #fff;
+        }
         td:first-child,
         th:first-child {
             border-left: none;
@@ -28,7 +31,7 @@
             border-right: 1px solid #c3c3c3;
             font-size: $font-size-base;
             font-family: $font-family-base;
-            word-break:break-word;
+            word-break: break-word;
         }
         &:last-child {
             td {

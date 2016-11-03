@@ -150,6 +150,7 @@ button {
         border-radius: 0 $btn-border-radius $btn-border-radius 0;
         border-left: none;
         background-position: -115px 0;
+        margin-left: 0;
         &:hover {
             background-position: -115px -30px;
         }

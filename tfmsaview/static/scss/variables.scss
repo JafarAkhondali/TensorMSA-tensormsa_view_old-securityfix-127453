@@ -1,9 +1,9 @@
 $img-route:"../images/";
 $body-min-width: 1000px;
-$red:#d56248;
+$red:#e74659;
 $yellow: #f38e33;
 $green: #39b366;
-$blue: #3974c1;
+$blue: #0e71cb;
 $dark-blue: #395976;
 $border-color-base: #ccc;
 $body-bg-color: #f7f7f7;
@@ -109,3 +109,7 @@ $option-select-color: $font-color-blue;
 //data box
 $data-box-border:1px solid #d3d7dd;
 $data-box-bg: #f5f7f8;
+//layer-box
+$layer-box-border-radius: 8px;
+$layer-box-title-bg: #dce2e5;
+$layer-box-bg: $data-box-bg;

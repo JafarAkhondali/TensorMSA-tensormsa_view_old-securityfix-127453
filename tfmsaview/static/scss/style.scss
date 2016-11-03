@@ -5,6 +5,7 @@
 @import "normalize";
 //Component
 @import "option";
+@import "bullet";
 @import "header";
 @import "nav";
 @import "util-menu";
@@ -12,7 +13,6 @@
 @import "main.scss";
 @import "container";
 @import "button";
-@import "bullet";
 @import "input";
 @import "table";
 @import "tab";
@@ -20,3 +20,4 @@
 @import "label";
 @import "option-select";
 @import "data-box";
+@import "layer-box";
