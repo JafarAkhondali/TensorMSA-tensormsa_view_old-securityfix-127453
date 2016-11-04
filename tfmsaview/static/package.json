@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack && node server.js",
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "mocha --compilers js:babel-core/register --recursive",
     "build": "webpack --watch --config webpack.config.js"
   },
   "dependencies": {

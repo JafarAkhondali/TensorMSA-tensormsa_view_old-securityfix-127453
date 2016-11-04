@@ -1,6 +1,6 @@
 1. Add .babelrc for mocha test compile babel
 run :  mocha --compilers js:babel-register --recursive
-2 Errror : warning: LF will be replaced by CRLF 
+2  Errror : warning: LF will be replaced by CRLF 
 run : git config core.autocrlf true
 3. UNABLE_TO_VERIFY_LEAF_SIGNATURE (npm install)
 run : npm config set strict-ssl false
@@ -12,6 +12,12 @@ run: env GIT_SSL_NO_VERIFY=true git pull
 run: chmod -R 777 "Directory"
 7. Add Path on linux
 run : PATH=$PATH:/home/ictuser/Projects/node-v6.9.1-linux-x64/bin  / export PATH / echo $PATH
+One user
+$HOME/.bash_profile
+All users except root
+/etc/profile
+root
+/root/.bash_profile
 8. set API server (JS,Python)
 - process.env.API_SERVER 
 - import os, subprocess
