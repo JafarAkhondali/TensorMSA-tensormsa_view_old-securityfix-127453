@@ -1,18 +1,27 @@
 import React from 'react';
 import MetaStoreConfigurationComponent from './DataConfiguration/MetaStoreConfigurationComponent'
+import ImagesConfigurationComponent from './DataConfiguration/ImagesConfigurationComponent'
 
 export default class NN_DataConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  
                 DataConfigurationComponent : null,
-                selected:'meta' //initail lodaing is meta
+                selected:'meta', //initail lodaing is meta
+                tabArea: <MetaStoreConfigurationComponent/>
                 };
     }
 
   setFilter(filter) {
-    this.setState({selected  : filter})
-    //add change component logic
+    this.setState({selected : filter})
+    switch (filter) {    //add change component logic
+        case 'meta':
+            this.setState({tabArea: <MetaStoreConfigurationComponent/>})
+            break;
+        case 'images':
+            this.setState({tabArea: <ImagesConfigurationComponent/>})
+            break;
+    }
   }
 
   isActive(value){
@@ -39,7 +48,7 @@ export default class NN_DataConfigurationComponent extends React.Component {
                             <button type="button" className="img-btn save">Save</button>
                         </div>
                     </ul>   
-				    <MetaStoreConfigurationComponent DataConfigurationComponent={this.state.DataConfigurationComponent}/>
+				    {this.state.tabArea}
             </section>
         )
     }

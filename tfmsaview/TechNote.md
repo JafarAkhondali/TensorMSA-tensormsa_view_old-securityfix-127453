@@ -33,6 +33,11 @@ assert 'value' in value
 11. get super user in linux
 - su - then passwd
 12. git push cancel
-- git push -f origin +master
+- git push -f origin (last commit id):master
 13. kill firefox or node on linux
 - killall firefox (node)
+14. delete untracked file in git
+- git clean -f / git clean -fd (directory)
+15. git set global user
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com

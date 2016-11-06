@@ -9,8 +9,8 @@ export default class NN_HeaderComponent extends React.Component {
         return (   
 			<header className="mainHeader">
 				<h1 className="logo">
-					<span className="hidden">tensor MSA</span>
-					TensorMSA
+					Hoya
+					<span className="hidden">tensor MSA</span>					
 				</h1>
 				<nav>
 					<h1 className="hidden">Navigator</h1>

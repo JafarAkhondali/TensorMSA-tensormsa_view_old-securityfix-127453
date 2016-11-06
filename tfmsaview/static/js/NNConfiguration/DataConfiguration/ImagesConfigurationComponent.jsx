@@ -7,17 +7,13 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     render() {
         return (
-            <section>
-                <h1 className="hidden">tensor MSA main table</h1>
-                    <ul className="tabHeader">
-                        <li className="current"><a href="#">Meta Store</a></li>
-                        <li><a href="#">Images</a></li>
-                        <li><a href="#">Raw Texts</a></li>
-                        <div className="btnArea">
-                            <button type="button" className="img-btn save">Save</button>
-                        </div>
-                    </ul>   
-            </section>
+            <div className="container tabBody">
+                <div id="tab1">
+                    <article>
+                        Image
+                    </article>
+                </div>
+            </div>
         )
     }
 }
