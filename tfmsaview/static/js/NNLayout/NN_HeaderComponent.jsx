@@ -10,16 +10,17 @@ export default class NN_HeaderComponent extends React.Component {
 			<header className="mainHeader">
 				<h1 className="logo">
 					<span className="hidden">tensor MSA</span>
-					TensorMSA
+					TensorMSA-ss
 				</h1>
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
-						<li><a href="#" onClick={() => this.props.getHeaderEvent(0)}>Net Info</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(0)}>Net Info1</a></li>						
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(1)}>Data</a></li>
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(2)}>Net conf</a></li>  
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(3)}>Train Statistics</a></li>
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(4)}>Predict Test</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(5)}>Predict file </a></li>
 					</ul>
 				</nav>
 				<dl className="utilMenu">
