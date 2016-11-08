@@ -38,7 +38,7 @@ Api.prototype.post = function (url, params) {
             headers: new Headers({
                 'Accept': 'application/json'
             })
-        }
+        }             
     ).then(function(response) {
         return response.json();
     }).then(function(json) {

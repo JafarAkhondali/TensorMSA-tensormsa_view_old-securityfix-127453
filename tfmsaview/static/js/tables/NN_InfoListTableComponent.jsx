@@ -7,8 +7,12 @@ export default class NN_InfoListTableComponent extends React.Component {
     }
 
     render() {
+        let i=0;//React needs key for make table
         //check null for initialize dom
         if (!this.props.NN_TableData) {return null;}
+        let tableDataDatas = this.props.NN_TableData.map(function(tableData) {
+            return (<NN_InfoListTableRowComponent key={i++} NN_TableData={tableData}/>);
+        });
 
         return (
             <div className="table">
@@ -23,7 +27,7 @@ export default class NN_InfoListTableComponent extends React.Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {<NN_InfoListTableRowComponent NN_TableData={this.props.NN_TableData}/>}
+                    {tableDataDatas}
                     </tbody>
                 </table>
             </div>

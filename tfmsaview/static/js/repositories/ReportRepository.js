@@ -10,10 +10,9 @@ export default class ReportRepository {
     }
 
     getCommonNNInfo(params) {
-        return this.api.get(`api/v1/type/common/nninfo/nn0000012/category/MES/subcate/M60/`, params).then((data) => {
-            data = JSON.parse(data);
-            console.log(data.result[0].fields);
-           return data.result[0].fields;
+        return this.api.get(`api/v1/type/common/nninfo//category//subcate//`, params).then((data) => {
+           data = JSON.parse(data);
+           return data.result;
         });
     }
 
