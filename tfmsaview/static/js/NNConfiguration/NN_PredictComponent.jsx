@@ -28,7 +28,7 @@ export default class NN_PredictComponent extends React.Component {
     /*Set two dom with ref*/
     return (
         <FileUpload options={options}>
-            <button ref="chooseBtn">choose</button>
+            <button ref="chooseBtn">12345</button>
             <button ref="uploadBtn">upload</button>
         </FileUpload>
     )           
