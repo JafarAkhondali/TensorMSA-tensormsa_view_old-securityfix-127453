@@ -2,17 +2,46 @@ import React from 'react';
 import ImagePreviewLayout from './ImageData_PreviewLayout'
 import ReportRepository from './../../repositories/ReportRepository'
 import Api from './../../utils/Api'
+import FileUpload from 'react-fileupload';
 
 export default class ImagesConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  
-                image_paths : "",
+        this.state = {
+                image_paths : null,
                 network_id : "nn0000091",
-                database_name : "",
-                table_name : "",
-                label_name : "",
-                form_action : ""
+                database_name : null,
+                table_name : null,
+                label_name : null,
+                form_action : null,
+                upload_file_list : [],
+                rate : 0,
+                file_upload_settings : {
+                    baseUrl : null,
+                    param:
+                    {
+                        fid:0
+                    },
+                    multiple:true,
+                    chooseAndUpload:true,
+                    doUpload : function(files,mill){
+                        console.log('you just uploaded',typeof files == 'string' ? files : files[0].name)
+                    },
+                    uploading : function(progress){
+                        this.setState({rate : progress.loaded/progress.total})
+                        console.log('loading...',progress.loaded/progress.total+'%')
+                    },
+                    uploadSuccess : function(resp){
+                        console.log('upload success..!')
+                    },
+                    uploadError : function(err){
+                        alert(err.message)
+                    },
+                    uploadFail : function(resp){
+                        alert(resp)
+                    }
+                }
+
                 };
     }
 
@@ -23,26 +52,42 @@ export default class ImagesConfigurationComponent extends React.Component {
     }
 
     set_tablename(obj){
-        console.log(obj.target.value);
         this.setState({table_name: obj.target.value});
-        this.set_form_url.bind(this) ;
+        this.set_form_url() ;
     }
 
     set_databasename(obj){
-        console.log(obj.target.value)
         this.setState({database_name: obj.target.value});
-        this.set_form_url.bind(this) ;
+        this.set_form_url() ;
     }
 
     set_labelname(obj){
         this.setState({label_name: obj.target.value});
-        this.set_form_url.bind(this) ;
+        this.set_form_url() ;
     }
 
     set_form_url(){
-        upload_url = "/api/v1/type/imagefile/base/" + this.state.database_name + "/table/" + this.state.table_name + "/label/" + this.state.label_name +"/data/"+ this.state.network_id +"/"
-        this.setState({table_name: upload_url})
-        console.log(this.state.form_action)
+        let test_ip = "http://52.78.19.96:8989"
+        let upload_url = "/api/v1/type/imagefile/base/" + this.state.database_name + "/table/" + this.state.table_name + "/label/" + this.state.label_name +"/data/"+ this.state.network_id +"/"
+        test_ip = test_ip + upload_url
+        this.setState({form_action: test_ip})
+
+        let file_upload_settings = this.state.file_upload_settings
+        file_upload_settings.baseUrl = test_ip
+
+        this.setState({file_upload_settings:file_upload_settings})
+        console.log(this.state.file_upload_settings)
+    }
+
+    set_upload_file(obj){
+
+        let reader = new FileReader();
+        let file_set = obj.target.files
+        let upload_file_arr = this.state.upload_file_list
+        for(let file of file_set) {
+            upload_file_arr.push(file)
+            this.setState({upload_file_list: upload_file_arr})
+        }
     }
 
     render() {
@@ -55,8 +100,9 @@ export default class ImagesConfigurationComponent extends React.Component {
                             <col width="60" />
                             <col width="60" />
                             <col width="60" />
-                            <col width="500" />
-                            <col width="300" />
+                            <col width="350" />
+                            <col width="60" />
+                            <col width="60" />
                             </colgroup>
                             <tbody>
                                 <tr>
@@ -67,9 +113,9 @@ export default class ImagesConfigurationComponent extends React.Component {
                                         <label className="bullet" htmlFor="DB">DB</label>
                                         <select onChange={this.set_databasename.bind(this)} value={this.state.value}>
                                             <option value="1">Data Base List</option>
-                                            <option value="MES">MES</option>
-                                            <option value="SCM">SCM</option>
-                                            <option value="ERP">ERP</option>
+                                            <option value="mes">MES</option>
+                                            <option value="scm">SCM</option>
+                                            <option value="erp">ERP</option>
                                         </select>
                                         <label className="bullet" htmlFor="Table">Table</label>
                                         <input type="text" name="table_name" placeholder="table_name"  onChange={this.set_tablename.bind(this)} value={this.state.value} />
@@ -78,7 +124,11 @@ export default class ImagesConfigurationComponent extends React.Component {
                                     </td>
                                     <td width>
                                         <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
-                                        <button type="button" onClick={() => this.search_btn()} className="img-btn save">Upload</button>
+                                    </td>
+                                    <td width>
+                                        <FileUpload options={this.state.file_upload_settings}>
+                                            <button className="img-btn save" onClick={this.set_form_url.bind(this)} ref="chooseAndUpload">upload</button>
+                                        </FileUpload>
                                     </td>
                                 </tr>
                             </tbody>
@@ -96,14 +146,3 @@ export default class ImagesConfigurationComponent extends React.Component {
 ImagesConfigurationComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 };
-
-
-    // <form action={this.state.form_action}
-    //   method="post"
-    //   enctype="multipart/form-data">
-    //     <input type="file"
-    //            name="file"
-    //            id="id_file3" multiple
-    //            className="img-btn save"/>
-    //     <input type="submit" value="UPLOAD" className="img-btn save"/>
-    // </form>
