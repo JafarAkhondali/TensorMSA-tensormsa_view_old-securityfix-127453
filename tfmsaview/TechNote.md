@@ -41,3 +41,7 @@ assert 'value' in value
 15. git set global user
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
+16. set anaconda Path
+- export PATH=/home/ictuser/anaconda3/bin:$PATH
+17. run jupyter
+- jupyter notebook
