@@ -20,6 +20,7 @@ export default class NN_HeaderComponent extends React.Component {
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(2)}>Net conf</a></li>  
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(3)}>Train Statistics</a></li>
 						<li><a href="#" onClick={() => this.props.getHeaderEvent(4)}>Predict Test</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(5)}>Predict</a></li>
 					</ul>
 				</nav>
 				<dl className="utilMenu">

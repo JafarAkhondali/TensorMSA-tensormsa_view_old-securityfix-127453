@@ -1,29 +1,37 @@
 import React from 'react';
 
+const FileUpload = require('react-fileupload');
+
+
 export default class NN_PredictComponent extends React.Component {
     constructor(props) {
         super(props);
     }
 
+
+    
+
     render() {
-        return (
-            <section>
-                <h1 className="hidden">Network Configuration</h1>
-                <ul className="tabHeader">
-                    <li className="current"><a href="#">CNN</a></li>
-                    <li><a href="#">RNN</a></li>
-                    <li><a href="#">Fully</a></li>
-                    <div className="btnArea">
-                        <button type="button" className="img-btn save">Save</button>
-                        <button type="button" className="img-btn save">Error Check</button>
-                  
-                    </div>
-                </ul>
-                 <div className="container tabBody">
-                  
-                 </div>  
-            </section>
-        )
+
+
+        /*set properties*/
+    const options={
+        baseUrl:'http://api/v1/type/imagefile/base/mes/table/testtable2/label/2/data/nn0000090/',
+        param:{
+            fid:0
+        },
+        fileFieldName(file) {
+          this.name = 'file';
+        },
+    }
+    /*Use FileUpload with options*/
+    /*Set two dom with ref*/
+    return (
+        <FileUpload options={options}>
+            <button ref="chooseBtn">choose</button>
+            <button ref="uploadBtn">upload</button>
+        </FileUpload>
+    )           
     }
 }
 
