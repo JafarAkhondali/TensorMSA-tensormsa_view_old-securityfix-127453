@@ -1,57 +1,73 @@
 import React from 'react'
 
 export default class TableSectionComponent extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
         return (
             <section id='netconf-table'>                    
-                <div className='l--page'>
-                    <div className='column table features'>
-                        <h4>Input</h4>
-                        <table id='input_table' className='form-table align-center'>
-                            <thead>
-                                <tr>
-                                    <th>Input</th>
-                                    <th>Input2</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Input1</td>
-                                    <td>Input2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className='column table hidden-layers'>
-                        <h4>Hidden</h4>
-                        <table id='hidden_table' className='form-table align-center'>
-                            <thead>
-                                <tr>
-                                    <th>Hidden</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Hidden</td>
-                                </tr>                            
-                            </tbody>
-                        </table>                        
-                    </div>
-                    <div className='column table output'>
-                        <h4>Output</h4>
-                        <table id='output_table' className=' table form-table align-center'>
-                            <thead>
-                                <tr>                            
-                                    <th>Input</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Output</td>
-                                </tr>                            
-                            </tbody>
-                        </table>                        
-                    </div>
+                <div className='l--body'>
+                    <dl className="layer-box">
+                        <dt><span className="circle-blue">Input Layer</span></dt>
+                        <dd>
+                            <table id='input_table' className='form-table align-center'>
+                                <thead>
+                                    <tr>
+                                        <th>Input</th>
+                                        <th>Input2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Input1</td>
+                                        <td>Input2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                
+                    <dl className="layer-box">
+                        <dt><span className="circle-blue">Hidden Layer</span></dt>
+                        <dd>
+                            <table id='hidden_table' className='form-table align-center'>
+                                <thead>
+                                    <tr>
+                                        <th>Input</th>
+                                        <th>Input2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Input1</td>
+                                        <td>Input2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                
+                    <dl className="layer-box">
+                        <dt><span className="circle-blue">Output Layer</span></dt>
+                        <dd>
+                            <table id='output_table' className='form-table align-center'>
+                                <thead>
+                                    <tr>
+                                        <th>Input</th>
+                                        <th>Input2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Input1</td>
+                                        <td>Input2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>    
                 </div>                
             </section>
         )

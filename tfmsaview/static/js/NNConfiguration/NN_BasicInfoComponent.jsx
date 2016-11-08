@@ -12,8 +12,8 @@ export default class NN_BasicInfoComponent extends React.Component {
                     <ul className="tabHeader">
                         <li className="current"><a href="#">Network Basic Information</a></li>
                         <div className="btnArea">
-                            <button type="button">Upload</button>
-                            <button type="button">Save</button>
+                            <button type="button" className="img-btn uplode">Upload</button>
+                            <button type="button" className="img-btn save">Save</button>
                         </div>
                     </ul>   
                         <div className="container tabBody">

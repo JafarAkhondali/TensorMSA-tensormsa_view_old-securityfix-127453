@@ -1,8 +1,15 @@
 import React from 'react'
+import ReportRepository from './../../repositories/ReportRepository'
+import Api from './../../utils/Api'
 
 export default class DiagramSectionComponent extends React.Component {
     constructor(props){
         super(props);
+    }
+
+    componentWillMount(){
+        console.log("componentWillMount");
+        this._getNetConfigInfo('nn0000091');
     }
 
     componentDidMount(){
@@ -10,13 +17,20 @@ export default class DiagramSectionComponent extends React.Component {
         const tsScript = document.createElement("script");
 
         libScript.src = "../../../dist/lib.js";
-        libScript.async = true;
-
+        libScript.async = false;
+        
         tsScript.src = "../../../dist/NetConf.js";
         tsScript.async = true;
 
         document.body.appendChild(libScript);
         document.body.appendChild(tsScript);
+    }
+
+
+    _getNetConfigInfo(params) {
+        this.props.reportRepository.getNetConfigInfo(params).then((tableData) => {
+                console.log(tableData);
+        });
     }
 
     render() {
@@ -188,4 +202,8 @@ export default class DiagramSectionComponent extends React.Component {
             </section>
         )
     }
+}
+
+DiagramSectionComponent.defaultProps = {
+    reportRepository: new ReportRepository(new Api())
 }

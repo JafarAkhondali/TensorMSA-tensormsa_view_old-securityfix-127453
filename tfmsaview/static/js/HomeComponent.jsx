@@ -12,7 +12,7 @@ export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  
-                        NN_InfoList : <NN_NetworkConfigurationComponent/>
+                        NN_InfoList : null
                      };
         this.addNewNNInfo = this.addNewNNInfo.bind(this); 
         this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
