@@ -10,10 +10,9 @@ export default class ReportRepository {
     }
 
     getCommonNNInfo(params) {
-        return this.api.get(`api/v1/type/common/nninfo/nn0000012/category/MES/subcate/M60/`, params).then((data) => {
-            data = JSON.parse(data);
-            console.log(data.result[0].fields);
-           return data.result[0].fields;
+        return this.api.get(`api/v1/type/common/nninfo//category//subcate//`, params).then((data) => {
+           data = JSON.parse(data);
+           return data.result;
         });
     }
 
@@ -67,6 +66,21 @@ export default class ReportRepository {
     getJsonTestData(params) {
         let url='http://localhost:8888/json/testData.json';//local test for JSON
         return this.api.getJson(url, params).then((data) => {
+           return data;
+        });
+    }
+
+    // getPreviewImagePath(params) {
+    //     let url='http://localhost:8888/json/image_preview_test.json';//local test for JSON
+    //     return this.api.getJson(url, params).then((data) => {
+    //        return data;
+    //     });
+    // }
+
+    getPreviewImagePath(params) {
+        let url='/api/v1/type/imgpreview/nnid/';//local test for JSON
+        return this.api.get(url, params + "/").then((data) => {
+            data = JSON.parse(data);
            return data;
         });
     }
