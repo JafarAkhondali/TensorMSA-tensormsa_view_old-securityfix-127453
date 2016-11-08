@@ -1,5 +1,6 @@
 import React from 'react';
 import FileUpload from 'react-fileupload';
+import DropzoneComponent from 'react-dropzone-component';
 
 export default class NN_PredictResultComponent extends React.Component {
     constructor(props) {
@@ -23,7 +24,32 @@ export default class NN_PredictResultComponent extends React.Component {
                 console.log('upload success..!' + resp)
                 
             }
-        }            
+        }  
+        
+            
+        var dropzone;
+
+        var componentConfig = {
+            iconFiletypes: ['.jpg', '.png', '.gif'],
+            showFiletypeIcon: true,
+            postUrl: 'http://52.78.19.96:8989/api/v1/type/cnn/predict/nn0000045/',
+            uploadMultiple: true
+        };
+
+        var djsConfig = { autoProcessQueue: false }
+        var eventHandlers = { 
+            init: (passedDropzone) => dropzone = passedDropzone,
+            addedfile: (file) => console.log(file),
+            success: (e, response) => {
+                console.log(response);
+                this.updateResult(response);
+            }
+
+        }
+
+
+        
+
         return (
             <section>
                 <h1 className="hidden">PredictResult</h1>
@@ -32,7 +58,8 @@ export default class NN_PredictResultComponent extends React.Component {
                     <li><a href="#">CNN</a></li>                  
                     <div className="btnArea">
                         <button type="button" className="img-btn save">Select file</button>
-                        <button type="button" className="img-btn save">Predict</button>                       
+                        <button type="button" className="img-btn save">Predict</button>     
+                         <button type="button" className="img-btn save" onClick={dropzone.processQueue()}>Uplaod</button>                    
                     </div>
                 </ul>
                 <FileUpload options={options} updateState={this.updateResult.bind(this)}>
@@ -41,6 +68,13 @@ export default class NN_PredictResultComponent extends React.Component {
                 </FileUpload>
                  <div className="container tabBody">
                     <article>
+
+                    <DropzoneComponent config={componentConfig}
+                       eventHandlers={eventHandlers}
+                       djsConfig={djsConfig} 
+                        updateState={this.updateResult.bind(this)}
+                       />,
+
                        
                         <dl className="data-box clearB w100p hInherit marginT10">
                             <dt><span className="circle-green">Sample Data</span></dt>
