@@ -70,4 +70,19 @@ export default class ReportRepository {
            return data;
         });
     }
+
+    // getPreviewImagePath(params) {
+    //     let url='http://localhost:8888/json/image_preview_test.json';//local test for JSON
+    //     return this.api.getJson(url, params).then((data) => {
+    //        return data;
+    //     });
+    // }
+
+    getPreviewImagePath(params) {
+        let url='/api/v1/type/imgpreview/nnid/';//local test for JSON
+        return this.api.get(url, params + "/").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
 }
