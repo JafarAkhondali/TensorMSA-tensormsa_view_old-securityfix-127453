@@ -9,18 +9,19 @@ export default class NN_PredictResultComponent extends React.Component {
 
     updateResult(result) {
         console.log('updateResult Called : ' + result);
-        this.setState(result);
+        this.setState(JSON.parse(result));
     }
 
     render() {
         const options = {
-            baseUrl:'http://52.78.19.96:8989/api/v1/type/cnn/predict/nn0000090/',
+            baseUrl:'http://52.78.19.96:8989/api/v1/type/cnn/predict/nn0000045/',
             fileFieldName(file) {
                 return "file"
             },
             uploadSuccess : function(resp){
-                this.props.updateState({result: 'bbbb'})
+                this.props.updateState(resp)
                 console.log('upload success..!' + resp)
+                
             }
         }            
         return (
@@ -34,7 +35,7 @@ export default class NN_PredictResultComponent extends React.Component {
                         <button type="button" className="img-btn save">Predict</button>                       
                     </div>
                 </ul>
-                <FileUpload options={options} updateState={this.updateResult}>
+                <FileUpload options={options} updateState={this.updateResult.bind(this)}>
                     <button ref="chooseBtn">choose</button>
                     <button ref="uploadBtn">upload</button>
                 </FileUpload>
