@@ -1,6 +1,24 @@
 import React from 'react'
 
 export default class DiagramSectionComponent extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        const libScript = document.createElement("script");
+        const tsScript = document.createElement("script");
+
+        libScript.src = "../../../dist/lib.js";
+        libScript.async = true;
+
+        tsScript.src = "../../../dist/NetConf.js";
+        tsScript.async = true;
+
+        document.body.appendChild(libScript);
+        document.body.appendChild(tsScript);
+    }
+
     render() {
         return (
             <section id='netconf-diagram'>
