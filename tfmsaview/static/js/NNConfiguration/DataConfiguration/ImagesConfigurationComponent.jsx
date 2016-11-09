@@ -1,12 +1,19 @@
 import React from 'react';
-import ImagePreviewLayout from './ImageData_PreviewLayout'
-import ReportRepository from './../../repositories/ReportRepository'
-import Api from './../../utils/Api'
+import ImagePreviewLayout from './ImageData_PreviewLayout';
+import ReportRepository from './../../repositories/ReportRepository';
+import Api from './../../utils/Api';
 import FileUpload from 'react-fileupload';
+import ModalViewTableCreate from './ModalViewTableCreate';
+import ModalViewLabelCreate from './ModalViewLabelCreate';
+import ModalViewFormatCreate from './ModalViewFormatCreate';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 
 export default class ImagesConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
         this.state = {
                 image_paths : null,
                 network_id : "nn0000091",
@@ -16,6 +23,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                 form_action : null,
                 upload_file_list : [],
                 rate : 0,
+                sel_modal_view : null,
                 file_upload_settings : {
                     baseUrl : null,
                     param:
@@ -68,7 +76,8 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     set_form_url(){
         let test_ip = "http://52.78.19.96:8989"
-        let upload_url = "/api/v1/type/imagefile/base/" + this.state.database_name + "/table/" + this.state.table_name + "/label/" + this.state.label_name +"/data/"+ this.state.network_id +"/"
+        let upload_url = "/api/v1/type/imagefile/base/" + this.state.database_name + "/table/" + 
+        this.state.table_name + "/label/" + this.state.label_name +"/data/"+ this.state.network_id +"/"
         test_ip = test_ip + upload_url
         this.setState({form_action: test_ip})
 
@@ -76,7 +85,6 @@ export default class ImagesConfigurationComponent extends React.Component {
         file_upload_settings.baseUrl = test_ip
 
         this.setState({file_upload_settings:file_upload_settings})
-        console.log(this.state.file_upload_settings)
     }
 
     set_upload_file(obj){
@@ -90,6 +98,30 @@ export default class ImagesConfigurationComponent extends React.Component {
         }
     }
 
+    open_modal(type){
+        
+        
+
+        if(type == 'table'){
+            this.setState({sel_modal_view : <ModalViewTableCreate/>})
+        }
+        else if(type == 'label'){
+            this.setState({sel_modal_view : <ModalViewLabelCreate/>})
+        }
+        else if(type == 'format'){
+            this.setState({sel_modal_view : <ModalViewFormatCreate/>})
+        }
+        
+        this.set_form_url();
+        this.setState({open: true})
+        //this.props.modalComponent.setState({modal_body : <ImageConfigurationModal/>});
+        // this.openModal();
+    }
+
+    openModal () { this.setState({open: true}); }
+    closeModal () { this.setState({open: false}); }
+
+
     render() {
         return (
             <div className="container tabBody">
@@ -101,7 +133,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                             <col width="60" />
                             <col width="60" />
                             <col width="350" />
-                            <col width="60" />
+                            <col width="200" />
                             <col width="60" />
                             </colgroup>
                             <tbody>
@@ -110,23 +142,35 @@ export default class ImagesConfigurationComponent extends React.Component {
                                     <td width>{this.state.network_id}</td>
                                     <th>Upload Info</th>
                                     <td width>
-                                        <label className="bullet" htmlFor="DB">DB</label>
+                          
                                         <select onChange={this.set_databasename.bind(this)} value={this.state.value}>
                                             <option value="1">Data Base List</option>
                                             <option value="mes">MES</option>
                                             <option value="scm">SCM</option>
                                             <option value="erp">ERP</option>
                                         </select>
-                                        <label className="bullet" htmlFor="Table">Table</label>
-                                        <input type="text" name="table_name" placeholder="table_name"  onChange={this.set_tablename.bind(this)} value={this.state.value} />
-                                        <label className="bullet" htmlFor="Label">Label</label>
-                                        <input type="text" name="label_name" placeholder="label_name"  onChange={this.set_labelname.bind(this)} value={this.state.value} />
+                                      
+                                        <select onChange={this.set_tablename.bind(this)} value={this.state.value}>
+                                            <option value="1">Data Base List</option>
+                                            <option value="mes">MES</option>
+                                            <option value="scm">SCM</option>
+                                            <option value="erp">ERP</option>
+                                        </select>
+                                        <button onClick={this.open_modal.bind(this ,'table')}>modify</button>
+                                        
+                                        <select onChange={this.set_labelname.bind(this)} value={this.state.value}>
+                                            <option value="1">Data Base List</option>
+                                            <option value="mes">MES</option>
+                                            <option value="scm">SCM</option>
+                                            <option value="erp">ERP</option>
+                                        </select>
+                                        <button onClick={this.open_modal.bind(this ,'label')}>modify</button>
                                     </td>
                                     <td width>
+                                        <button onClick={this.open_modal.bind(this ,'format')}>format</button>
                                         <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
                                     </td>
-                                    <td width>
-                                       <a type="button" href="#modal-one" className="img-btn save">Modal Upload</a>
+                                    <td>
                                         <FileUpload options={this.state.file_upload_settings}>
                                             <button className="img-btn save" onClick={this.set_form_url.bind(this)} ref="chooseAndUpload">upload</button>
                                         </FileUpload>
@@ -134,6 +178,16 @@ export default class ImagesConfigurationComponent extends React.Component {
                                 </tr>
                             </tbody>
                         </table>
+                        <div>
+                            <Modal
+                                className="modal"
+                                overlayClassName="modal"
+                                isOpen={this.state.open}
+                                onRequestClose={this.closeModal}>
+                                {this.state.sel_modal_view}
+                                <button onClick={this.closeModal}>Close</button>
+                            </Modal>
+                        </div>
                         <table className="table marginT10">
                             <ImagePreviewLayout image_paths={this.state.image_paths}/>
                         </table>

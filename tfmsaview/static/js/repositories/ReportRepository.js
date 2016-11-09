@@ -84,4 +84,28 @@ export default class ReportRepository {
            return data;
         });
     }
+
+    getTableList(params) {
+        let url='/api/v1/type/imagefile/';//local test for JSON
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postTableList(params) {
+        let url='/api/v1/type/imagefile/';//local test for JSON
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    deleteTableList(params) {
+        let url='/api/v1/type/imagefile/';//local test for JSON
+        return this.api.delete(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
 }
