@@ -103,9 +103,10 @@ $resize-logo-width: 120px;
 $resize-util-width: 104px;
 $resize-nav-width: calc(100% - 224px);
 //option select
-$option-select-bg-color: #4081c5;
 $select-img-url:url("#{$img-route}select-bg.png");
-$option-select-color: $font-color-blue;
+$selected-img-url:url("#{$img-route}selected-bg.png");
+$option-selected-color: $font-color-blue;
+$option-select-color :#798188;
 //data box
 $data-box-border:1px solid #d3d7dd;
 $data-box-bg: #f5f7f8;
@@ -113,3 +114,6 @@ $data-box-bg: #f5f7f8;
 $layer-box-border-radius: 8px;
 $layer-box-title-bg: #dce2e5;
 $layer-box-bg: $data-box-bg;
+//login-section
+$login-bg1-url:url("#{$img-route}login-bg1.png");
+$login-bg2-url:url("#{$img-route}login-bg2.png");

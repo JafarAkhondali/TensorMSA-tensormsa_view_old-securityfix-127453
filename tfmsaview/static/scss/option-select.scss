@@ -2,7 +2,13 @@ table {
     thead {
         tr.option-select {
             td {
-                background: $option-select-bg-color;
+                background: $option-select-color;
+                &.selected {
+                    background: $option-selected-color;
+                    .option-select {
+                        background: $selected-img-url no-repeat 96% 0;
+                    }
+                }
             }
         }
     }
@@ -13,7 +19,6 @@ table {
     height: 24px;
     overflow: hidden;
     width: 100%;
-    background-color: $option-select-bg-color;
     select {
         background: transparent;
         border: none;
@@ -28,4 +33,5 @@ table {
             background: #f9f9f9;
         }
     }
+
 }
