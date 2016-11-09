@@ -126,6 +126,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                                         <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
                                     </td>
                                     <td width>
+                                       <a type="button" href="#modal-one" className="img-btn save">Modal Upload</a>
                                         <FileUpload options={this.state.file_upload_settings}>
                                             <button className="img-btn save" onClick={this.set_form_url.bind(this)} ref="chooseAndUpload">upload</button>
                                         </FileUpload>
