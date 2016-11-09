@@ -14,16 +14,15 @@ export default class NN_InfoListComponent extends React.Component {
     }
 
     getJson(params){
-           this.props.reportRepository.getJsonTestData(params).then((tableData) => {
-                this.setState({tableData: tableData})
-            });
+        this.props.reportRepository.getJsonTestData(params).then((tableData) => {
+            this.setState({tableData: tableData})
+        });
     }
 
-
     getCommonNNInfo(params){
-           this.props.reportRepository.getCommonNNInfo(params).then((tableData) => {
-                this.setState({NN_TableData: tableData})
-            });
+        this.props.reportRepository.getCommonNNInfo(params).then((tableData) => {
+            this.setState({NN_TableData: tableData})
+        });
     }
 
     NNButtonText(i) {

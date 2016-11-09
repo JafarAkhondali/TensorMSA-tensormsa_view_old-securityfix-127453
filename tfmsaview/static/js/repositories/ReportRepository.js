@@ -86,10 +86,19 @@ export default class ReportRepository {
         });
     }
 
-    getNetConfigInfo(params) {
-        return this.api.get('/api/v1/type/common/nninfo/${params}/category//subcate//', params).then((data) => {
+    getNetConfigBasicInfo(param) {
+        return this.api.get('/api/v1/type/common/nninfo/nn0000091/category//subcate//').then((data) => {
             console.log(data);
            return data;
         });
     }
+    
+    getNetConfigFormatInfo(params, nnid) {
+        console.log(params);
+        debugger;
+        return this.api.get('/api/v1/type/imagefile/base/params.dir/table/params.table/format/{nnid}/').then((data) => {
+            console.log(data);
+           return data;
+        });
+    }    
 }

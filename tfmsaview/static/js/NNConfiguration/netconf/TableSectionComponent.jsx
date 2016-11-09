@@ -3,6 +3,7 @@ import React from 'react'
 export default class TableSectionComponent extends React.Component {
     constructor(props){
         super(props);
+        console.log('TableSectionComponent');
     }
 
     render() {
@@ -15,20 +16,19 @@ export default class TableSectionComponent extends React.Component {
                             <table id='input_table' className='form-table align-center'>
                                 <thead>
                                     <tr>
-                                        <th>Input</th>
-                                        <th>Input2</th>
+                                        <th>X size</th>
+                                        <th>Y size</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Input1</td>
+                                        <td>{this.props.nnConfigBasicInfoField.table}</td>
                                         <td>Input2</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </dd>
                     </dl>
-                
                     <dl className="layer-box">
                         <dt><span className="circle-blue">Hidden Layer</span></dt>
                         <dd>
