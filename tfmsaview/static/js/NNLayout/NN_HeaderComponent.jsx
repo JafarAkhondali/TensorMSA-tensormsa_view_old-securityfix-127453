@@ -31,7 +31,7 @@ export default class NN_HeaderComponent extends React.Component {
 					<dd className="utilMenu-logout"><a href="#"><span>logout</span></a></dd>
 					<dd className="utilMenu-user-info">
 						<a href="#">
-						<span className="user-name">Healess</span>
+						<span className="user-name">Suk Jae-Ho</span>
 						<span> welcome!</span>
 						</a>
 					</dd>
