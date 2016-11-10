@@ -94,9 +94,8 @@ export default class ReportRepository {
     }
     
     getNetConfigFormatInfo(params, nnid) {
-        console.log(params);
-        debugger;
-        return this.api.get('/api/v1/type/imagefile/base/params.dir/table/params.table/format/{nnid}/').then((data) => {
+        let url = '/api/v1/type/imagefile/base/'+params.dir+'/table/'+params.table+'/format/'+nnid+'/';
+        return this.api.get(url).then((data) => {
             console.log(data);
            return data;
         });

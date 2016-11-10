@@ -15,6 +15,7 @@ export default class DiagramSectionComponent extends React.Component {
         this._getNetConfigFormatInfo = this._getNetConfigFormatInfo.bind(this);
     }
 
+    //1
     componentWillMount(){
         console.log("componentWillMount");
         this._getNetConfigBasicInfo('nn0000091');
@@ -35,21 +36,24 @@ export default class DiagramSectionComponent extends React.Component {
         document.body.appendChild(tsScript);
     }
 
+    // 3!
     shouldComponentUpdate(nextProps, nextState) {
         console.log("shouldComponentUpdate");
-        return (this.state.nnConfigBasicInfoField !== null);
+        debugger;
+        return (this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField === null);
     }    
 
+    //4!
     componentWillUpdate(nextProps, nextState){
         console.log("componentWillUpdate");
+        debugger;
         if(this.state.nnConfigBasicInfoField !== null)
-        {
-            console.log("yeah~~");
-            debugger;
+        {           
             this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000091');
         }        
     }
 
+    //2
     _getNetConfigBasicInfo(params) {
         this.props.reportRepository.getNetConfigBasicInfo(params).then((tableData) => {
             var nnConfigBasicInfoJson = JSON.parse(tableData);
@@ -64,11 +68,11 @@ export default class DiagramSectionComponent extends React.Component {
         });
     }
 
+    //5!
     _getNetConfigFormatInfo(params, nnid) {
-        debugger;
         this.props.reportRepository.getNetConfigFormatInfo(params, nnid).then((tableData) => {
             var nnConfigFormatInfoJson = JSON.parse(tableData);
-            this.setState({nnConfigFormatInfoField: nnConfigFormatInfoJson.result.fields});
+            this.setState({nnConfigFormatInfoField: nnConfigFormatInfoJson.result});
         });
     }    
 
@@ -240,8 +244,10 @@ export default class DiagramSectionComponent extends React.Component {
                         </div>                    
                     </div>
                 </section>
-                {this.state.nnConfigBasicInfoField !== null &&
-                    <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}/>
+                {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
+                    <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
+                                           nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
+                    />
                 }
             </section>
         )
