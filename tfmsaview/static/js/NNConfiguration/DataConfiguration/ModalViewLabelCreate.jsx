@@ -6,70 +6,60 @@ export default class ModalViewLabelCreate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                table_name : null,
-                table_rows : null,
-                database_name : null,
-                search_url : null,
-                update_url : null,
-                delete_url : null
+                networkId : null,
+                labelRows : null,
+                labelName : null
                
                 };
     }
 
-    get_table_list(){
-        let request_url = this.get_search_url();
-        this.props.reportRepository.getTableList(request_url).then((table_list) => {
+    //set label name on state variable
+    setLabelName(obj){
+        this.setState({labelName: obj.target.value});
+    }
+
+    // searh label list
+    getLabelList(){
+        let requestUrl = "label/" + this.props.networkId + "/";
+        this.props.reportRepository.getImageLabelData(requestUrl, "").then((data) => {
+            let labelList = data['result'];
             let rows = [];
-            let i=0;
-            for (let table_name of table_list['result']){
-                rows.push(<tr key={i++}><td>{table_name}</td></tr>)
+            let i = 0 ;
+            for(let label of labelList){
+                rows.push(<tr key={i++}><td>{label}</td></tr>)
             }
-
-            this.setState({table_rows : rows})
+            this.setState({labelRows : rows})
         });
     }
 
-    post_table_name(){
-        let request_url = this.get_add_url();
-        this.props.reportRepository.postTableList(request_url).then((answer) => {
-            console.log(answer)
+    // add label list
+    postLabelList(){
+        let requestUrl = "label/" + this.state.labelName + "/nnid/" + this.props.networkId +"/";
+        this.props.reportRepository.postImageLabelData(requestUrl, "").then((data) => {
+            let labelList = data['result'];
+            let rows = [];
+            let i = 0 ;
+            for(let label of labelList){
+                rows.push(<tr key={i++}><td>{label}</td></tr>)
+            }
+            this.setState({labelRows : rows})
         });
     }
 
-    delete_table_name(){
-        let request_url = this.get_delete_url();
-        this.props.reportRepository.deleteTableList(request_url).then((answer) => {
-            console.log(answer)
+    //delete label list
+    deleteLabelList(){
+        let requestUrl = "label/" + this.state.labelName + "/nnid/" + this.props.networkId +"/";
+        this.props.reportRepository.deleteImageLabelData(requestUrl, "").then((data) => {
+            let labelList = data['result'];
+            let rows = [];
+            let i = 0 ;
+            for(let label of labelList){
+                rows.push(<tr key={i++}><td>{label}</td></tr>)
+            }
+            this.setState({labelRows : rows})
         });
     }
 
-    set_tablename(obj){
-        console.log(obj.target.value)
-        this.setState({table_name: obj.target.value}, function(){
-            this.set_request_urls()
-        }).bind(this);
-        
-    }
-
-    set_databasename(obj){
-        console.log(obj.target.value)
-        this.setState({database_name: obj.target.value}, function(){
-            console.log(this.state.database_name)
-        }).bind(this);
-        
-    }
-
-    get_search_url(){
-        return "base/" + this.state.database_name + "/table/" ;
-    }
-
-    get_add_url(){
-        return "base/" + this.state.database_name + "/table/" + this.state.table_name + "/";
-    }
-
-    get_delete_url(){
-        return "base/" + this.state.database_name + "/table/" + this.state.table_name + "/";
-    }
 
     render() {
         return (   
@@ -81,24 +71,21 @@ export default class ModalViewLabelCreate extends React.Component {
                         <article>
                             <table className="form-table align-left">
                                 <colgroup>
-                                <col width="150" />
-                                <col width="500" />
+                                <col width="50" />
+                                <col width="60" />
+                                <col width="250" />
                                 </colgroup> 
                                 <tbody>
                                 <tr>
                                     <th>Insert New</th>
                                     <td>
-                                        <select onChange={this.set_databasename.bind(this)} value={this.state.value}>
-                                            <option value="1">Data Base List</option>
-                                            <option value="mes">MES</option>
-                                            <option value="scm">SCM</option>
-                                            <option value="erp">ERP</option>
-                                        </select>
-                                        <input type="text" name="table_name" placeholder="table_name" 
-                                        onChange={this.set_tablename.bind(this)} value={this.state.value} />
-                                        <button type="button" onClick={this.get_table_list.bind(this)}>Search</button>
-                                        <button type="button" onClick={this.set_tablename.bind(this)}>Add</button>
-                                        <button type="button" onClick={this.delete_table_name.bind(this)}>Delete</button>
+                                        <input type="text" name="label_name" placeholder="label_name" 
+                                        onChange={this.setLabelName.bind(this)} value={this.state.value} />
+                                    </td>
+                                    <td>
+                                        <button type="button" onClick={this.getLabelList.bind(this)}>Search</button>
+                                        <button type="button" onClick={this.postLabelList.bind(this)}>Add</button>
+                                        <button type="button" onClick={this.deleteLabelList.bind(this)}>Delete</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -106,11 +93,11 @@ export default class ModalViewLabelCreate extends React.Component {
                             <table className="table marginT10">
                                 <thead>
                                     <tr>
-                                        <th>Table Name</th>
+                                        <th>Label Name</th>
                                     </tr>
                                 </thead>
                                 <tbody className="center">      
-                                    {this.state.table_rows}  
+                                    {this.state.labelRows}  
                                 </tbody>
                             </table>
                         </article>

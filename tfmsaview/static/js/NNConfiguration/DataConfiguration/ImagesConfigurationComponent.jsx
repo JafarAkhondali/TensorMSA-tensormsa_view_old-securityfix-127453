@@ -26,8 +26,66 @@ export default class ImagesConfigurationComponent extends React.Component {
                 tableSelectList : null,
                 xSize : null,
                 ySize : null,
-                formatData : {}
+                formatData : {},
+                baseDom : null,
+                tableDom : null,
+                domSizeX : null, 
+                domSizeY : null
                 };
+    }
+
+    //when page called on first 
+    componentDidMount(){
+        this.initDataBaseLov()
+        
+    }
+
+    // 
+    initDataBaseLov(){
+        this.props.reportRepository.getNetBaseInfo(this.state.networkId).then((nnBaseInfo) => {
+            let base = nnBaseInfo['result'][0]['fields']['dir'];
+            let table = nnBaseInfo['result'][0]['fields']['table'];   
+
+            if(base == null || base == ''){
+                let base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
+                                <option value="1">Data Base List</option>
+                                <option value="mes">MES</option>
+                                <option value="scm">SCM</option>
+                                <option value="erp">ERP</option>
+                            </select>
+            }
+            
+            if(table == null && table == ''){
+                table = <input type="text" name="table" placeholder="table" 
+                                            onChange={this.setTableName.bind(this)} value={this.state.value} />
+            }
+            this.setState({baseDom : base});
+            this.setState({tableDom : table});
+            this.initTableLov(base, table);
+        });
+    }
+
+    // init table lov
+    initTableLov(base, table){
+
+        let requestUrl = "base/" + base + "/table/" + table + "/format/" + this.state.networkId + "/";
+            this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
+                let formatData = format['result']
+                let xSize = formatData['x_size'];
+                let ySize = formatData['y_size'];
+
+                if(xSize == null || xSize == ''){
+                    xSize = <input type="text" name="xsize" placeholder="xsize" 
+                                            onChange={this.setXSize.bind(this)} value={this.state.xSize} />   
+                } 
+
+                if(ySize == null || ySize == ''){
+                    ySize= <input type="text" name="ysize" placeholder="ysize" 
+                                            onChange={this.setYSize.bind(this)} value={this.state.ySize} />
+                }
+                this.setState({domSizeX : xSize})
+                this.setState({domSizeY : ySize})    
+            });       
     }
 
     // on Search button event occurs 
@@ -55,7 +113,6 @@ export default class ImagesConfigurationComponent extends React.Component {
     // get format data 
     getFormatData(){
         let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/format/" + this.state.networkId + "/";
-        console.log(requestUrl)
         this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
             let formatData = format['result']
             this.setState({xSize : formatData['x_size']})
@@ -93,7 +150,7 @@ export default class ImagesConfigurationComponent extends React.Component {
             this.setState({selModalView : <ModalViewTableCreate/>})
         }
         else if(type == 'label'){
-            this.setState({selModalView : <ModalViewLabelCreate/>})
+            this.setState({selModalView : <ModalViewLabelCreate networkId={this.state.networkId}/>})
         }
         else if(type == 'format'){
             this.setState({selModalView : <ModalViewFormatCreate formatData={this.state} />})
@@ -111,41 +168,34 @@ export default class ImagesConfigurationComponent extends React.Component {
                     <article>
                         <table className="form-table align-left">
                             <colgroup>
-                            <col width="50" />
                             <col width="40" />
-                            <col width="50" />
-                            <col width="110" />
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
                             <col width="60" />
+                            <col width="100" />
                             <col width="250" />
-                            <col width="150" />
                             </colgroup>
                             <tbody>
                                 <tr>
                                     <th>Network ID</th>
                                     <td width>{this.state.networkId}</td>
-                                    <th>Upload Info</th>
+                                    <th>*DataBase</th>
                                     <td width>
-                                        <select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
-                                            <option value="1">Data Base List</option>
-                                            <option value="mes">MES</option>
-                                            <option value="scm">SCM</option>
-                                            <option value="erp">ERP</option>
-                                        </select>
-                                      
-                                        <select onChange={this.setTableName.bind(this)} value={this.state.value}>
-                                            {this.state.tableSelectList}
-                                        </select>
-                                        
+                                        {this.state.baseDom}
                                     </td>
-                                    <th>Image Format</th>
+                                    <th>*Table</th>
                                     <td width>
-                                        <input type="text" name="xsize" placeholder="xsize" 
-                                            onChange={this.setXSize.bind(this)} value={this.state.xSize} />
-                                        <input type="text" name="ysize" placeholder="ysize" 
-                                            onChange={this.setYSize.bind(this)} value={this.state.ySize} />
+                                        {this.state.tableDom}
+                                    </td>
+                                    <th>*Format</th>
+                                    <td width>
+                                        <p>{this.state.domSizeX} x {this.state.domSizeY}</p>
+                                    </td>
+                                    <td width>
                                         <button onClick={this.openModal.bind(this ,'format')}>SET</button>
-                                    </td>
-                                    <td width>
                                         <button onClick={this.openModal.bind(this ,'table')}>table</button>
                                         <button onClick={this.openModal.bind(this ,'label')}>label</button>
                                         <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>

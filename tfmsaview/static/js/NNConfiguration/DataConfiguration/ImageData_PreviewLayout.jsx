@@ -62,7 +62,7 @@ export default class ImagePreviewLayout extends React.Component {
 			let clickEvent = this.setFormUrl.bind(this, key)
 			for(let path_info of imagePaths_info){
 				let path = "http://52.78.19.96:8989" + path_info;
-				rows.push(<div><img src= {path} key={i++} width='100' height='100' /></div>)
+				rows.push(<div><img src= {path} key={i++} width='140' height='140' /></div>)
 			}
 			rows2.push(<dl className='img-box'>
 						   <dt>

@@ -124,4 +124,36 @@ export default class ReportRepository {
            return data;
         });
     }
+
+        getNetBaseInfo(opt_url, params) {
+        let url='/api/v1/type/common/nninfo/' + opt_url + '/category//subcate//';
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    getImageLabelData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url ;
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postImageLabelData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url ;
+        return this.api.post(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    deleteImageLabelData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url ;
+        return this.api.delete(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
 }
