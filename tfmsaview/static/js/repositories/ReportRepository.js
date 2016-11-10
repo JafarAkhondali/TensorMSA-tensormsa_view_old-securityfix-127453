@@ -93,17 +93,33 @@ export default class ReportRepository {
         });
     }
 
-    postTableList(params) {
-        let url='/api/v1/type/imagefile/';//local test for JSON
+    postTableList(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
         });
     }
 
-    deleteTableList(params) {
-        let url='/api/v1/type/imagefile/';//local test for JSON
+    deleteTableList(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
         return this.api.delete(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    getImageFormatData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postImageFormatData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
         });

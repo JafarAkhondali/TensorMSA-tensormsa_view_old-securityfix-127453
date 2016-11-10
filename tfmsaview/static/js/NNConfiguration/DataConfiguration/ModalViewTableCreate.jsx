@@ -6,69 +6,70 @@ export default class ModalViewTableCreate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                table_name : null,
-                table_rows : null,
-                database_name : null,
-                search_url : null,
-                update_url : null,
-                delete_url : null
-               
+                tableName : null,
+                tableRows : null,
+                databaseName : null               
                 };
     }
 
-    get_table_list(){
-        let request_url = this.get_search_url();
-        this.props.reportRepository.getTableList(request_url).then((table_list) => {
+    // override : call after render
+    componentDidUpdate(preProps, prevState){
+        //this.getTableList()
+    }
+
+    //get table list on seleceted base name
+    getTableList(){
+        let requestUrl = this.get_searchUrl();
+        this.props.reportRepository.getTableList(requestUrl).then((table_list) => {
             let rows = [];
             let i=0;
-            for (let table_name of table_list['result']){
-                rows.push(<tr key={i++}><td>{table_name}</td></tr>)
+            for (let tableName of table_list['result']){
+                rows.push(<tr key={i++}><td>{tableName}</td></tr>)
             }
 
-            this.setState({table_rows : rows})
+            this.setState({tableRows : rows})
         });
     }
 
-    post_table_name(){
-        let request_url = this.get_add_url();
-        this.props.reportRepository.postTableList(request_url).then((answer) => {
-            console.log(answer)
+    // add user request new table
+    postTableName(){
+        let requestUrl = this.get_add_url();
+        this.props.reportRepository.postTableList(requestUrl, null).then((answer) => {
+            this.getTableList()
+        });;
+    }
+
+    //delete user request named table
+    deleteTableName(){
+        let requestUrl = this.get_delete_url();
+        this.props.reportRepository.deleteTableList(requestUrl, null).then((answer) => {
+            this.getTableList();
         });
     }
 
-    delete_table_name(){
-        let request_url = this.get_delete_url();
-        this.props.reportRepository.deleteTableList(request_url).then((answer) => {
-            console.log(answer)
-        });
+    //set table name on state variable
+    setTableName(obj){
+        this.setState({tableName: obj.target.value});
     }
 
-    set_tablename(obj){
-        console.log(obj.target.value)
-        this.setState({table_name: obj.target.value}, function(){
-            this.set_request_urls()
-        }).bind(this);
-        
+    //set base name on state variable
+    setDatabaseName(obj){
+        this.setState({databaseName: obj.target.value});
     }
 
-    set_databasename(obj){
-        console.log(obj.target.value)
-        this.setState({database_name: obj.target.value}, function(){
-            console.log(this.state.database_name)
-        }).bind(this);
-        
+    // combine get rest api url 
+    get_searchUrl(){
+        return "base/" + this.state.databaseName + "/table/" ;
     }
 
-    get_search_url(){
-        return "base/" + this.state.database_name + "/table/" ;
-    }
-
+    // combine post rest api url 
     get_add_url(){
-        return "base/" + this.state.database_name + "/table/" + this.state.table_name + "/";
+        return "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/";
     }
 
+    // combine delete rest api url 
     get_delete_url(){
-        return "base/" + this.state.database_name + "/table/" + this.state.table_name + "/";
+        return "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/";
     }
 
     render() {
@@ -81,24 +82,29 @@ export default class ModalViewTableCreate extends React.Component {
                         <article>
                             <table className="form-table align-left">
                                 <colgroup>
-                                <col width="150" />
-                                <col width="500" />
+                                <col width="80" />
+                                <col width="160" />
+                                <col width="80" />
+                                <col width="200" />
                                 </colgroup> 
                                 <tbody>
                                 <tr>
-                                    <th>Insert New</th>
+                                    <th>Select</th>
                                     <td>
-                                        <select onChange={this.set_databasename.bind(this)} value={this.state.value}>
+                                        <select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
                                             <option value="1">Data Base List</option>
                                             <option value="mes">MES</option>
                                             <option value="scm">SCM</option>
                                             <option value="erp">ERP</option>
                                         </select>
-                                        <input type="text" name="table_name" placeholder="table_name" 
-                                        onChange={this.set_tablename.bind(this)} value={this.state.value} />
-                                        <button type="button" onClick={this.get_table_list.bind(this)}>Search</button>
-                                        <button type="button" onClick={this.set_tablename.bind(this)}>Add</button>
-                                        <button type="button" onClick={this.delete_table_name.bind(this)}>Delete</button>
+                                        <button type="button" onClick={this.getTableList.bind(this)}>Search</button>
+                                    </td>
+                                    <th>Modify</th>
+                                    <td>
+                                        <input type="text" name="tableName" placeholder="tableName" 
+                                            onChange={this.setTableName.bind(this)} value={this.state.value} />
+                                        <button type="button" onClick={this.postTableName.bind(this)}>Add</button>
+                                        <button type="button" onClick={this.deleteTableName.bind(this)}>Delete</button>    
                                     </td>
                                 </tr>
                                 </tbody>
@@ -110,7 +116,7 @@ export default class ModalViewTableCreate extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody className="center">      
-                                    {this.state.table_rows}  
+                                    {this.state.tableRows}  
                                 </tbody>
                             </table>
                         </article>
