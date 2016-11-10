@@ -15,10 +15,13 @@ $font-color-blue: #066aac;
 $font-family-base: 'malgun gothic',
 dotum,
 sans-serif;
+//signal-lamp 
+$signal-red:#ff4d4d;
+$signal-green:#31b353;
 //header
 $mainHeader-width: 100%;
 $mainHeader-height: 64px;
-$logo-width :230px;
+$logo-width :180px;
 $utilMenu-width: 230px;
 $logo-img-url:url("#{$img-route}logotest.png");
 $sysmen-logo-url:url("#{$img-route}system-logo.png");
@@ -59,10 +62,8 @@ $btn-icon-url:url("#{$img-route}btnIcon.png");
 $tblBtn-icon-url:url("#{$img-route}tblIcon.png");
 $btn-border-radius: 3px;
 $btn-color: #fff;
-$defaultBtn-border-color: #4d81bd;
-$defaultBtn-bg-color: #6098da;
-$imgBtn-bg-color: #5186c5;
-$imgBtn-border-color: #436d9d;
+$defaultBtn-border-color: #4f8dd4;
+$defaultBtn-bg-color: #4f8dd4;
 $defaultBtn-hover-bg-color: darken($defaultBtn-bg-color,
 5%);
 $btn-height:30px;
@@ -99,13 +100,13 @@ $tab-font-size: ($font-size-base+2);
 //label
 $label-bg-blue: $blue;
 //resize
-$resize-logo-width: 120px;
+$resize-logo-width: 90px;
 $resize-util-width: 104px;
 $resize-nav-width: calc(100% - 224px);
 //option select
 $select-img-url:url("#{$img-route}select-bg.png");
 $selected-img-url:url("#{$img-route}selected-bg.png");
-$option-selected-color: $font-color-blue;
+$option-selected-color: #4f8fd7;
 $option-select-color :#798188;
 //data box
 $data-box-border:1px solid #d3d7dd;
@@ -117,3 +118,5 @@ $layer-box-bg: $data-box-bg;
 //login-section
 $login-bg1-url:url("#{$img-route}login-bg1.png");
 $login-bg2-url:url("#{$img-route}login-bg2.png");
+//img-box
+$img-box-btn-url:url("#{$img-route}btnIcon.png");

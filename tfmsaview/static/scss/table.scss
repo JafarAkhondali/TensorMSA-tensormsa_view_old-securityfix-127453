@@ -12,6 +12,15 @@
             }
         }
     }
+    tbody {
+        tr {
+            &:hover {
+                td {
+                    background: #fbfbfb;
+                }
+            }
+        }
+    }
     tr {
         td {
             background: #fff;

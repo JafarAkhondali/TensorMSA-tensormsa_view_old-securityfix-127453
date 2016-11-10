@@ -8,10 +8,13 @@ export default class NN_HeaderComponent extends React.Component {
     render() {
         return (   
 			<header className="mainHeader">
-				<h1 className="logo">
-					Hoya
-					<span className="hidden">tensor MSA</span>					
-				</h1>
+				<a href="#">
+					<h1 className="logo">
+					<span className="hidden">HOYA</span>	
+					<span className="logo-image"></span>
+					<span className="system-logo"></span>
+					</h1>
+				</a>		
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
@@ -24,9 +27,14 @@ export default class NN_HeaderComponent extends React.Component {
 				</nav>
 				<dl className="utilMenu">
 					<dt>Menu</dt>
-					<dd><a href="#">help</a></dd>
-					<dd><a href="#">logout</a></dd>
-					<dd><a href="#"><span>Healess</span>welcome!</a></dd>
+					<dd className="utilMenu-help"><a href="#"><span>help</span></a></dd>
+					<dd className="utilMenu-logout"><a href="#"><span>logout</span></a></dd>
+					<dd className="utilMenu-user-info">
+						<a href="#">
+						<span className="user-name">Healess</span>
+						<span> welcome!</span>
+						</a>
+					</dd>
 				</dl>
 			</header>
         )
