@@ -15,7 +15,7 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.state = {
                 imagePaths : null,
-                networkId : "nn0000091",
+                networkId : "nn0000930",
                 databaseName : null,
                 tableName : null,
                 labelName : null,
@@ -36,7 +36,7 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     //when page called on first 
     componentDidMount(){
-        this.initDataBaseLov()
+        this.initDataBaseLov();
         
     }
 
@@ -46,8 +46,8 @@ export default class ImagesConfigurationComponent extends React.Component {
             let base = nnBaseInfo['result'][0]['fields']['dir'];
             let table = nnBaseInfo['result'][0]['fields']['table'];   
 
-            if(base == null || base == ''){
-                let base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
+            if(!base){
+                base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
                                 <option value="1">Data Base List</option>
                                 <option value="mes">MES</option>
                                 <option value="scm">SCM</option>
@@ -55,7 +55,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                             </select>
             }
             
-            if(table == null && table == ''){
+            if(!table){
                 table = <input type="text" name="table" placeholder="table" 
                                             onChange={this.setTableName.bind(this)} value={this.state.value} />
             }
@@ -74,12 +74,12 @@ export default class ImagesConfigurationComponent extends React.Component {
                 let xSize = formatData['x_size'];
                 let ySize = formatData['y_size'];
 
-                if(xSize == null || xSize == ''){
+                if(!xSize){
                     xSize = <input type="text" name="xsize" placeholder="xsize" 
                                             onChange={this.setXSize.bind(this)} value={this.state.xSize} />   
                 } 
 
-                if(ySize == null || ySize == ''){
+                if(!ySize){
                     ySize= <input type="text" name="ysize" placeholder="ysize" 
                                             onChange={this.setYSize.bind(this)} value={this.state.ySize} />
                 }
@@ -88,8 +88,20 @@ export default class ImagesConfigurationComponent extends React.Component {
             });       
     }
 
+    // post format data
+    postFormatData(){
+        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName
+        + "/format/" + this.state.networkId + "/";
+        let formatSize = {"x_size" : this.state.xSize, "y_size" : this.state.ySize}
+
+        this.props.reportRepository.postImageFormatData(requestUrl, formatSize).then((format) => {
+            this.initDataBaseLov();
+        });
+    }
+
     // on Search button event occurs 
     searchBtn(nnid){
+        this.initDataBaseLov();
         this.props.reportRepository.getPreviewImagePath(this.state.networkId).then((previewPaths) => {
             this.setState({imagePaths: previewPaths['result']})
         });
@@ -149,11 +161,8 @@ export default class ImagesConfigurationComponent extends React.Component {
         if(type == 'table'){
             this.setState({selModalView : <ModalViewTableCreate/>})
         }
-        else if(type == 'label'){
+        else if (type == 'label'){
             this.setState({selModalView : <ModalViewLabelCreate networkId={this.state.networkId}/>})
-        }
-        else if(type == 'format'){
-            this.setState({selModalView : <ModalViewFormatCreate formatData={this.state} />})
         }
         this.setState({open: true})
     }
@@ -195,7 +204,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                                         <p>{this.state.domSizeX} x {this.state.domSizeY}</p>
                                     </td>
                                     <td width>
-                                        <button onClick={this.openModal.bind(this ,'format')}>SET</button>
+                                        <button onClick={this.postFormatData.bind(this)}>SET</button>
                                         <button onClick={this.openModal.bind(this ,'table')}>table</button>
                                         <button onClick={this.openModal.bind(this ,'label')}>label</button>
                                         <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
