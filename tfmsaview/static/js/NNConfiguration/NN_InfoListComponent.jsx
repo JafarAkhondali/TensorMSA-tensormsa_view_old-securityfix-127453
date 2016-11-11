@@ -3,6 +3,7 @@ import PersonalDataTableComponent from './../tables/PersonalDataTableComponent'
 import ReportRepository from './../repositories/ReportRepository'
 import Api from './../utils/Api'
 import NN_InfoListTableComponent from './../tables/NN_InfoListTableComponent'
+import StepArrowComponent from './../NNLayout/common/StepArrowComponent'
 
 export default class NN_InfoListComponent extends React.Component {
     constructor(props) {
@@ -66,12 +67,7 @@ export default class NN_InfoListComponent extends React.Component {
                         <input type="text" name="Name2" placeholder="Name" />
                         <button className="btn-sm" type="button" onClick={() => this.getJson()}>search</button>
                         <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
-                        <div className="btnArea">
-                            <div className="PNBtn">
-                                <button type="button" className="prev">Prev</button>
-                                <button type="button" className="next">Next</button>
-                            </div>
-                        </div>
+                        <StepArrowComponent />
                     </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">

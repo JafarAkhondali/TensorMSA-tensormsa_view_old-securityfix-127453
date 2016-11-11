@@ -84,4 +84,76 @@ export default class ReportRepository {
            return data;
         });
     }
+
+    getTableList(params) {
+        let url='/api/v1/type/imagefile/';//local test for JSON
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postTableList(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    deleteTableList(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        return this.api.delete(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    getImageFormatData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postImageFormatData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+        getNetBaseInfo(opt_url, params) {
+        let url='/api/v1/type/common/nninfo/' + opt_url + '/category//subcate//';
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    getImageLabelData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url ;
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postImageLabelData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url ;
+        return this.api.post(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    deleteImageLabelData(opt_url, params) {
+        let url='/api/v1/type/imagefile/' + opt_url ;
+        return this.api.delete(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import MetaStoreConfigurationComponent from './DataConfiguration/MetaStoreConfigurationComponent'
 import ImagesConfigurationComponent from './DataConfiguration/ImagesConfigurationComponent'
+import StepArrowComponent from './../NNLayout/common/StepArrowComponent'
 
 export default class NN_DataConfigurationComponent extends React.Component {
     constructor(props) {
@@ -42,6 +43,7 @@ export default class NN_DataConfigurationComponent extends React.Component {
                         <li className={this.isActive('meta')} onClick={this.setFilter.bind(this, 'meta')}><a href="#">Meta Store</a></li>
                         <li className={this.isActive('images')} onClick={this.setFilter.bind(this, 'images')}><a href="#">Images</a></li>
                         <li className={this.isActive('texts')} onClick={this.setFilter.bind(this, 'texts')}><a href="#">Raw Texts</a></li>
+                        <StepArrowComponent />
                     </ul>
 				    {this.state.DataConfigurationComponent}
             </section>

@@ -7,6 +7,7 @@ import NN_BasicInfoComponent from './NNConfiguration/NN_BasicInfoComponent'
 import NN_DataConfigurationComponent from './NNConfiguration/NN_DataConfigurationComponent'
 import NN_NetworkConfigurationComponent from './NNConfiguration/NN_NetworkConfigurationComponent'
 import NN_TrainStaticComponent from './NNConfiguration/NN_TrainStaticComponent'
+import NN_ModalComponent from './NNLayout/NN_ModalComponent';
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -56,9 +57,10 @@ export default class HomeComponent extends React.Component {
     render() {
         return (
             <div>
-				<NN_HeaderComponent getHeaderEvent={this.getHeaderEvent}/> 
-				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList}/>
+				<NN_HeaderComponent getHeaderEvent={this.getHeaderEvent} /> 
+				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList} getHeaderEvent={this.getHeaderEvent} />
 				<NN_FooterComponent/>
+                <NN_ModalComponent />                                    
 			</div>
         )
     }
