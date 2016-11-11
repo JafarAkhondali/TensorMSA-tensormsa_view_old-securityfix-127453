@@ -16,8 +16,10 @@ export default class MetaStore_TablePayout extends React.Component {
         let selectDataFormatType = this.state.dataFormatTypes
         selectDataFormatType[selectedValue.target.id] = selectedValue.target.value
         //this.state.selectValue = 
-        this.setState({selectValue : selectedValue}) 
+        //this.setState({selectValue : selectedValue}) 
         this.setState({dataFormatTypes : selectDataFormatType})
+        //this.setState({ this.props.: selectDataFormatType})
+        //this.props.DataframeType
         //this.state.dataFormatType[selectedValue.target.id] = selectedValue.target.value
         //this.setState({dataFormatType[selectedValue.target.id]:selectedValue.target.value})
         //dataFormatType[selectedValue.target.id] = selectedValue.target.value
@@ -30,6 +32,11 @@ export default class MetaStore_TablePayout extends React.Component {
             //console.log(key);
             console.log(key +"---->"+ this.state.dataFormatTypes[key]);
          }
+    }
+    dataFramePost(dataFrameValue){
+        Json.strinthis.dataFormatTypes
+
+
 
     }
 
@@ -81,9 +88,13 @@ export default class MetaStore_TablePayout extends React.Component {
         rowssdfsdf.push(<tbody key={j++} className="center">{tableData}</tbody>)
         
         return (   
+            <div>
+                    <button type="button" onClick={() => this.dataFramePost()} className="btn-sm">Search</button>
 					<table className="table marginT10">
 						{rowssdfsdf}
 					</table>
+                    </div>
+                    
         )
     }
 }

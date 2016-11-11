@@ -3,3 +3,6 @@
 /tfmsaview/static/dist/
 /tfmsaview/templates/npm-debug.log
 npm-debug.log
+/tfmsaview/static/js/constants/EnvConstants.js
+/tfmsaview/static/js/utils/Api.js
+/tfmsaview/static/webpack.config.js
