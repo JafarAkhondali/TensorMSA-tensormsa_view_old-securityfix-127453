@@ -156,4 +156,33 @@ export default class ReportRepository {
            return data;
         });
     }
+
+    getWdnnTableDataFromHbase(opt_url, params) {
+        //let url='/api/v1/type/imagefile/' + opt_url ;
+        ///api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/
+        let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/'
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+    postWdnnDataFrameFormat(opt_url, params) {
+        //let url='/api/v1/type/imagefile/' + opt_url ;
+        ///api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/
+        console.log(params)
+
+
+        let key_set = Object.keys(params)
+        for(let key of key_set){
+            //console.log("lookup dictionary")
+            //console.log(selectedValue.target.value)
+            //console.log(key);
+            console.log(key +"---->"+ params[key]);
+         }
+        let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/format/nn0000102/'
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
 }

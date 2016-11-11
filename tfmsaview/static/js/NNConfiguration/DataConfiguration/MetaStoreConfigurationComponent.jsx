@@ -8,8 +8,10 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         super(props);
           this.state = {  
                 MetaStore_TableLayout : null,
-                WdnnTableData : null
+                WdnnTableData : null,
+                dataFormatTypes:{}
                 };
+                        
             //this.addDataframeType = this.addDataframeType.bind(this, param);                 
     }
     search_btn(params){
@@ -20,15 +22,10 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         this.setState({WdnnTableData: tableData['result']})
         });
     }
-    dataframe_format_post_btn(params){
+    child_dataframe_format_post_btn(params){
         //this.props.MetaStore_TableLayout.
-        console.log('4')
-        let limit_cnt = {}
-        limit_cnt["limits"] = 0
-        this.props.reportRepository.getWdnnTableDataFromHbase().then((tableData) => {
-            
-        this.setState({WdnnTableData: tableData['result']})
-        });
+        console.log('child')
+        this.refs.child.dataFramePost()
     }
 
 
@@ -62,7 +59,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                             </td>
                                             <td>
                                                 <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
-                                                <button type="button" onClick={() => this.search_btn()} className="btn-sm">Search</button>
+                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn()} className="btn-sm">Search</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -212,8 +209,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                             </tr>
                                         </tbody>
                                     </table>
-                                
-                                           <MetaStore_TableLayout WdnnTableData={this.state.WdnnTableData}/>
+                                           
+                                           <MetaStore_TableLayout WdnnTableData={this.state.WdnnTableData} ref="child"/>
                                 
                                 </article>
                             </div>

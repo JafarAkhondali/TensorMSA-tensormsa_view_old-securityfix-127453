@@ -1,13 +1,18 @@
 import React from 'react'
+import ReportRepository from './../../repositories/ReportRepository'
+import Api from './../../utils/Api'
 
-export default class MetaStore_TablePayout extends React.Component {
+export default class MetaStore_TableLayout extends React.Component {
 	constructor(props) {
         super(props)
         this.state = {
             selectValue:[],//initail lodaing is meta
-            dataFormatTypes:{}
+            dataFormatTypes:{},
+            dataFramePost:null
             };
     }
+
+    
     handleChange(selectedValue){
         //console.log("lookup dictionary")
         //console.log(selectedValue.target)
@@ -33,8 +38,12 @@ export default class MetaStore_TablePayout extends React.Component {
             console.log(key +"---->"+ this.state.dataFormatTypes[key]);
          }
     }
-    dataFramePost(dataFrameValue){
-        Json.strinthis.dataFormatTypes
+    dataFramePost(){
+        console.log("dataframpost")
+        this.props.reportRepository.postWdnnDataFrameFormat("",this.state.dataFormatTypes).then((tableData) => {
+            console.log('dataframepost results')
+            this.setState({dataFramePost: tableData['result']})
+        });
 
 
 
@@ -98,3 +107,6 @@ export default class MetaStore_TablePayout extends React.Component {
         )
     }
 }
+MetaStore_TableLayout.defaultProps = {
+    reportRepository: new ReportRepository(new Api())
+};
