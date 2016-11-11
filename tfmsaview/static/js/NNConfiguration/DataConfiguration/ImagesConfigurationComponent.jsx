@@ -30,8 +30,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                 baseDom : null,
                 tableDom : null,
                 domSizeX : null, 
-                domSizeY : null,
-                setBtn : null
+                domSizeY : null
                 };
     }
 
@@ -74,22 +73,18 @@ export default class ImagesConfigurationComponent extends React.Component {
                 let formatData = format['result']
                 let xSize = formatData['x_size'];
                 let ySize = formatData['y_size'];
-                let setBtn = "";
 
                 if(!xSize){
                     xSize = <input type="text" name="xsize" placeholder="xsize" 
                                             onChange={this.setXSize.bind(this)} value={this.state.xSize} />   
-                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 } 
 
                 if(!ySize){
                     ySize= <input type="text" name="ysize" placeholder="ysize" 
                                             onChange={this.setYSize.bind(this)} value={this.state.ySize} />
-                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 }
                 this.setState({domSizeX : xSize})
                 this.setState({domSizeY : ySize})    
-                this.setState({setBtn : setBtn})
             });       
     }
 
@@ -209,7 +204,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                                         <p>{this.state.domSizeX} x {this.state.domSizeY}</p>
                                     </td>
                                     <td width>
-                                        {this.state.setBtn}
+                                        <button onClick={this.postFormatData.bind(this)}>SET</button>
                                         <button onClick={this.openModal.bind(this ,'table')}>table</button>
                                         <button onClick={this.openModal.bind(this ,'label')}>label</button>
                                         <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
@@ -223,12 +218,18 @@ export default class ImagesConfigurationComponent extends React.Component {
                             overlayClassName="modal"
                             isOpen={this.state.open}
                             onRequestClose={this.closeModal}>
-                            {this.state.selModalView}
-                            <button onClick={this.closeModal}>Close</button>
+                            <div className="modal-dialog modal-lg">
+                                {this.state.selModalView}
+                                <span className="modal-footer">
+                                        <button onClick={this.closeModal}>Close</button>
+                                </span>
+                            </div>
                         </Modal>
                         
                         <div className="img-box-wrap">
-                            <ImagePreviewLayout imageDataSet={this.state}/>
+                            <div className="img-box-container">
+                                <ImagePreviewLayout imageDataSet={this.state}/>
+                            </div>
                         </div>
                     </article>
                 </div>

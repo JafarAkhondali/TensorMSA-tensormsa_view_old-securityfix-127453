@@ -34,6 +34,9 @@ a.btn {
             @include box-sizing(border-box);
         }
     }
+    &:hover {
+        background: #3a73b4;
+    }
     &:active {
         box-shadow: $active-shadow-effect;
     }
@@ -85,6 +88,16 @@ a.btn {
     }
 }
 
+table {
+    button {
+        @include gradient(#fff, #e5e6e8);
+        color: #4f8dd4;
+        &:hover {
+            @include gradient(#f9f9f9, #d9d9d9);
+        }
+    }
+}
+
 button {
     &.new {
         &:before {
@@ -115,6 +128,12 @@ button {
 
 .btnArea {
     float: right;
+}
+
+.inner-btnArea {
+    float: right;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 .btn-sm {

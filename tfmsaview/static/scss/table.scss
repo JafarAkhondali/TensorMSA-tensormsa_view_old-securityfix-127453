@@ -75,3 +75,12 @@
         }
     }
 }
+
+table {
+    button,
+    select,
+    input[type="text"] {
+        vertical-align: middle;
+        height: 28px;
+    }
+}
