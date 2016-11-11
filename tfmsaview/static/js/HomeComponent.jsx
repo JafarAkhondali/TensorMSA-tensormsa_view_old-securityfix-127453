@@ -59,8 +59,7 @@ export default class HomeComponent extends React.Component {
             <div>
 				<NN_HeaderComponent getHeaderEvent={this.getHeaderEvent} /> 
 				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList} getHeaderEvent={this.getHeaderEvent} />
-				<NN_FooterComponent/>
-                <NN_ModalComponent />                                    
+				<NN_FooterComponent/>                                  
 			</div>
         )
     }
