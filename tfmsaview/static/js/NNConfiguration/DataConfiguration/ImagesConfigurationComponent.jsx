@@ -15,7 +15,7 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.state = {
                 imagePaths : null,
-                networkId : "nn0000940",
+                networkId : "nn0000091",
                 databaseName : null,
                 tableName : null,
                 labelName : null,
@@ -30,14 +30,13 @@ export default class ImagesConfigurationComponent extends React.Component {
                 baseDom : null,
                 tableDom : null,
                 domSizeX : null, 
-                domSizeY : null,
-                setBtn : null
+                domSizeY : null
                 };
     }
 
     //when page called on first 
     componentDidMount(){
-        this.initDataBaseLov();
+        this.initDataBaseLov()
         
     }
 
@@ -47,8 +46,8 @@ export default class ImagesConfigurationComponent extends React.Component {
             let base = nnBaseInfo['result'][0]['fields']['dir'];
             let table = nnBaseInfo['result'][0]['fields']['table'];   
 
-            if(!base){
-                base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
+            if(base == null || base == ''){
+                let base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
                                 <option value="1">Data Base List</option>
                                 <option value="mes">MES</option>
                                 <option value="scm">SCM</option>
@@ -56,7 +55,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                             </select>
             }
             
-            if(!table){
+            if(table == null && table == ''){
                 table = <input type="text" name="table" placeholder="table" 
                                             onChange={this.setTableName.bind(this)} value={this.state.value} />
             }
@@ -74,39 +73,23 @@ export default class ImagesConfigurationComponent extends React.Component {
                 let formatData = format['result']
                 let xSize = formatData['x_size'];
                 let ySize = formatData['y_size'];
-                let setBtn = "";
 
-                if(!xSize){
+                if(xSize == null || xSize == ''){
                     xSize = <input type="text" name="xsize" placeholder="xsize" 
                                             onChange={this.setXSize.bind(this)} value={this.state.xSize} />   
-                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 } 
 
-                if(!ySize){
+                if(ySize == null || ySize == ''){
                     ySize= <input type="text" name="ysize" placeholder="ysize" 
                                             onChange={this.setYSize.bind(this)} value={this.state.ySize} />
-                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 }
                 this.setState({domSizeX : xSize})
                 this.setState({domSizeY : ySize})    
-                this.setState({setBtn : setBtn})
             });       
-    }
-
-    // post format data
-    postFormatData(){
-        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName
-        + "/format/" + this.state.networkId + "/";
-        let formatSize = {"x_size" : this.state.xSize, "y_size" : this.state.ySize}
-
-        this.props.reportRepository.postImageFormatData(requestUrl, formatSize).then((format) => {
-            this.initDataBaseLov();
-        });
     }
 
     // on Search button event occurs 
     searchBtn(nnid){
-        this.initDataBaseLov();
         this.props.reportRepository.getPreviewImagePath(this.state.networkId).then((previewPaths) => {
             this.setState({imagePaths: previewPaths['result']})
         });
@@ -166,8 +149,11 @@ export default class ImagesConfigurationComponent extends React.Component {
         if(type == 'table'){
             this.setState({selModalView : <ModalViewTableCreate/>})
         }
-        else if (type == 'label'){
+        else if(type == 'label'){
             this.setState({selModalView : <ModalViewLabelCreate networkId={this.state.networkId}/>})
+        }
+        else if(type == 'format'){
+            this.setState({selModalView : <ModalViewFormatCreate formatData={this.state} />})
         }
         this.setState({open: true})
     }
@@ -180,6 +166,12 @@ export default class ImagesConfigurationComponent extends React.Component {
             <div className="container tabBody">
                 <div id="tab1">
                     <article>
+                    <div className="inner-btnArea">
+                        <button onClick={this.openModal.bind(this ,'format')}>SET</button>
+                                        <button onClick={this.openModal.bind(this ,'table')}>table</button>
+                                        <button onClick={this.openModal.bind(this ,'label')}>label</button>
+                                        <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
+                    </div>
                         <table className="form-table align-left">
                             <colgroup>
                             <col width="40" />
@@ -208,31 +200,54 @@ export default class ImagesConfigurationComponent extends React.Component {
                                     <td width>
                                         <p>{this.state.domSizeX} x {this.state.domSizeY}</p>
                                     </td>
-                                    <td width>
-                                        {this.state.setBtn}
-                                        <button onClick={this.openModal.bind(this ,'table')}>table</button>
-                                        <button onClick={this.openModal.bind(this ,'label')}>label</button>
-                                        <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                        
+
+                        <div className="img-box-wrap">
+                            <div className="img-box-container">
+                                <dl className="img-box">
+                                    <dt>
+                                        <h1 className="circle-green">image title 타이틀</h1>
+                                        <button type="button" className="upload">Upload</button>
+                                    </dt>
+                                    <dd>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
                         <Modal
                             className="modal"
                             overlayClassName="modal"
                             isOpen={this.state.open}
                             onRequestClose={this.closeModal}>
-                            {this.state.selModalView}
-                            <button onClick={this.closeModal}>Close</button>
+                            <div className="modal-dialog modal-lg">
+                                {this.state.selModalView}
+                                <span className="modal-footer">
+                                    <button onClick={this.closeModal}>Close</button>
+                                </span>
+                            </div>
                         </Modal>
                         
                         <div className="img-box-wrap">
+                        <div className="img-box-container">
                             <ImagePreviewLayout imageDataSet={this.state}/>
+                            </div>
                         </div>
                     </article>
                 </div>
             </div>
+            
         )
     }
 }

@@ -8,6 +8,11 @@ body {
     margin: 0;
     font-size: $font-size-base;
     min-width: 700px;
+    // overflow: hidden;
+}
+
+p {
+    margin: 0;
 }
 
 div,
