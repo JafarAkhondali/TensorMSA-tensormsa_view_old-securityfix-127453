@@ -3,7 +3,20 @@ import React from 'react'
 export default class TableSectionComponent extends React.Component {
     constructor(props){
         super(props);
-        console.log('TableSectionComponent');
+
+        this.state = {
+            datasets : null
+        }
+    }
+
+    componentWillMount(){
+        if(typeof this.props.nnConfigBasicInfoField.datasets === 'string')
+        {
+            this.setState({datasets: JSON.parse(this.props.nnConfigBasicInfoField.datasets)});
+        }
+        else {
+            this.setState({datasets: this.props.nnConfigBasicInfoField.datasets});
+        }
     }
 
     render() {
@@ -58,9 +71,11 @@ export default class TableSectionComponent extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{this.props.nnConfigBasicInfoField.datasets[0]}</td>
-                                    </tr>
+                                    {
+                                        this.state.datasets.map((dataset) =>
+                                            <tr key={dataset}><td>{dataset}</td></tr>
+                                        )
+                                    }
                                 </tbody>
                             </table>
                         </dd>

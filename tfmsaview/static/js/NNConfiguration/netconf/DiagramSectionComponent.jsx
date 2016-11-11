@@ -39,14 +39,12 @@ export default class DiagramSectionComponent extends React.Component {
     // 3!
     shouldComponentUpdate(nextProps, nextState) {
         console.log("shouldComponentUpdate");
-        debugger;
         return (this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField === null);
     }    
 
     //4!
     componentWillUpdate(nextProps, nextState){
         console.log("componentWillUpdate");
-        debugger;
         if(this.state.nnConfigBasicInfoField !== null)
         {           
             this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000091');
