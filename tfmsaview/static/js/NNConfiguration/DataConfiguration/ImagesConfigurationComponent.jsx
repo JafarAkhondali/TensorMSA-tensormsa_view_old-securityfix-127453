@@ -15,7 +15,7 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.state = {
                 imagePaths : null,
-                networkId : "nn0000930",
+                networkId : "nn0000940",
                 databaseName : null,
                 tableName : null,
                 labelName : null,
@@ -30,7 +30,8 @@ export default class ImagesConfigurationComponent extends React.Component {
                 baseDom : null,
                 tableDom : null,
                 domSizeX : null, 
-                domSizeY : null
+                domSizeY : null,
+                setBtn : null
                 };
     }
 
@@ -73,18 +74,22 @@ export default class ImagesConfigurationComponent extends React.Component {
                 let formatData = format['result']
                 let xSize = formatData['x_size'];
                 let ySize = formatData['y_size'];
+                let setBtn = "";
 
                 if(!xSize){
                     xSize = <input type="text" name="xsize" placeholder="xsize" 
                                             onChange={this.setXSize.bind(this)} value={this.state.xSize} />   
+                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 } 
 
                 if(!ySize){
                     ySize= <input type="text" name="ysize" placeholder="ysize" 
                                             onChange={this.setYSize.bind(this)} value={this.state.ySize} />
+                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 }
                 this.setState({domSizeX : xSize})
                 this.setState({domSizeY : ySize})    
+                this.setState({setBtn : setBtn})
             });       
     }
 
@@ -204,7 +209,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                                         <p>{this.state.domSizeX} x {this.state.domSizeY}</p>
                                     </td>
                                     <td width>
-                                        <button onClick={this.postFormatData.bind(this)}>SET</button>
+                                        {this.state.setBtn}
                                         <button onClick={this.openModal.bind(this ,'table')}>table</button>
                                         <button onClick={this.openModal.bind(this ,'label')}>label</button>
                                         <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
