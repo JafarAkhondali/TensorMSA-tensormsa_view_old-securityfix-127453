@@ -44,9 +44,6 @@ export default class MetaStore_TableLayout extends React.Component {
             console.log('dataframepost results')
             this.setState({dataFramePost: tableData['result']})
         });
-
-
-
     }
 
     render() {
@@ -86,7 +83,7 @@ export default class MetaStore_TableLayout extends React.Component {
 			}
             //add rows
             if(j==0){
-                tableHeader.push(<tr key={j++}>{celHeaderCategory}</tr>)
+                tableHeader.push(<tr className="option-select" key={j++}>{celHeaderCategory}</tr>)
                 tableHeader.push(<tr key={j++}>{celHeader}</tr>)
             }else{
                 tableData.push(<tr key={j++}>{celData}</tr>)
@@ -98,12 +95,10 @@ export default class MetaStore_TableLayout extends React.Component {
         
         return (   
             <div>
-                    <button type="button" onClick={() => this.dataFramePost()} className="btn-sm">Search</button>
-					<table className="table marginT10">
-						{rowssdfsdf}
-					</table>
-                    </div>
-                    
+                <table className="table marginT10">
+                    {rowssdfsdf}
+                </table>
+            </div>        
         )
     }
 }
