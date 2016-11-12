@@ -15,7 +15,7 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.state = {
                 imagePaths : null,
-                networkId : "nn00000810",
+                networkId : "nn0000045",
                 databaseName : null,
                 tableName : null,
                 labelName : null,
