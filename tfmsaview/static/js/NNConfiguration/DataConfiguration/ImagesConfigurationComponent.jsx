@@ -15,7 +15,7 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.state = {
                 imagePaths : null,
-                networkId : "nn0000940",
+                networkId : "nn00000810",
                 databaseName : null,
                 tableName : null,
                 labelName : null,
@@ -79,17 +79,18 @@ export default class ImagesConfigurationComponent extends React.Component {
                 if(!xSize){
                     xSize = <input type="text" name="xsize" placeholder="xsize" 
                                             onChange={this.setXSize.bind(this)} value={this.state.xSize} /> 
-                    seBtn = <button onClick={this.postFormatData.bind(this)}>SET</button> 
+                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button> 
                 } 
 
                 if(!ySize){
                     ySize= <input type="text" name="ysize" placeholder="ysize" 
                                             onChange={this.setYSize.bind(this)} value={this.state.ySize} />
-                    seBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
+                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
                 }
-                this.setState({domSizeX : xSize})
-                this.setState({domSizeY : ySize})   
-                this.setState({setBtn : setBtn}) 
+                this.setState({domSizeX : xSize});
+                this.setState({domSizeY : ySize});  
+                this.setState({setBtn : setBtn});
+                this.searchBtn(this.state.networkId);
             });       
     }
 
@@ -106,7 +107,6 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     // on Search button event occurs 
     searchBtn(nnid){
-        this.initDataBaseLov();
         this.props.reportRepository.getPreviewImagePath(this.state.networkId).then((previewPaths) => {
             this.setState({imagePaths: previewPaths['result']})
         });
