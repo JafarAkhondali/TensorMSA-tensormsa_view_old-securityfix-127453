@@ -96,11 +96,9 @@ export default class ModalViewLabelCreate extends React.Component {
                                         <th>Label Name</th>
                                     </tr>
                                 </thead>
-                                <div>
-                                <tbody className="center">      
+                                <tbody className="center">    
                                     {this.state.labelRows}  
                                 </tbody>
-                                </div>
                             </table>
                         </article>
                     </div>

@@ -6,6 +6,7 @@ export default class ImagePreviewLayout extends React.Component {
         super(props)
         this.state={
         		imageArea : null,
+        		rate : null,
         	    fileUploadSettings : {
                     baseUrl : null,
                     param:
@@ -19,6 +20,7 @@ export default class ImagePreviewLayout extends React.Component {
                     },
                     uploading : function(progress){
                         this.setState({rate : progress.loaded/progress.total})
+                        alert("!")
                         console.log('loading...',progress.loaded/progress.total+'%')
                     },
                     uploadSuccess : function(resp){
@@ -62,13 +64,15 @@ export default class ImagePreviewLayout extends React.Component {
 			let clickEvent = this.setFormUrl.bind(this, key)
 			for(let path_info of imagePaths_info){
 				let path = "http://52.78.19.96:8989" + path_info;
-				rows.push(<div><img src= {path} key={i++} width='140' height='140' /></div>)
+				rows.push(<img src= {path} key={i++} width='140' height='140' />)
 			}
-			rows2.push(<dl className='img-box'>
+			rows2.push(<dl className='layer-box'>
 						   <dt>
-						   		<span className='circle-blue'>{key}</span>
-					       		<FileUpload options={fileUploadOptions}>
-					           		<button type="button" className="upload" onClick={clickEvent} ref="chooseAndUpload">upload</button>
+						   		<FileUpload options={fileUploadOptions}>
+							   		<span className='circle-blue'>
+							   		{key}
+					           		<button onClick={clickEvent} className="img-btn save" ref="chooseAndUpload"></button>
+					           		</span>	
 					       		</FileUpload>
 						   </dt>
 						   <dd>
