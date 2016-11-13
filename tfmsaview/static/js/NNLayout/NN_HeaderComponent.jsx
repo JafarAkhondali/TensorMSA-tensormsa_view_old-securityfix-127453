@@ -8,7 +8,7 @@ export default class NN_HeaderComponent extends React.Component {
     render() {
         return (   
 			<header className="mainHeader">
-				<a href="#">
+				<a href="#" onClick={() => this.props.getHeaderEvent(0)}>
 					<h1 className="logo">
 					<span className="hidden">HOYA</span>	
 					<span className="logo-image"></span>
@@ -18,11 +18,11 @@ export default class NN_HeaderComponent extends React.Component {
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
-						<li><a href="#" onClick={() => this.props.getHeaderEvent(0)}>Net Info</a></li>
-						<li><a href="#" onClick={() => this.props.getHeaderEvent(1)}>Data</a></li>
-						<li><a href="#" onClick={() => this.props.getHeaderEvent(2)}>Net conf</a></li>  
-						<li><a href="#" onClick={() => this.props.getHeaderEvent(3)}>Train Statistics</a></li>
-						<li><a href="#" onClick={() => this.props.getHeaderEvent(4)}>Predict Test</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(1)}>Net Info</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(2)}>Data</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(3)}>Net conf</a></li>  
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(4)}>Train Statistics</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(5)}>Predict Test</a></li>
 					</ul>
 				</nav>
 				<dl className="utilMenu">

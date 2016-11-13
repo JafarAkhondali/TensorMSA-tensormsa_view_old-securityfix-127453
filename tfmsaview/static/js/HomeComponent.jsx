@@ -8,12 +8,13 @@ import NN_DataConfigurationComponent from './NNConfiguration/NN_DataConfiguratio
 import NN_NetworkConfigurationComponent from './NNConfiguration/NN_NetworkConfigurationComponent'
 import NN_TrainStaticComponent from './NNConfiguration/NN_TrainStaticComponent'
 import NN_ModalComponent from './NNLayout/NN_ModalComponent';
+import MainSectionComponent from './NNLayout/MainSectionComponent';
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  
-                        NN_InfoList : null
+                        NN_InfoList : <MainSectionComponent />
                      };
         this.addNewNNInfo = this.addNewNNInfo.bind(this); 
         this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
@@ -22,20 +23,26 @@ export default class HomeComponent extends React.Component {
     getHeaderEvent(i){
         switch (i) {
             case 0:
-                return this.getNetInfo(); //call Net Info
+                return this.getMainInfo(); //call Net Info
             case 1:
-                return this.setDataConfiguration(); //call Data Configuration
+                return this.getNetInfo(); //call Net Info
             case 2:
-                return this.setNetConfiguration(); //call Data Configuration
+                return this.setDataConfiguration(); //call Data Configuration
             case 3:
-                return this.getTimeStatistics(); //call Data Configuration
+                return this.setNetConfiguration(); //call Data Configuration
             case 4:
+                return this.getTimeStatistics(); //call Data Configuration
+            case 5:
                 return this.getTimeStatistics(); //call Data Configuration
         }
     }
 
+    getMainInfo(){
+        this.setState({NN_InfoList: <MainSectionComponent />});        
+    }
+
     getNetInfo(){
-        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
+        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo} getHeaderEvent={this.getHeaderEvent} />});        
     }
     
     addNewNNInfo(){
