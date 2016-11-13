@@ -2,6 +2,7 @@ import React from 'react'
 import ReportRepository from './../../repositories/ReportRepository';
 import Api from './../../utils/Api';
 import FileUpload from 'react-fileupload';
+import EnvConstants from './../../constants/EnvConstants';
 
 export default class ModalViewTableCsvCreate extends React.Component {
     constructor(props) {
@@ -10,8 +11,8 @@ export default class ModalViewTableCsvCreate extends React.Component {
                 tableName : null,
                 tableRows : null,
                 databaseName : null,
-                fileUploadSettings : {
-                    baseUrl : null,
+                options : {
+                    baseUrl : '',
                     param:
                     {
                      fid:0
@@ -31,17 +32,13 @@ export default class ModalViewTableCsvCreate extends React.Component {
                     uploadError : function(err){
                         alert(err.message)
                     },
-                        uploadFail : function(resp){
+                    uploadFail : function(resp){
                     alert(resp)
                     }
                 }           
             };
     }
 
-    // override : call after render
-    componentDidUpdate(preProps, prevState){
-        //this.getTableList()
-    }
 
     //get table list on seleceted base name
     getTableList(){
@@ -75,11 +72,13 @@ export default class ModalViewTableCsvCreate extends React.Component {
 
     //set table name on state variable
     setTableName(obj){
+        console.log(obj.target.value)
         this.setState({tableName: obj.target.value});
     }
 
     //set base name on state variable
     setDatabaseName(obj){
+        console.log(obj.target.value)
         this.setState({databaseName: obj.target.value});
     }
 
@@ -98,21 +97,52 @@ export default class ModalViewTableCsvCreate extends React.Component {
         return "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/";
     }
     setFormUrl(){
-        let testIp = "http://52.78.172.191:8989"  // will be deleted on jango server
-        let uploadUrl = "/api/v1/type/imagefile/base/" + this.props.imageDataSet.databaseName + "/table/" + 
-        this.props.imageDataSet.tableName + "/label/" + label +"/data/"+ this.props.imageDataSet.networkId +"/"
+        //  tableName : null,
+        //        tableRows : null,
+        //        databaseName : null,
+        // console.log(EnvConstants.getApiServerUrl() + url + params)
+        // let testIp2 = "http://52.78.172.191:8989"  // will be deleted on jango server
+        // let testIp = EnvConstants.getApiServerUrl()
+        // ///api/vl/type/dataframe/base/scm/table/tb_census_data001/data/CSV
+        // //let uploadUrl = "/api/v1/type/dataframe/base/" + this.state.databaseName + "/table/" + 
+        //     this.state.tableName + "/data/CSV/"
+        // testIp = testIp + uploadUrl
+        //  console.log(testIp)
+      
+        // this.setState({formAction: testIp})
+
+        // let fileUploadSettings = this.state.fileUploadSettings
+        // fileUploadSettings.baseUrl = testIp
+
+        // this.setState({fileUploadSettings:fileUploadSettings})
+        //  tableName : null,
+        //        tableRows : null,
+        //        databaseName : null,
+        console.log("1ip????" + testIp)
+        let testIp =  EnvConstants.getApiServerUrl()  // will be deleted on jango server
+        let uploadUrl = "/api/v1/type/dataframe/base/" + this.state.databaseName + "/table/" + 
+        this.state.tableName + "/data/CSV/"
         testIp = testIp + uploadUrl
         this.setState({formAction: testIp})
 
-        let fileUploadSettings = this.state.fileUploadSettings
+        let fileUploadSettings = this.state.options
+        console.log("2ip????" + testIp)
         fileUploadSettings.baseUrl = testIp
 
-        this.setState({fileUploadSettings:fileUploadSettings})
+        this.setState({options:fileUploadSettings})
+
     }
 
     render() {
-        let fileUploadOptions = this.state.fileUploadSettings;
+        //let fileUploadOptions = this.state.fileUploadSettings;
         let clickEvent = this.setFormUrl.bind(this)
+        let fileUploadCsvComponent = [];
+        fileUploadCsvComponent.push(      
+                    <FileUpload key="fupload" options={this.state.options}>
+                    <button type="button" className="upload" onClick={clickEvent} ref="chooseAndUpload">upload</button>
+                    </FileUpload>
+                    );
+
         return (   
             <div>
                 <h1>Table Management</h1>
@@ -158,11 +188,14 @@ export default class ModalViewTableCsvCreate extends React.Component {
                                 <tbody className="center">      
                                     {this.state.tableRows}  
                                 </tbody>
-                                <tr>
-                                    <FileUpload options={fileUploadOptions}>
-                                        <button type="button" className="upload" onClick={clickEvent} ref="chooseAndUpload">upload</button>
-                                    </FileUpload>            
-                                </tr>
+                                <tbody className="center"> 
+                                    <tr>
+                                        <td>
+                                                {fileUploadCsvComponent}
+                                        </td>            
+                                    </tr>
+                                </tbody>
+
                             </table>
                         </article>
                     </div>

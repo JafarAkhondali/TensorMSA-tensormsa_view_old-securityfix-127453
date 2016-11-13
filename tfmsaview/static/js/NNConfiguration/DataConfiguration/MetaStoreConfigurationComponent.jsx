@@ -82,19 +82,24 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
-                                            onRequestClose={this.closeModal}>
-                                        <div className="modal-dialog modal-lg">
-                                            {this.state.selModalView}
-                                        <span className="modal-footer">
-                                            <button onClick={this.closeModal}>Close</button>
-                                        </span>
-                                        </div>
-                                    </Modal>
+                                    
                                     <MetaStore_TableLayout WdnnTableData={this.state.WdnnTableData} ref="child"/>
                                 </article>
+                                <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
+                                        onRequestClose={this.closeModal}>
+                                    <div className="modal-dialog modal-lg">{this.state.selModalView}
+                                    <span className="modal-footer">
+                                        <button onClick={this.closeModal}>Close</button>
+                                    </span>
+                                    </div>
+                                </Modal>
+                        
                             </div>
                         </div>
+                      
+
+
+
         )
     }
 }

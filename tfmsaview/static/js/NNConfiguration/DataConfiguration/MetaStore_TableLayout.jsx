@@ -7,7 +7,10 @@ export default class MetaStore_TableLayout extends React.Component {
         super(props)
         this.state = {
             selectValue:[],//initail lodaing is meta
+            cellfeature:{},
+            label:{},
             dataFormatTypes:{},
+            dataFormatTypesLabel:{},
             dataFramePost:null
             };
     }
@@ -19,10 +22,33 @@ export default class MetaStore_TableLayout extends React.Component {
         //console.log(selectedValue.target.id)
         //console.log(selectedValue.target.value)
         let selectDataFormatType = this.state.dataFormatTypes
-        selectDataFormatType[selectedValue.target.id] = selectedValue.target.value
+        let selectDataFormatLabel = this.state.dataFormatTypesLabel
+        let selectCellFeature = this.state.cellfeature
+        let selectDataFormatTypeCell = {}
+        //CONTINUOUS CATEGORICAL
+        if ('CATEGORICAL' == selectedValue.target.value){
+            console.log(selectedValue.target.value)
+            selectDataFormatTypeCell['column_type'] = selectedValue.target.value
+            selectDataFormatType[selectedValue.target.id] = selectDataFormatTypeCell
+            this.setState({dataFormatTypes : selectDataFormatType})
+        }
+        if ('CONTINUOUS' == selectedValue.target.value){
+            console.log(selectedValue.target.value)
+            selectDataFormatTypeCell['column_type'] = selectedValue.target.value
+            selectDataFormatType[selectedValue.target.id] = selectDataFormatTypeCell
+            this.setState({dataFormatTypes : selectDataFormatType})
+        }
+        if ('LABEL' == selectedValue.target.value){
+            console.log(selectedValue.target.value)
+            selectDataFormatLabel[selectedValue.target.id] = selectedValue.target.value
+            this.setState({dataFormatTypesLabel : selectDataFormatLabel})
+        }
+        selectCellFeature['cell_feature'] = selectDataFormatType
+        selectCellFeature['label'] = selectDataFormatLabel
+        this.setState({cellfeature : selectCellFeature}) 
         //this.state.selectValue = 
         //this.setState({selectValue : selectedValue}) 
-        this.setState({dataFormatTypes : selectDataFormatType})
+
         //this.setState({ this.props.: selectDataFormatType})
         //this.props.DataframeType
         //this.state.dataFormatType[selectedValue.target.id] = selectedValue.target.value
@@ -30,17 +56,24 @@ export default class MetaStore_TableLayout extends React.Component {
         //dataFormatType[selectedValue.target.id] = selectedValue.target.value
         //this.setState({selectValue:selectedValue})
         //console.log(this.state.dataFormatTypes)
-	    let key_set = Object.keys(this.state.dataFormatTypes)
-        for(let key of key_set){
-            //console.log("lookup dictionary")
-            //console.log(selectedValue.target.value)
-            //console.log(key);
-            console.log(key +"---->"+ this.state.dataFormatTypes[key]);
-         }
+        //JSON.stringify(params)
+        console.log(JSON.stringify(selectCellFeature))
+	    let key_set = Object.keys(this.state.cellfeature)
+        //cell_feature
+
+        // for(let key of key_set){
+        //     console.log(key );
+        //     for( let sub_key of key){
+        //     //console.log("lookup dictionary")
+        //     //console.log(selectedValue.target.value)
+        //     //console.log(key);
+        //         console.log(key + ":" +sub_key +"---->"+ this.state.cellfeature[key][sub_key]);
+        //     }
+         //}
     }
     dataFramePost(){
         console.log("dataframpost")
-        this.props.reportRepository.postWdnnDataFrameFormat("",this.state.dataFormatTypes).then((tableData) => {
+        this.props.reportRepository.postWdnnDataFrameFormat("",this.state.cellfeature).then((tableData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: tableData['result']})
         });
