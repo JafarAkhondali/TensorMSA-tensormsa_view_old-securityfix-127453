@@ -20,7 +20,6 @@ export default class ImagePreviewLayout extends React.Component {
                     },
                     uploading : function(progress){
                         this.setState({rate : progress.loaded/progress.total})
-                        alert("!")
                         console.log('loading...',progress.loaded/progress.total+'%')
                     },
                     uploadSuccess : function(resp){
@@ -39,8 +38,8 @@ export default class ImagePreviewLayout extends React.Component {
     // return ftp upload rest api url
     setFormUrl(label){
         let testIp = "http://52.78.19.96:8989"  // will be deleted on jango server
-        let uploadUrl = "/api/v1/type/imagefile/base/" + this.props.imageDataSet.databaseName + "/table/" + 
-        this.props.imageDataSet.tableName + "/label/" + label +"/data/"+ this.props.imageDataSet.networkId +"/"
+        let uploadUrl = "/api/v1/type/imagefile/base/" + this.props.imageDataSet.baseDom + "/table/" + 
+        this.props.imageDataSet.tableDom + "/label/" + label +"/data/"+ this.props.imageDataSet.networkId +"/"
         testIp = testIp + uploadUrl
         this.setState({formAction: testIp})
 
@@ -71,8 +70,8 @@ export default class ImagePreviewLayout extends React.Component {
 						   		<FileUpload options={fileUploadOptions}>
 							   		<span className='circle-blue'>
 							   		{key}
-					           		<button onClick={clickEvent} className="img-btn save" ref="chooseAndUpload"></button>
 					           		</span>	
+					           		<button onClick={clickEvent} className="img-btn save" ref="chooseAndUpload">up</button>
 					       		</FileUpload>
 						   </dt>
 						   <dd>
