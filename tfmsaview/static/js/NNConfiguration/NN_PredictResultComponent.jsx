@@ -36,7 +36,7 @@ export default class NN_PredictResultComponent extends React.Component {
             uploadMultiple: true
         };
 
-        var djsConfig = { autoProcessQueue: false }
+        var djsConfig = { autoProcessQueue: true }
         var eventHandlers = { 
             init: (passedDropzone) => dropzone = passedDropzone,
             addedfile: (file) => console.log(file),
@@ -59,7 +59,8 @@ export default class NN_PredictResultComponent extends React.Component {
                     <div className="btnArea">
                         <button type="button" className="img-btn save">Select file</button>
                         <button type="button" className="img-btn save">Predict</button>     
-                         <button type="button" className="img-btn save" onClick={dropzone.processQueue()}>Uplaod</button>                    
+                               
+                                     
                     </div>
                 </ul>
                 <FileUpload options={options} updateState={this.updateResult.bind(this)}>
