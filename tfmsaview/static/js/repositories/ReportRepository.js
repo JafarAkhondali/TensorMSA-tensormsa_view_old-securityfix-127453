@@ -10,9 +10,18 @@ export default class ReportRepository {
     }
 
     getCommonNNInfo(params) {
-        return this.api.get(`api/v1/type/common/nninfo//category//subcate//`, params).then((data) => {
+        return this.api.get(`/api/v1/type/common/nninfo//category//subcate//`, "").then((data) => {
            data = JSON.parse(data);
            return data.result;
+        });
+    }
+
+    postCommonNNInfo(opt_url, params) {
+        let url='/api/v1/type/common/nninfo/';
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
         });
     }
 
@@ -89,6 +98,7 @@ export default class ReportRepository {
         let url='/api/v1/type/imagefile/';//local test for JSON
         return this.api.get(url, params).then((data) => {
             data = JSON.parse(data);
+            console.log(data);
            return data;
         });
     }
