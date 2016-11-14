@@ -45,3 +45,14 @@ $ git config --global user.email johndoe@example.com
 - export PATH=/home/ictuser/anaconda3/bin:$PATH
 17. run jupyter
 - jupyter notebook
+18. React global variable.
+    HomeComponent.childContextTypes = {
+    NN_ID: React.PropTypes.string
+    };
+    getChildContext() {
+        return {NN_ID: "nn0000047"};
+    }
+
+StepArrowComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
+};//this.context.NN_ID

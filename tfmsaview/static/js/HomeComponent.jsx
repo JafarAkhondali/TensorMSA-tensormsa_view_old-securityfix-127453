@@ -13,13 +13,17 @@ import MainSectionComponent from './NNLayout/MainSectionComponent';
 export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  
+            this.state = {  
                         NN_InfoList : <MainSectionComponent />
-                     };
-        this.addNewNNInfo = this.addNewNNInfo.bind(this); 
-        this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
-    }
-    
+                         };
+            this.addNewNNInfo = this.addNewNNInfo.bind(this); 
+            this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
+        }
+
+      getChildContext() {
+          return {NN_ID: "nn0000047"};
+        }
+
     getHeaderEvent(i){
         switch (i) {
             case 0:
@@ -71,3 +75,7 @@ export default class HomeComponent extends React.Component {
         )
     }
 }
+
+HomeComponent.childContextTypes = {
+  NN_ID: React.PropTypes.string
+};
