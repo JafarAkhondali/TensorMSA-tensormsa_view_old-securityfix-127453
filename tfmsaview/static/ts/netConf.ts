@@ -482,7 +482,154 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
       updateDecisionBoundary(network, false);
       heatMap.updateBackground(boundary[nn.getOutputNode(network).id],
           state.discretize);
+    })
+    .on("mousedown", function(){
+      if(this.id === "canvas-1") {
+        // Update title of Hidden Table layer
+        let eleHiddenTitle = d3.select("#netconf-table > div > dl:nth-child(2) > dt > span");
+        eleHiddenTitle.html("Hidden Layer(CNN)")
+
+        // canvas-1 exist
+        if(!d3.select("#canvas-1.hidden_table").empty()) {
+          d3.select("#canvas-2.hidden_table").style({display: "none"});
+          d3.select("#canvas-3.hidden_table").style({display: "none"});
+          d3.select("#canvas-4.hidden_table").style({display: "none"});
+          d3.select("#canvas-1.hidden_table").style({display: "block"});
+        }
+        // canvas-1 non-exist
+        else {
+          // add Props and value for new property
+          d3.select("#canvas-2.hidden_table").style({display: "none"});
+          d3.select("#canvas-3.hidden_table").style({display: "none"});
+          d3.select("#canvas-4.hidden_table").style({display: "none"});           
+          // add Props and value for new property
+          let parent = d3.select("#netconf-table > div > dl:nth-child(2) > dd")
+          let table = parent.append('table').attr({id: "canvas-1", class: "form-table align-center hidden_table"});
+          let tr = table.append('thead').append('tr');
+          tr.append('th').text('Props');
+          tr.append('th').text('Value');
+          table.append('tbody');
+
+
+          let nodeHiddenTbody = d3.select("#canvas-1.hidden_table > tbody");
+          let rowLen = 8;
+          let propArray = ['type','active','cnnfilter','cnnstride','maxpoolmatrix','maxpoolstride','node_in_out','regualizer','padding','droprate'];
+
+          for(let entry of propArray) {
+            let newTr = nodeHiddenTbody.append("tr");
+            newTr.append("td").text(entry);
+            newTr.append("td").append("input").attr({type: "text", size: "8"});
+          }
+        }
+      }
+      else if(this.id == "canvas-2") {
+        // Update title of Hidden Table layer
+        let eleHiddenTitle = d3.select("#netconf-table > div > dl:nth-child(2) > dt > span");
+        eleHiddenTitle.html("Hidden Layer(Reshape)")
+        
+        // canvas-2 exist
+        if(!d3.select("#canvas-2.hidden_table").empty()) {
+          d3.select("#canvas-1.hidden_table").style({display: "none"});
+          d3.select("#canvas-3.hidden_table").style({display: "none"});
+          d3.select("#canvas-4.hidden_table").style({display: "none"});          
+          d3.select("#canvas-2.hidden_table").style({display: "block"});
+        }        
+        // canvas-2 non-exist
+        else {
+          // add Props and value for new property
+          d3.select("#canvas-1.hidden_table").style({display: "none"});
+          d3.select("#canvas-3.hidden_table").style({display: "none"});
+          d3.select("#canvas-4.hidden_table").style({display: "none"});           
+          let parent = d3.select("#netconf-table > div > dl:nth-child(2) > dd")
+          let table = parent.append('table').attr({id: "canvas-2", class: "form-table align-center hidden_table"});
+          let tr = table.append('thead').append('tr');
+          tr.append('th').text('Props');
+          tr.append('th').text('Value');
+          table.append('tbody');
+
+          let nodeHiddenTbody = d3.select("#canvas-2.hidden_table > tbody");
+          let rowLen = 8;
+          let propArray = ['type','active','cnnfilter','cnnstride','maxpoolmatrix','maxpoolstride','node_in_out','regualizer','padding','droprate'];
+
+          for(let entry of propArray) {
+            let newTr = nodeHiddenTbody.append("tr");
+            newTr.append("td").text(entry);
+            newTr.append("td").append("input").attr({type: "text", size: "8"});
+          }
+        }
+      }
+      else if(this.id == "canvas-3") {
+        // Update title of Hidden Table layer
+        let eleHiddenTitle = d3.select("#netconf-table > div > dl:nth-child(2) > dt > span");
+        eleHiddenTitle.html("Hidden Layer(Drop)")
+        // canvas-3 exist
+        if(!d3.select("#canvas-3.hidden_table").empty()) {
+          d3.select("#canvas-1.hidden_table").style({display: "none"});
+          d3.select("#canvas-2.hidden_table").style({display: "none"});
+          d3.select("#canvas-4.hidden_table").style({display: "none"});          
+          d3.select("#canvas-3.hidden_table").style({display: "block"});
+        }        
+        // canvas-3 non-exist
+        else {
+          // add Props and value for new property
+          d3.select("#canvas-1.hidden_table").style({display: "none"});
+          d3.select("#canvas-2.hidden_table").style({display: "none"});
+          d3.select("#canvas-4.hidden_table").style({display: "none"});           
+          let parent = d3.select("#netconf-table > div > dl:nth-child(2) > dd")
+          let table = parent.append('table').attr({id: "canvas-3", class: "form-table align-center hidden_table"});
+          let tr = table.append('thead').append('tr');
+          tr.append('th').text('Props');
+          tr.append('th').text('Value');
+          table.append('tbody');
+
+          let nodeHiddenTbody = d3.select("#canvas-3.hidden_table > tbody");
+          let rowLen = 8;
+          let propArray = ['type','active','cnnfilter','cnnstride','maxpoolmatrix','maxpoolstride','node_in_out','regualizer','padding','droprate'];
+
+          for(let entry of propArray) {
+            let newTr = nodeHiddenTbody.append("tr");
+            newTr.append("td").text(entry);
+            newTr.append("td").append("input").attr({type: "text", size: "8"});
+          }
+        }
+      }
+      else if(this.id == "canvas-4") {
+        // Update title of Hidden Table layer
+        let eleHiddenTitle = d3.select("#netconf-table > div > dl:nth-child(2) > dt > span");
+        eleHiddenTitle.html("Hidden Layer(Out)")
+        // canvas-3 exist
+        if(!d3.select("#canvas-4.hidden_table").empty()) {
+          d3.select("#canvas-1.hidden_table").style({display: "none"});
+          d3.select("#canvas-2.hidden_table").style({display: "none"});
+          d3.select("#canvas-3.hidden_table").style({display: "none"});          
+          d3.select("#canvas-4.hidden_table").style({display: "block"});
+        }        
+        // canvas-3 non-exist
+        else {
+          // add Props and value for new property
+          d3.select("#canvas-1.hidden_table").style({display: "none"});
+          d3.select("#canvas-2.hidden_table").style({display: "none"});
+          d3.select("#canvas-3.hidden_table").style({display: "none"});           
+          let parent = d3.select("#netconf-table > div > dl:nth-child(2) > dd")
+          let table = parent.append('table').attr({id: "canvas-4", class: "form-table align-center hidden_table"});
+          let tr = table.append('thead').append('tr');
+          tr.append('th').text('Props');
+          tr.append('th').text('Value');
+          table.append('tbody');
+
+          let nodeHiddenTbody = d3.select("#canvas-4.hidden_table > tbody");
+          let rowLen = 8;
+          let propArray = ['type','active','cnnfilter','cnnstride','maxpoolmatrix','maxpoolstride','node_in_out','regualizer','padding','droprate'];
+
+          for(let entry of propArray) {
+            let newTr = nodeHiddenTbody.append("tr");
+            newTr.append("td").text(entry);
+            newTr.append("td").append("input").attr({type: "text", size: "8"});
+          }
+        }
+      }      
     });
+
   if (isInput) {
     div.on("click", function() {
       state[nodeId] = !state[nodeId];

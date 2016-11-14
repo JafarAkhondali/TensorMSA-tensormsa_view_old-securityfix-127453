@@ -18,7 +18,7 @@ export default class DiagramSectionComponent extends React.Component {
     //1
     componentWillMount(){
         console.log("componentWillMount");
-        this._getNetConfigBasicInfo('nn0000091');
+        this._getNetConfigBasicInfo('nn0000047');
 
     }
 
@@ -47,7 +47,7 @@ export default class DiagramSectionComponent extends React.Component {
         console.log("componentWillUpdate");
         if(this.state.nnConfigBasicInfoField !== null)
         {           
-            this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000091');
+            this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000047');
         }        
     }
 

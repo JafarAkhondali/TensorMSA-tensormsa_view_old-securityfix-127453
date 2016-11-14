@@ -8,3 +8,7 @@
     3. Output Layer 데이터 
         - 1의 datasets를 output으로 출력
         - single table
+
+    ### node click시 Hidden Layer 테이블 변경
+    1. Hidden Layer
+     - id: hidden_table
