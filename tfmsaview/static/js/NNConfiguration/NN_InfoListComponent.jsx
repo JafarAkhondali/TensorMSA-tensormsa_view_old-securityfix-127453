@@ -125,12 +125,16 @@ export default class NN_InfoListComponent extends React.Component {
                         <label className="bullet" htmlFor="Name2">Name2</label>
                         <input type="text" name="Name2" placeholder="Name" />
                         <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
+
                         <div className="btnArea">
                             <div className="PNBtn">
                                 <button type="button" className="prev">Prev</button>
                                 <button type="button" className="next">Next</button>
                             </div>
                         </div>
+
+                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent(this)} />
+
                     </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">
