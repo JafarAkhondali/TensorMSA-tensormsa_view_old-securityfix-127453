@@ -176,22 +176,34 @@ export default class ReportRepository {
            return data;
         });
     }
-    postWdnnDataFrameFormat(opt_url, params) {
-        //let url='/api/v1/type/imagefile/' + opt_url ;
-        ///api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/
+    postWdnnDataFrameFormat(databaseName,tableName,nnid, params) {
         console.log(params)
-
-
         let key_set = Object.keys(params)
         for(let key of key_set){
-            //console.log("lookup dictionary")
-            //console.log(selectedValue.target.value)
-            //console.log(key);
             console.log(key +"---->"+ params[key]);
          }
-        let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/format/nn0000102/'
+
+        let url = '/api/v1/type/dataframe/base/' + databaseName + '/table/' + tableName + '/' + nnid + '/'
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    getTableListOnDataConfig(opt_url, params) {
+        let url='/api/v1/type/dataframe/base/' + opt_url +'/table/';
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
+    getDataBaseOnDataConfig(params) {
+        //getDataBaseOnDataConfig
+        let url='/api/v1/type/dataframe/base/';//local test for JSON
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
            return data;
         });
     }

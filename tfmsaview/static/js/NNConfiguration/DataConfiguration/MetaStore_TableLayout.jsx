@@ -71,9 +71,9 @@ export default class MetaStore_TableLayout extends React.Component {
         //     }
          //}
     }
-    dataFramePost(){
+    dataFramePost(databaseName,tableName,nnid){
         console.log("dataframpost")
-        this.props.reportRepository.postWdnnDataFrameFormat("",this.state.cellfeature).then((tableData) => {
+        this.props.reportRepository.postWdnnDataFrameFormat(databaseName,tableName,nnid,this.state.cellfeature).then((tableData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: tableData['result']})
         });
