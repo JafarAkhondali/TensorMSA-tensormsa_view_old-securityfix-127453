@@ -9,17 +9,22 @@ import NN_NetworkConfigurationComponent from './NNConfiguration/NN_NetworkConfig
 import NN_TrainStaticComponent from './NNConfiguration/NN_TrainStaticComponent'
 import NN_ModalComponent from './NNLayout/NN_ModalComponent';
 import MainSectionComponent from './NNLayout/MainSectionComponent';
+import NN_PreProcessingComponent from './NNConfiguration/NN_PreProcessingComponent'
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  
+            this.state = {  
                         NN_InfoList : <MainSectionComponent />
-                     };
-        this.addNewNNInfo = this.addNewNNInfo.bind(this); 
-        this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
-    }
-    
+                         };
+            this.addNewNNInfo = this.addNewNNInfo.bind(this); 
+            this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
+        }
+
+      getChildContext() {
+          return {NN_ID: "nn0000047"};
+        }
+
     getHeaderEvent(i){
         switch (i) {
             case 0:
@@ -38,7 +43,7 @@ export default class HomeComponent extends React.Component {
     }
 
     getMainInfo(){
-        this.setState({NN_InfoList: <MainSectionComponent />});        
+        this.setState({NN_InfoList: <MainSectionComponent />});         
     }
 
     getNetInfo(){
@@ -71,3 +76,7 @@ export default class HomeComponent extends React.Component {
         )
     }
 }
+
+HomeComponent.childContextTypes = {
+  NN_ID: React.PropTypes.string
+};
