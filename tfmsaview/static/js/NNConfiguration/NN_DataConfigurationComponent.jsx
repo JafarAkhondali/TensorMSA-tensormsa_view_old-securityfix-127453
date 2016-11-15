@@ -43,7 +43,7 @@ export default class NN_DataConfigurationComponent extends React.Component {
                         <li className={this.isActive('meta')} onClick={this.setFilter.bind(this, 'meta')}><a href="#">Meta Store</a></li>
                         <li className={this.isActive('images')} onClick={this.setFilter.bind(this, 'images')}><a href="#">Images</a></li>
                         <li className={this.isActive('texts')} onClick={this.setFilter.bind(this, 'texts')}><a href="#">Raw Texts</a></li>
-                        <StepArrowComponent  getHeaderEvent={this.props.getHeaderEvent}/>
+                        <StepArrowComponent />
                     </ul>
 				    {this.state.DataConfigurationComponent}
             </section>

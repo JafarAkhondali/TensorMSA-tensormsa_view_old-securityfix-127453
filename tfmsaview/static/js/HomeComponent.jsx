@@ -9,6 +9,7 @@ import NN_NetworkConfigurationComponent from './NNConfiguration/NN_NetworkConfig
 import NN_TrainStaticComponent from './NNConfiguration/NN_TrainStaticComponent'
 import NN_ModalComponent from './NNLayout/NN_ModalComponent';
 import MainSectionComponent from './NNLayout/MainSectionComponent';
+import NN_PreProcessingComponent from './NNConfiguration/NN_PreProcessingComponent'
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -42,7 +43,7 @@ export default class HomeComponent extends React.Component {
     }
 
     getMainInfo(){
-        this.setState({NN_InfoList: <MainSectionComponent />});        
+        this.setState({NN_InfoList: <MainSectionComponent />});         
     }
 
     getNetInfo(){
