@@ -25,6 +25,7 @@ export default class DiagramSectionComponent extends React.Component {
     componentDidMount(){
         const libScript = document.createElement("script");
         const tsScript = document.createElement("script");
+        const tsMapScript = document.createElement("script");
 
         libScript.src = "../../../dist/lib.js";
         libScript.async = false;
@@ -32,8 +33,13 @@ export default class DiagramSectionComponent extends React.Component {
         tsScript.src = "../../../dist/NetConf.js";
         tsScript.async = true;
 
+        tsMapScript.src = "../../../dist/NetConf.js.map";
+        tsMapScript.async = true;
+
+        document.body.appendChild(tsMapScript);
         document.body.appendChild(libScript);
         document.body.appendChild(tsScript);
+        
     }
 
     // 3!
@@ -155,11 +161,7 @@ export default class DiagramSectionComponent extends React.Component {
                                                 <path d="M0,0 L5,2.5 L0,5 z" />
                                             </marker>
                                         </defs>
-                                        <path d="M12,30C5,20 2,15 12,0" markerEnd="url(#arrow)"/>
                                     </svg>
-                                    <div className="label">
-                                        This is the output from one <b>neuron</b>. Hover to see it larger.
-                                    </div>
                                 </div>
                                 <div className="callout weights">
                                     <svg viewBox="0 0 30 30">
@@ -168,11 +170,7 @@ export default class DiagramSectionComponent extends React.Component {
                                                 <path d="M0,0 L5,2.5 L0,5 z" />
                                             </marker>
                                         </defs>
-                                        <path d="M12,30C5,20 2,15 12,0" markerEnd="url(#arrow)"/>
                                     </svg>
-                                    <div className="label">
-                                        The outputs are mixed with varying <b>weights</b>, shown by the thickness of the lines.
-                                    </div>
                                 </div>
                             </div>                        
                         </div>                        
@@ -196,48 +194,12 @@ export default class DiagramSectionComponent extends React.Component {
 
                         {/* Output Column */}
                         <div className='column output'>
-                            <h4>Output</h4>
                             <div className="metrics">
                                 <div className="output-stats ui-percTrainData">
-                                    <span>Test loss</span>
-                                    <div className="value" id="loss-test"></div>
                                 </div>
                                 <div className="output-stats train">
-                                    <span>Training loss</span>
-                                    <div className="value" id="loss-train"></div>
                                 </div>
                                 <div id="linechart"></div>
-                            </div>
-                            <div id="heatmap"></div>
-                            <div>
-                                <div>
-                                    {/* Gradient color scale */}  
-                                    <div className="label">
-                                    </div>
-                                    <svg width="150" height="30" id="colormap">
-                                        <defs>
-                                            <linearGradient id="gradient" x1="0%" y1="100%" x2="100%" y2="100%">
-                                                <stop offset="0%" stopColor="#f59322" stopOpacity="1"></stop>
-                                                <stop offset="50%" stopColor="#e8eaeb" stopOpacity="1"></stop>
-                                                <stop offset="100%" stopColor="#0877bd" stopOpacity="1"></stop>
-                                            </linearGradient>
-                                        </defs>
-                                        <g className="core" transform="translate(3, 0)">
-                                            <rect width="144" height="10"></rect>
-                                        </g>
-                                    </svg>
-                                </div>
-                                <br />
-                                <div>
-                                    <label className="ui-showTestData mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="show-test-data">
-                                        <input type="checkbox" id="show-test-data" className="mdl-checkbox__input" defaultChecked/>
-                                            <span className="mdl-checkbox__label label">Show test data</span>
-                                    </label>
-                                    <label className="ui-discretize mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="discretize">
-                                        <input type="checkbox" id="discretize" className="mdl-checkbox__input" defaultChecked/>
-                                            <span className="mdl-checkbox__label label">Discretize output</span>
-                                    </label>
-                                </div>
                             </div>
                         </div>                    
                     </div>

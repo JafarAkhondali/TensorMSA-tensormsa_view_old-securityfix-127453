@@ -236,10 +236,10 @@ function makeGUI() {
     .classed("selected", true);
 
   d3.select("#add-layers").on("click", () => {
-    if (state.numHiddenLayers >= 6) {
+    if (state.numHiddenLayers >= 10) {
       return;
     }
-    state.networkShape[state.numHiddenLayers] = 2;
+    state.networkShape[state.numHiddenLayers] = 1;
     state.numHiddenLayers++;
     reset();
   });
@@ -484,6 +484,17 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           state.discretize);
     })
     .on("mousedown", function(){
+      // check whether if CNN or Reshape or Drop or Out layer
+      debugger;
+
+
+
+
+
+
+
+
+
       if(this.id === "canvas-1") {
         // Update title of Hidden Table layer
         let eleHiddenTitle = d3.select("#netconf-table > div > dl:nth-child(2) > dt > span");
@@ -509,7 +520,6 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           tr.append('th').text('Props');
           tr.append('th').text('Value');
           table.append('tbody');
-
 
           let nodeHiddenTbody = d3.select("#canvas-1.hidden_table > tbody");
           let rowLen = 8;
@@ -696,7 +706,7 @@ function drawNetwork(network: nn.Node[][]): void {
     let numNodes = network[layerIdx].length;
     let cx = layerScale(layerIdx) + RECT_SIZE / 2;
     maxY = Math.max(maxY, nodeIndexScale(numNodes));
-    addPlusMinusControl(layerScale(layerIdx), layerIdx);
+    addPlusMinusControl(layerScale(layerIdx), layerIdx); 
     for (let i = 0; i < numNodes; i++) {
       let node = network[layerIdx][i];
       let cy = nodeIndexScale(i) + RECT_SIZE / 2;
@@ -751,8 +761,7 @@ function drawNetwork(network: nn.Node[][]): void {
   // Draw links.
   for (let i = 0; i < node.inputLinks.length; i++) {
     let link = node.inputLinks[i];
-    drawLink(link, node2coord, network, container, i === 0, i,
-        node.inputLinks.length);
+    //drawLink(link, node2coord, network, container, i === 0, i, node.inputLinks.length);
   }
   // Adjust the height of the svg.
   svg.attr("height", maxY);
@@ -962,7 +971,7 @@ function updateUI(firstStep = false) {
   // Update the links visually.
   updateWeightsUI(network, d3.select("g.core"));
   // Update the bias values visually.
-  updateBiasesUI(network);
+  // updateBiasesUI(network);
   // Get the decision boundary of the network.
   updateDecisionBoundary(network, firstStep);
   let selectedId = selectedNodeId != null ?
