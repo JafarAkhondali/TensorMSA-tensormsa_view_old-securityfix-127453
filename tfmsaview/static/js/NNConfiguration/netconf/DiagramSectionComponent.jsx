@@ -91,7 +91,6 @@ export default class DiagramSectionComponent extends React.Component {
                                 <span>Data</span>
                             </h4>
                             <div className="ui-dataset">
-                                <p>Which dataset do you want to use?</p>
                                 <div className="dataset-list">
                                     <div className="dataset" title="Circle">
                                         <canvas className="data-thumbnail" data-dataset="circle"></canvas>
@@ -141,7 +140,6 @@ export default class DiagramSectionComponent extends React.Component {
                         {/* Features Column */}
                         <div className='column features'>
                             <h4>Features</h4>
-                            <p>Which properties do you want to feed in?</p>
                             <div id="network">
                                 <svg id="svg" width="510" height="450">
                                     <defs>
