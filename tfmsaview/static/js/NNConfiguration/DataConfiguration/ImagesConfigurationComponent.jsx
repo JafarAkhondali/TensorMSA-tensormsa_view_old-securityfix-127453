@@ -13,9 +13,10 @@ export default class ImagesConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
         this.closeModal = this.closeModal.bind(this);
+        this.networkId = null;
+        this.saveModal = this.saveModal.bind(this);
         this.state = {
                 imagePaths : null,
-                networkId : "nn0000045",
                 databaseName : null,
                 tableName : null,
                 labelName : null,
@@ -37,13 +38,13 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     //when page called on first 
     componentDidMount(){
+        this.networkId = this.context.NN_ID
         this.initDataBaseLov();
-        
     }
 
     // 
     initDataBaseLov(){
-        this.props.reportRepository.getNetBaseInfo(this.state.networkId).then((nnBaseInfo) => {
+        this.props.reportRepository.getNetBaseInfo(this.networkId).then((nnBaseInfo) => {
             let base = nnBaseInfo['result'][0]['fields']['dir'];
             let table = nnBaseInfo['result'][0]['fields']['table'];   
 
@@ -69,7 +70,7 @@ export default class ImagesConfigurationComponent extends React.Component {
     // init table lov
     initTableLov(base, table){
 
-        let requestUrl = "base/" + base + "/table/" + table + "/format/" + this.state.networkId + "/";
+        let requestUrl = "base/" + base + "/table/" + table + "/format/" + this.networkId + "/";
             this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
                 let formatData = format['result']
                 let xSize = formatData['x_size'];
@@ -90,7 +91,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                 this.setState({domSizeX : xSize});
                 this.setState({domSizeY : ySize});  
                 this.setState({setBtn : setBtn});
-                this.searchBtn(this.state.networkId);
+                this.searchBtn(this.networkId);
             });       
     }
 
@@ -107,7 +108,7 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     // on Search button event occurs 
     searchBtn(nnid){
-        this.props.reportRepository.getPreviewImagePath(this.state.networkId).then((previewPaths) => {
+        this.props.reportRepository.getPreviewImagePath(this.networkId).then((previewPaths) => {
             this.setState({imagePaths: previewPaths['result']})
         });
     }
@@ -129,7 +130,7 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     // get format data 
     getFormatData(){
-        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/format/" + this.state.networkId + "/";
+        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/format/" + this.networkId + "/";
         this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
             let formatData = format['result']
             this.setState({xSize : formatData['x_size']})
@@ -164,16 +165,22 @@ export default class ImagesConfigurationComponent extends React.Component {
     openModal(type){
         console.log(type)
         if(type == 'table'){
-            this.setState({selModalView : <ModalViewTableCreate/>})
+            this.setState({selModalView : <ModalViewTableCreate saveModal={this.saveModal} closeModal={this.closeModal}/>} )
         }
         else if (type == 'label'){
-            this.setState({selModalView : <ModalViewLabelCreate networkId={this.state.networkId}/>})
+            this.setState({selModalView : <ModalViewLabelCreate networkId={this.networkId}/>})
         }
         this.setState({open: true})
     }
 
     // close modal 
-    closeModal () { this.setState({open: false}); }
+    closeModal() { this.setState({open: false}); }
+
+    // save modal 
+    saveModal(base, table) { 
+        this.setState({baseDom : base})
+        this.setState({tableDom : table})
+    }
 
     render() {
         return (
@@ -195,7 +202,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                             <tbody>
                                 <tr>
                                     <th>Network ID</th>
-                                    <td width>{this.state.networkId}</td>
+                                    <td width>{this.networkId}</td>
                                     <th>*DataBase</th>
                                     <td width>
                                         {this.state.baseDom}
@@ -225,9 +232,6 @@ export default class ImagesConfigurationComponent extends React.Component {
                             onRequestClose={this.closeModal}>
                             <div className="modal-dialog modal-lg">
                                 {this.state.selModalView}
-                                <span className="modal-footer">
-                                        <button onClick={this.closeModal}>Close</button>
-                                </span>
                             </div>
                         </Modal>
                         
@@ -245,4 +249,8 @@ export default class ImagesConfigurationComponent extends React.Component {
 
 ImagesConfigurationComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
+};
+
+ImagesConfigurationComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
 };
