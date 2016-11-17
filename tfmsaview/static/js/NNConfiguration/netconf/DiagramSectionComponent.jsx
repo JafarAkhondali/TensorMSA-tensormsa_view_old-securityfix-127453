@@ -18,7 +18,7 @@ export default class DiagramSectionComponent extends React.Component {
     //1
     componentWillMount(){
         console.log("componentWillMount");
-        this._getNetConfigBasicInfo('nn0000047');
+        this._getNetConfigBasicInfo('nn0000090');
 
     }
 
@@ -53,7 +53,7 @@ export default class DiagramSectionComponent extends React.Component {
         console.log("componentWillUpdate");
         if(this.state.nnConfigBasicInfoField !== null)
         {           
-            this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000047');
+            this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000090');
         }        
     }
 
@@ -132,14 +132,13 @@ export default class DiagramSectionComponent extends React.Component {
                                     </p>
                                 </div>
                                 <button className="basic-button" id="data-regen-button" title="Regenerate data">
-                                    Regenerate
+                                    Save
                                 </button>
                             </div>
                         </div>
 
                         {/* Features Column */}
                         <div className='column features'>
-                            <h4>Features</h4>
                             <div id="network">
                                 <svg id="svg" width="510" height="450">
                                     <defs>

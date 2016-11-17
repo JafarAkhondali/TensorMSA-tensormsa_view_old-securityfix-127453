@@ -160,6 +160,7 @@ export class HeatMap {
     }
 
     // Compute the pixel colors; scaled by CSS.
+    /*
     let context = (<HTMLCanvasElement>this.canvas.node()).getContext("2d");
     let image = context.createImageData(dx, dy);
 
@@ -177,6 +178,7 @@ export class HeatMap {
       }
     }
     context.putImageData(image, 0, 0);
+    */
   }
 
   private updateCircles(container: d3.Selection<any>, points: Example2D[]) {

@@ -30,7 +30,7 @@ import {
   Problem
 } from "./state";
 import {Example2D, shuffle} from "./dataset";
-import {AppendingLineChart} from "./linechart";
+//import {AppendingLineChart} from "./linechart";
 
 let mainWidth;
 
@@ -66,8 +66,8 @@ interface InputFeature {
 }
 
 let INPUTS: {[name: string]: InputFeature} = {
-  "x": {f: (x, y) => x, label: "X_1"},
-  "y": {f: (x, y) => y, label: "X_2"},
+  "x": {f: (x, y) => x, label: ""},
+  //"y": {f: (x, y) => y, label: "X_2"},
   // "xSquared": {f: (x, y) => x * x, label: "X_1^2"},
   // "ySquared": {f: (x, y) => y * y,  label: "X_2^2"},
   // "xTimesY": {f: (x, y) => x * y, label: "X_1X_2"},
@@ -92,6 +92,8 @@ let HIDABLE_CONTROLS = [
   ["Batch size", "batchSize"],
   ["# of hidden layers", "numHiddenLayers"],
 ];
+
+let nodeTypeArray = [];
 
 class Player {
   private timerIndex = 0;
@@ -172,8 +174,8 @@ let network: nn.Node[][] = null;
 let lossTrain = 0;
 let lossTest = 0;
 let player = new Player();
-let lineChart = new AppendingLineChart(d3.select("#linechart"),
-    ["#777", "black"]);
+// let lineChart = new AppendingLineChart(d3.select("#linechart"),
+//     ["#777", "black"]);
 
 function makeGUI() {
   d3.select("#reset-button").on("click", () => {
@@ -242,15 +244,17 @@ function makeGUI() {
     state.networkShape[state.numHiddenLayers] = 1;
     state.numHiddenLayers++;
     reset();
+    reGrantNodeType();
   });
 
   d3.select("#remove-layers").on("click", () => {
-    if (state.numHiddenLayers <= 0) {
+    if (state.numHiddenLayers <= 4) { // In case CNN
       return;
     }
     state.numHiddenLayers--;
     state.networkShape.splice(state.numHiddenLayers);
     reset();
+    reGrantNodeType();
   });
 
   let showTestData = d3.select("#show-test-data").on("change", function() {
@@ -484,7 +488,20 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           state.discretize);
     })
     .on("mousedown", function(){
-      // check whether if CNN or Reshape or Drop or Out layer
+      // 1. Get network numHiddenLayers
+      console.log(state.numHiddenLayers);
+      console.log(nodeId);
+
+      // 2. check whether if CNN or Reshape or Drop or Out layer
+      //state.numHiddenLayers - nodeId
+
+
+
+
+      // 2. loop for grant node type
+      for(let entry of state.networkShape)
+      {
+      }
       debugger;
 
 
@@ -796,6 +813,7 @@ function addPlusMinusControl(x: number, layerIdx: number) {
         }
         state.networkShape[i]++;
         reset();
+        reGrantNodeType();
       })
     .append("i")
       .attr("class", "material-icons")
@@ -810,14 +828,15 @@ function addPlusMinusControl(x: number, layerIdx: number) {
         }
         state.networkShape[i]--;
         reset();
+        reGrantNodeType();
       })
     .append("i")
       .attr("class", "material-icons")
       .text("remove");
 
-  let suffix = state.networkShape[i] > 1 ? "s" : "";
+  let suffix = state.networkShape[i] > 1 ? "" : "";
   div.append("div").text(
-    state.networkShape[i] + " neuron" + suffix
+    state.networkShape[i]*10 + " neuron" + suffix
   );
 }
 
@@ -1002,7 +1021,7 @@ function updateUI(firstStep = false) {
   d3.select("#loss-train").text(humanReadable(lossTrain));
   d3.select("#loss-test").text(humanReadable(lossTest));
   d3.select("#iter-number").text(addCommas(zeroPad(iter)));
-  lineChart.addDataPoint([lossTrain, lossTest]);
+  //lineChart.addDataPoint([lossTrain, lossTest]);
 }
 
 function constructInputIds(): string[] {
@@ -1057,7 +1076,7 @@ export function getOutputWeights(network: nn.Node[][]): number[] {
 }
 
 function reset() {
-  lineChart.reset();
+  //lineChart.reset();
   state.serialize();
   player.pause();
 
@@ -1199,6 +1218,39 @@ function generateData(firstTime = false) {
   testData = data.slice(splitIndex);
   heatMap.updatePoints(trainData);
   heatMap.updateTestPoints(state.showTestData ? testData : []);
+}
+
+function reGrantNodeType()
+{
+  console.log("reGrantNodeType");
+
+  let nodeType: string;
+
+  for(let i=0; i < state.numHiddenLayers; i++)
+  {
+    // decide the node type
+    if(i < state.numHiddenLayers - 3)
+    {
+      nodeType = "CNN" + (i+1).toString();
+    }
+    else if(i == state.numHiddenLayers - 3)
+    {
+      nodeType = "RESHAPE";
+    }
+    else if(i == state.numHiddenLayers - 2)
+    {
+      nodeType = "DROP";
+    }
+    else{
+      nodeType = "OUT";
+    }
+
+    for(let j=0; j < state.networkShape[i]; j++)
+    {
+      nodeTypeArray[j] = nodeType;
+      console.log(nodeTypeArray[j]);
+    }
+  }
 }
 
 drawDatasetThumbnails();
