@@ -15,18 +15,18 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.networkId = null;
         this.saveModal = this.saveModal.bind(this);
+        this.databaseName = null;
+        this.tableName = null;
+        this.labelName = null;
+        this.xSize = null;
+        this.ySize = null;
         this.state = {
                 imagePaths : null,
-                databaseName : null,
-                tableName : null,
-                labelName : null,
                 formAction : null,
                 uploadFileList : [],
                 rate : 0,
                 selModalView : null,
                 tableSelectList : null,
-                xSize : null,
-                ySize : null,
                 formatData : {},
                 baseDom : null,
                 tableDom : null,
@@ -47,20 +47,6 @@ export default class ImagesConfigurationComponent extends React.Component {
         this.props.reportRepository.getNetBaseInfo(this.networkId).then((nnBaseInfo) => {
             let base = nnBaseInfo['result'][0]['fields']['dir'];
             let table = nnBaseInfo['result'][0]['fields']['table'];   
-
-            if(!base){
-                base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
-                                <option value="1">Data Base List</option>
-                                <option value="mes">MES</option>
-                                <option value="scm">SCM</option>
-                                <option value="erp">ERP</option>
-                            </select>
-            }
-            
-            if(!table){
-                table = <input type="text" name="table" placeholder="table" 
-                                            onChange={this.setTableName.bind(this)} value={this.state.value} />
-            }
             this.setState({baseDom : base});
             this.setState({tableDom : table});
             this.initTableLov(base, table);
@@ -97,9 +83,9 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     // post format data
     postFormatData(){
-        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName
-        + "/format/" + this.state.networkId + "/";
-        let formatSize = {"x_size" : this.state.xSize, "y_size" : this.state.ySize}
+        let requestUrl = "base/" + this.databaseName + "/table/" + this.tableName
+        + "/format/" + this.networkId + "/";
+        let formatSize = {"x_size" : this.xSize, "y_size" : this.ySize}
 
         this.props.reportRepository.postImageFormatData(requestUrl, formatSize).then((format) => {
             this.initDataBaseLov();
@@ -113,52 +99,14 @@ export default class ImagesConfigurationComponent extends React.Component {
         });
     }
 
-    // on Search button event occurs 
-    getTableList(){
-        let requestUrl = "base/" + this.state.databaseName + "/table/";
-        this.props.reportRepository.getTableList(requestUrl).then((tableList) => {
-            let rows = [];
-            let i=0;
-            rows.push(<option value="1">Table List</option>)
-            for (let tableName of tableList['result']){
-                rows.push(<option key={i++} value={tableName}>{tableName}</option>)
-            }
-
-            this.setState({tableSelectList : rows});
-        });
-    }
-
-    // get format data 
-    getFormatData(){
-        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/format/" + this.networkId + "/";
-        this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
-            let formatData = format['result']
-            this.setState({xSize : formatData['x_size']})
-            this.setState({ySize : formatData['y_size']})
-        });
-    }
-
-    // on database name changed 
-    setDatabaseName(obj){
-        this.setState({databaseName : obj.target.value}, function(){ 
-            this.getTableList()
-        });
-    }
-
-    // on tab name changed
-    setTableName(obj){
-        this.setState({tableName: obj.target.value}, function(){ 
-            this.getFormatData()
-        });
-    }
     // on label name
     setXSize(obj){
-        this.setState({xSize: obj.target.value});
+        this.xSize = obj.target.value;
     }
     
     // on label name
     setYSize(obj){
-        this.setState({ySize: obj.target.value});
+        this.ySize = obj.target.value;
     }
 
     //route modal view 
@@ -178,8 +126,11 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     // save modal 
     saveModal(base, table) { 
+        this.databaseName = base
+        this.tableName = table
         this.setState({baseDom : base})
         this.setState({tableDom : table})
+        this.setState({open: false});
     }
 
     render() {
