@@ -56,3 +56,6 @@ $ git config --global user.email johndoe@example.com
 StepArrowComponent.contextTypes = {
     NN_ID: React.PropTypes.string
 };//this.context.NN_ID
+18.Git sync master
+- git fetch origin
+- git reset --hard origin/master

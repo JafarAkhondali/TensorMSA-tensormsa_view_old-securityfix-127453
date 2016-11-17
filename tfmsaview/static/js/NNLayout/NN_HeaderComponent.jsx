@@ -42,6 +42,7 @@ export default class NN_HeaderComponent extends React.Component {
 					<h1 className="hidden">Navigator</h1>
 					<ul>
 						<li className={this.isActive(1)}><a href="#" onClick={this.setFilter.bind(this, 1)}>Net Info</a></li>
+							<li><a href="#">preprocessing</a></li>
 						<li className={this.isActive(2)}><a href="#" onClick={this.setFilter.bind(this, 2)}>Data</a></li>
 						<li className={this.isActive(3)}><a href="#" onClick={this.setFilter.bind(this, 3)}>Net conf</a></li>  
 						<li className={this.isActive(4)}><a href="#" onClick={this.setFilter.bind(this, 4)}>Train Statistics</a></li>
