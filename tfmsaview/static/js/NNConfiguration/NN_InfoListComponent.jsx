@@ -8,13 +8,6 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import NN_BasicInfoComponent from './NN_BasicInfoComponent';
 import Modal from 'react-modal';
 
-
-
-// If you want to enable deleteRow, you must enable row selection also.
-const selectRowProp = {
-    mode: 'checkbox'
-};
-
 function onAfterSaveCell(row, cellName, cellValue) {
     console.log("Save cell '" + cellName + "' with value '" + cellValue + "'");
     console.log("Thw whole row :");
@@ -41,7 +34,7 @@ function signalFormatter(cell, row) {
 }
 
 export default class NN_InfoListComponent extends React.Component {
-    constructor(props) {
+    constructor(props, context) {
         super(props);
         this.closeModal = this.closeModal.bind(this);
         this.deleteCommonNNInfo = this.deleteCommonNNInfo.bind(this);
@@ -49,7 +42,7 @@ export default class NN_InfoListComponent extends React.Component {
             tableData: null,
             NN_TableData: null,
             selModalView: null,
-            pagination: true
+            NN_ID : null
         };
     }
 
@@ -60,7 +53,6 @@ export default class NN_InfoListComponent extends React.Component {
     }
 
     deleteCommonNNInfo(params) {
-        console.log('시작')
         this.props.reportRepository.deleteCommonNNInfo(params);
         this.getCommonNNInfo();
     }
@@ -110,16 +102,23 @@ export default class NN_InfoListComponent extends React.Component {
 
     render() {
 
-        function generateDeleteBtn(delBtnClick) {
-            return (
-                <button onClick={ delBtnClick }>MyDeleteBtn</button>
-            );
-        }
-
         function onAfterDeleteRow(rowKeys) {
             console.log(typeof deleteCommonNNInfo);
             //alert('The rowkey you drop: ' + rowKeys);
             this.deleteCommonNNInfo(rowKeys);
+        }
+
+        function onSelectRow(row) {
+            //alert(`You click row id: ${row.key}`);
+            //console.log(this.thisClass.props)
+            this.thisClass.props.setActiveItem(row.key);
+        }
+
+        const selectRowProp = {
+            mode: 'radio',
+            clickToSelect: true,
+            onSelect: onSelectRow,
+            thisClass : this
         }
 
         const options = {
@@ -136,9 +135,9 @@ export default class NN_InfoListComponent extends React.Component {
                 this.state.NN_TableData[i].fields['key'] = this.state.NN_TableData[i].pk;
                 result[i] = this.state.NN_TableData[i].fields;
             }
-            //this.setState({currData: result});
             console.log(result);
         }
+
         return (
             <section>
                 <h1 className="hidden">tensor MSA main table</h1>
@@ -170,10 +169,8 @@ export default class NN_InfoListComponent extends React.Component {
                         hover={true}
                         condensed={true}
                         pagination={true}
-                        pagination={this.state.pagination}
                         selectRow={selectRowProp}
-                        deleteRow={ generateDeleteBtn }
-                        //deleteRow={true}
+                        deleteRow={true}
                         search={true}>
                         <TableHeaderColumn isKey={true} dataField="key" width="100">ID</TableHeaderColumn>
                         <TableHeaderColumn dataField="category" width="70">그룹</TableHeaderColumn>
@@ -205,3 +202,8 @@ export default class NN_InfoListComponent extends React.Component {
 NN_InfoListComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 };
+
+NN_InfoListComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
+};
+

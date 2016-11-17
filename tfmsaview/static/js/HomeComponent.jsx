@@ -15,15 +15,21 @@ export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
             this.state = {  
-                        NN_InfoList : <MainSectionComponent />
+                        NN_InfoList : <MainSectionComponent />,
+                        NN_ID : null
                          };
             this.addNewNNInfo = this.addNewNNInfo.bind(this); 
-            this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
+            this.getHeaderEvent = this.getHeaderEvent.bind(this);
+            this.setActiveItem = this.setActiveItem.bind(this);
         }
 
-      getChildContext() {
-          return {NN_ID: "nn0000047"};
-        }
+    getChildContext() {
+          return {NN_ID : this.state.NN_ID};
+    }
+
+    setActiveItem(item) {
+        this.setState({NN_ID: item});
+    }
 
     getHeaderEvent(i){
         switch (i) {
@@ -43,11 +49,11 @@ export default class HomeComponent extends React.Component {
     }
 
     getMainInfo(){
-        this.setState({NN_InfoList: <MainSectionComponent />});         
+        this.setState({NN_InfoList: <MainSectionComponent />});    
     }
 
     getNetInfo(){
-        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo} getHeaderEvent={this.getHeaderEvent} />});        
+        this.setState({NN_InfoList: <NN_InfoListComponent setActiveItem={this.setActiveItem} addNewNNInfo={this.addNewNNInfo} getHeaderEvent={this.getHeaderEvent} />});        
     }
     
     addNewNNInfo(){
@@ -56,10 +62,11 @@ export default class HomeComponent extends React.Component {
     
     setDataConfiguration(){
             this.setState({NN_InfoList: <NN_DataConfigurationComponent/>});   
+              
     }
 
     setNetConfiguration(){
-            this.setState({NN_InfoList: <NN_NetworkConfigurationComponent/>});   
+            this.setState({NN_InfoList: <NN_NetworkConfigurationComponent/>});  
     }
 
     getTimeStatistics(){
