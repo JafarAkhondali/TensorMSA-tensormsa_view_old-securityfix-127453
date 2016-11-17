@@ -46,8 +46,8 @@ export default class HomeComponent extends React.Component {
                 return this.getTimeStatistics(); //call Data Configuration
             case 5:
                 return this.getPredictResult(); //call Data Configuration    
-
-
+            case 6:
+                return this.getPreProcessing(); //call Data Configuration 
         }
     }
 
@@ -78,6 +78,10 @@ export default class HomeComponent extends React.Component {
 
     getPredictResult(){
             this.setState({NN_InfoList: <NN_PredictResultComponent/>});   
+    }
+
+    getPreProcessing(){
+            this.setState({NN_InfoList: <NN_PreProcessingComponent/>});   
     }
 
     render() {

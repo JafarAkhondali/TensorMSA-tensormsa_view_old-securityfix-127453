@@ -5,7 +5,7 @@ export default class MainSectionComponent extends React.Component {
         return (   
                 <section>
                     <div>
-                        <font size="50" color="gray">Hoya is a Machine Intelligence Library Based on Tensorflow</font>
+                        <font size="50" color="gray">Hoya is a Machine Intelligence Framework Based on Tensorflow</font>
                     </div>
                 </section>
         )
