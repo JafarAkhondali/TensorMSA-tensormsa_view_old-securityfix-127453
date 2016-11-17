@@ -188,7 +188,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                         
                         <div className="img-box-wrap">
                             <div className="img-box-container">
-                                <ImagePreviewLayout imageDataSet={this.state}/>
+                                <ImagePreviewLayout imageDataSet={this.state} netId={this.networkId}/>
                             </div>
                         </div>
                     </article>
