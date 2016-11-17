@@ -5,8 +5,9 @@ import ReportRepository from './../repositories/ReportRepository'
 export default class NN_BasicInfoComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.key_id = null;
         this.state = {
-                nn_id     : 'nn00009999',
+                nn_id     : null,
                 category  : null,
                 subcate   : null,
                 type      : null,
@@ -40,20 +41,20 @@ export default class NN_BasicInfoComponent extends React.Component {
         this.setState({desc: obj.target.value});
     }
 
-    get_nn_id(){
-        return this.state.category + this.state.subcate + this.state.type + this.state.name;
+    make_nn_id(){
+        this.key_id = this.state.category + this.state.subcate + this.state.type + Math.floor((Math.random() * 100000) + 1);
     }
     // add user request new table
     postCommonNNInfo(){
-        console.log("키는 : " + this.get_nn_id());
         //let keyValue = 'nn00009999';
         //this.setState({nn_id: keyValue});
 
-        let requestUrl = "";
+        this.make_nn_id();
+        console.log("키는 : " + this.key_id);
         //nninfoObj = new Object();
         //nninfoObj.nn_id = 'nn00009999';
 
-        this.props.reportRepository.postCommonNNInfo(null, this.state).then((answer) => {
+        this.props.reportRepository.postCommonNNInfo(null, this.key_id, this.state).then((answer) => {
             
             
         });;

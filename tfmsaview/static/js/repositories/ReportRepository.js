@@ -16,12 +16,22 @@ export default class ReportRepository {
         });
     }
 
-    postCommonNNInfo(opt_url, params) {
+    postCommonNNInfo(opt_url, id, params) {
         let url='/api/v1/type/common/nninfo/';
+        console.log("키값은 : " + id);
+        params["nn_id"] = id;
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
             console.log(data);
            return data;
+        });
+    }
+
+    deleteCommonNNInfo(params) {
+        let url='/api/v1/type/common/nninfo/' + params + '/';
+        return this.api.delete(url, "").then((data) => {
+            data = JSON.parse(data);
+            return data;
         });
     }
 
