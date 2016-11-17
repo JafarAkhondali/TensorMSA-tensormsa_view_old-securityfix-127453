@@ -33,15 +33,26 @@ assert 'value' in value
 11. get super user in linux
 - su - then passwd
 12. git push cancel
-- git push -f origin (last commit id):master
+- git push -f origin (last commit id):master / git push -f origin commit_id_value:master
 13. kill firefox or node on linux
 - killall firefox (node)
 14. delete untracked file in git
 - git clean -f / git clean -fd (directory)
 15. git set global user
-$ git config --global user.name "John Doe"
+$ git config --global user.namenode "John Doe"
 $ git config --global user.email johndoe@example.com
 16. set anaconda Path
 - export PATH=/home/ictuser/anaconda3/bin:$PATH
 17. run jupyter
 - jupyter notebook
+18. React global variable.
+    HomeComponent.childContextTypes = {
+    NN_ID: React.PropTypes.string
+    };
+    getChildContext() {
+        return {NN_ID: "nn0000047"};
+    }
+
+StepArrowComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
+};//this.context.NN_ID

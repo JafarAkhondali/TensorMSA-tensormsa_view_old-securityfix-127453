@@ -7,37 +7,55 @@ import NN_BasicInfoComponent from './NNConfiguration/NN_BasicInfoComponent'
 import NN_DataConfigurationComponent from './NNConfiguration/NN_DataConfigurationComponent'
 import NN_NetworkConfigurationComponent from './NNConfiguration/NN_NetworkConfigurationComponent'
 import NN_TrainStaticComponent from './NNConfiguration/NN_TrainStaticComponent'
+<<<<<<< HEAD
 import NN_PredictResultComponent from './NNConfiguration/NN_PredictResultComponent'
+=======
+import NN_ModalComponent from './NNLayout/NN_ModalComponent';
+import MainSectionComponent from './NNLayout/MainSectionComponent';
+import NN_PreProcessingComponent from './NNConfiguration/NN_PreProcessingComponent'
+>>>>>>> 0f876d1aeb31e5c0f398f8132deba0c1602efd93
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  
-                        NN_InfoList : null
-                     };
-        this.addNewNNInfo = this.addNewNNInfo.bind(this); 
-        this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
-    }
-    
+            this.state = {  
+                        NN_InfoList : <MainSectionComponent />
+                         };
+            this.addNewNNInfo = this.addNewNNInfo.bind(this); 
+            this.getHeaderEvent = this.getHeaderEvent.bind(this);//need method to send child
+        }
+
+      getChildContext() {
+          return {NN_ID: "nn0000047"};
+        }
+
     getHeaderEvent(i){
         switch (i) {
             case 0:
-                return this.getNetInfo(); //call Net Info
+                return this.getMainInfo(); //call Net Info
             case 1:
-                return this.setDataConfiguration(); //call Data Configuration
+                return this.getNetInfo(); //call Net Info
             case 2:
-                return this.setNetConfiguration(); //call Data Configuration
+                return this.setDataConfiguration(); //call Data Configuration
             case 3:
-                return this.getTimeStatistics(); //call Data Configuration
+                return this.setNetConfiguration(); //call Data Configuration
             case 4:
                 return this.getTimeStatistics(); //call Data Configuration
             case 5:
+<<<<<<< HEAD
                 return this.getPredictResult(); //call Data Configuration    
+=======
+                return this.getTimeStatistics(); //call Data Configuration
+>>>>>>> 0f876d1aeb31e5c0f398f8132deba0c1602efd93
         }
     }
 
+    getMainInfo(){
+        this.setState({NN_InfoList: <MainSectionComponent />});         
+    }
+
     getNetInfo(){
-        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo}/>});        
+        this.setState({NN_InfoList: <NN_InfoListComponent addNewNNInfo={this.addNewNNInfo} getHeaderEvent={this.getHeaderEvent} />});        
     }
     
     addNewNNInfo(){
@@ -63,10 +81,14 @@ export default class HomeComponent extends React.Component {
     render() {
         return (
             <div>
-				<NN_HeaderComponent getHeaderEvent={this.getHeaderEvent}/> 
-				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList}/>
-				<NN_FooterComponent/>
+				<NN_HeaderComponent getHeaderEvent={this.getHeaderEvent} /> 
+				<NN_SectionComponent NN_InfoList={this.state.NN_InfoList} getHeaderEvent={this.getHeaderEvent} />
+				<NN_FooterComponent/>                                  
 			</div>
         )
     }
 }
+
+HomeComponent.childContextTypes = {
+  NN_ID: React.PropTypes.string
+};

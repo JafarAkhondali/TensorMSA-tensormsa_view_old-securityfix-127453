@@ -1,4 +1,5 @@
 import React from 'react';
+import StepArrowComponent from './../NNLayout/common/StepArrowComponent'
 
 export default class NN_NetworkConfigurationComponent extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export default class NN_NetworkConfigurationComponent extends React.Component {
                         <button type="button" className="img-btn save">Save</button>
                         <button type="button" className="img-btn save">Error Check</button>
                         <button type="button" className="img-btn save">Train</button>
+                        <StepArrowComponent />
                     </div>
                 </ul>
                  <div className="container tabBody">
@@ -44,8 +46,7 @@ export default class NN_NetworkConfigurationComponent extends React.Component {
                         <dl className="layer-box">
                             <dt><span className="circle-blue">Output Layer</span></dt>
                             <dd>123</dd>
-                        </dl>
-                       
+                        </dl>                       
                     </article>
                  </div>  
             </section>

@@ -1,49 +1,179 @@
 import React from 'react';
-import ImagePreviewLayout from './ImageData_PreviewLayout'
-import ReportRepository from './../../repositories/ReportRepository'
-import Api from './../../utils/Api'
+import ImagePreviewLayout from './ImageData_PreviewLayout';
+import ReportRepository from './../../repositories/ReportRepository';
+import Api from './../../utils/Api';
+import FileUpload from 'react-fileupload';
+import ModalViewTableCreate from './ModalViewTableCreate';
+import ModalViewLabelCreate from './ModalViewLabelCreate';
+import ModalViewFormatCreate from './ModalViewFormatCreate';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 
 export default class ImagesConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  
-                image_paths : "",
-                network_id : "nn0000091",
-                database_name : "",
-                table_name : "",
-                label_name : "",
-                form_action : ""
+        this.closeModal = this.closeModal.bind(this);
+        this.state = {
+                imagePaths : null,
+                networkId : "nn0000045",
+                databaseName : null,
+                tableName : null,
+                labelName : null,
+                formAction : null,
+                uploadFileList : [],
+                rate : 0,
+                selModalView : null,
+                tableSelectList : null,
+                xSize : null,
+                ySize : null,
+                formatData : {},
+                baseDom : null,
+                tableDom : null,
+                domSizeX : null, 
+                domSizeY : null,
+                setBtn : null
                 };
     }
 
-    search_btn(nnid){
-        this.props.reportRepository.getPreviewImagePath(this.state.network_id).then((preview_paths) => {
-            this.setState({image_paths: preview_paths['result']})
+    //when page called on first 
+    componentDidMount(){
+        this.initDataBaseLov();
+        
+    }
+
+    // 
+    initDataBaseLov(){
+        this.props.reportRepository.getNetBaseInfo(this.state.networkId).then((nnBaseInfo) => {
+            let base = nnBaseInfo['result'][0]['fields']['dir'];
+            let table = nnBaseInfo['result'][0]['fields']['table'];   
+
+            if(!base){
+                base=<select onChange={this.setDatabaseName.bind(this)} value={this.state.value}>
+                                <option value="1">Data Base List</option>
+                                <option value="mes">MES</option>
+                                <option value="scm">SCM</option>
+                                <option value="erp">ERP</option>
+                            </select>
+            }
+            
+            if(!table){
+                table = <input type="text" name="table" placeholder="table" 
+                                            onChange={this.setTableName.bind(this)} value={this.state.value} />
+            }
+            this.setState({baseDom : base});
+            this.setState({tableDom : table});
+            this.initTableLov(base, table);
         });
     }
 
-    set_tablename(obj){
-        console.log(obj.target.value);
-        this.setState({table_name: obj.target.value});
-        this.set_form_url.bind(this) ;
+    // init table lov
+    initTableLov(base, table){
+
+        let requestUrl = "base/" + base + "/table/" + table + "/format/" + this.state.networkId + "/";
+            this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
+                let formatData = format['result']
+                let xSize = formatData['x_size'];
+                let ySize = formatData['y_size'];
+                let setBtn = "";
+
+                if(!xSize){
+                    xSize = <input type="text" name="xsize" placeholder="xsize" 
+                                            onChange={this.setXSize.bind(this)} value={this.state.xSize} /> 
+                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button> 
+                } 
+
+                if(!ySize){
+                    ySize= <input type="text" name="ysize" placeholder="ysize" 
+                                            onChange={this.setYSize.bind(this)} value={this.state.ySize} />
+                    setBtn = <button onClick={this.postFormatData.bind(this)}>SET</button>
+                }
+                this.setState({domSizeX : xSize});
+                this.setState({domSizeY : ySize});  
+                this.setState({setBtn : setBtn});
+                this.searchBtn(this.state.networkId);
+            });       
     }
 
-    set_databasename(obj){
-        console.log(obj.target.value)
-        this.setState({database_name: obj.target.value});
-        this.set_form_url.bind(this) ;
+    // post format data
+    postFormatData(){
+        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName
+        + "/format/" + this.state.networkId + "/";
+        let formatSize = {"x_size" : this.state.xSize, "y_size" : this.state.ySize}
+
+        this.props.reportRepository.postImageFormatData(requestUrl, formatSize).then((format) => {
+            this.initDataBaseLov();
+        });
     }
 
-    set_labelname(obj){
-        this.setState({label_name: obj.target.value});
-        this.set_form_url.bind(this) ;
+    // on Search button event occurs 
+    searchBtn(nnid){
+        this.props.reportRepository.getPreviewImagePath(this.state.networkId).then((previewPaths) => {
+            this.setState({imagePaths: previewPaths['result']})
+        });
     }
 
-    set_form_url(){
-        upload_url = "/api/v1/type/imagefile/base/" + this.state.database_name + "/table/" + this.state.table_name + "/label/" + this.state.label_name +"/data/"+ this.state.network_id +"/"
-        this.setState({table_name: upload_url})
-        console.log(this.state.form_action)
+    // on Search button event occurs 
+    getTableList(){
+        let requestUrl = "base/" + this.state.databaseName + "/table/";
+        this.props.reportRepository.getTableList(requestUrl).then((tableList) => {
+            let rows = [];
+            let i=0;
+            rows.push(<option value="1">Table List</option>)
+            for (let tableName of tableList['result']){
+                rows.push(<option key={i++} value={tableName}>{tableName}</option>)
+            }
+
+            this.setState({tableSelectList : rows});
+        });
     }
+
+    // get format data 
+    getFormatData(){
+        let requestUrl = "base/" + this.state.databaseName + "/table/" + this.state.tableName + "/format/" + this.state.networkId + "/";
+        this.props.reportRepository.getImageFormatData(requestUrl, "").then((format) => {
+            let formatData = format['result']
+            this.setState({xSize : formatData['x_size']})
+            this.setState({ySize : formatData['y_size']})
+        });
+    }
+
+    // on database name changed 
+    setDatabaseName(obj){
+        this.setState({databaseName : obj.target.value}, function(){ 
+            this.getTableList()
+        });
+    }
+
+    // on tab name changed
+    setTableName(obj){
+        this.setState({tableName: obj.target.value}, function(){ 
+            this.getFormatData()
+        });
+    }
+    // on label name
+    setXSize(obj){
+        this.setState({xSize: obj.target.value});
+    }
+    
+    // on label name
+    setYSize(obj){
+        this.setState({ySize: obj.target.value});
+    }
+
+    //route modal view 
+    openModal(type){
+        console.log(type)
+        if(type == 'table'){
+            this.setState({selModalView : <ModalViewTableCreate/>})
+        }
+        else if (type == 'label'){
+            this.setState({selModalView : <ModalViewLabelCreate networkId={this.state.networkId}/>})
+        }
+        this.setState({open: true})
+    }
+
+    // close modal 
+    closeModal () { this.setState({open: false}); }
 
     render() {
         return (
@@ -52,40 +182,60 @@ export default class ImagesConfigurationComponent extends React.Component {
                     <article>
                         <table className="form-table align-left">
                             <colgroup>
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
+                            <col width="40" />
                             <col width="60" />
-                            <col width="60" />
-                            <col width="60" />
-                            <col width="500" />
-                            <col width="300" />
+                            <col width="100" />
+                            <col width="250" />
                             </colgroup>
                             <tbody>
                                 <tr>
                                     <th>Network ID</th>
-                                    <td width>{this.state.network_id}</td>
-                                    <th>Upload Info</th>
+                                    <td width>{this.state.networkId}</td>
+                                    <th>*DataBase</th>
                                     <td width>
-                                        <label className="bullet" htmlFor="DB">DB</label>
-                                        <select onChange={this.set_databasename.bind(this)} value={this.state.value}>
-                                            <option value="1">Data Base List</option>
-                                            <option value="MES">MES</option>
-                                            <option value="SCM">SCM</option>
-                                            <option value="ERP">ERP</option>
-                                        </select>
-                                        <label className="bullet" htmlFor="Table">Table</label>
-                                        <input type="text" name="table_name" placeholder="table_name"  onChange={this.set_tablename.bind(this)} value={this.state.value} />
-                                        <label className="bullet" htmlFor="Label">Label</label>
-                                        <input type="text" name="label_name" placeholder="label_name"  onChange={this.set_labelname.bind(this)} value={this.state.value} />
+                                        {this.state.baseDom}
+                                    </td>
+                                    <th>*Table</th>
+                                    <td width>
+                                        {this.state.tableDom}
+                                    </td>
+                                    <th>*Format</th>
+                                    <td width>
+                                        <p>{this.state.domSizeX} x {this.state.domSizeY}</p>
                                     </td>
                                     <td width>
-                                        <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
-                                        <button type="button" onClick={() => this.search_btn()} className="img-btn save">Upload</button>
+                                        {this.state.setBtn}
+                                        <button onClick={this.openModal.bind(this ,'table')}>table</button>
+                                        <button onClick={this.openModal.bind(this ,'label')}>label</button>
+                                        <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <table className="table marginT10">
-                            <ImagePreviewLayout image_paths={this.state.image_paths}/>
-                        </table>
+                        
+                        <Modal
+                            className="modal"
+                            overlayClassName="modal"
+                            isOpen={this.state.open}
+                            onRequestClose={this.closeModal}>
+                            <div className="modal-dialog modal-lg">
+                                {this.state.selModalView}
+                                <span className="modal-footer">
+                                        <button onClick={this.closeModal}>Close</button>
+                                </span>
+                            </div>
+                        </Modal>
+                        
+                        <div className="img-box-wrap">
+                            <div className="img-box-container">
+                                <ImagePreviewLayout imageDataSet={this.state}/>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -96,14 +246,3 @@ export default class ImagesConfigurationComponent extends React.Component {
 ImagesConfigurationComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 };
-
-
-    // <form action={this.state.form_action}
-    //   method="post"
-    //   enctype="multipart/form-data">
-    //     <input type="file"
-    //            name="file"
-    //            id="id_file3" multiple
-    //            className="img-btn save"/>
-    //     <input type="submit" value="UPLOAD" className="img-btn save"/>
-    // </form>

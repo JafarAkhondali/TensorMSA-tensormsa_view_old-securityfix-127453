@@ -12,6 +12,15 @@
             }
         }
     }
+    tbody {
+        tr {
+            &:hover {
+                td {
+                    background: #fbfbfb;
+                }
+            }
+        }
+    }
     tr {
         td {
             background: #fff;
@@ -64,5 +73,14 @@
         th {
             background: #f3f3f3;
         }
+    }
+}
+
+table {
+    button,
+    select,
+    input[type="text"] {
+        vertical-align: middle;
+        height: 28px;
     }
 }

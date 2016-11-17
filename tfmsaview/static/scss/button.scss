@@ -1,4 +1,5 @@
-button {
+button,
+a.btn {
     background: $defaultBtn-bg-color;
     height: $btn-height;
     @include box-sizing(border-box);
@@ -19,26 +20,22 @@ button {
     border: 1px solid $defaultBtn-border-color;
     margin-left: 2px;
     &.img-btn {
-        padding-left: 36px;
-        box-shadow: inset 30px 1px 0px rgba(255, 255, 255, .2);
-        border-color: $imgBtn-border-color;
+        padding-left: 30px;
         &:before {
-            border: 1px solid $imgBtn-border-color;
             content: '';
             width: 30px;
             height: 30px;
             display: inline-block;
             position: absolute;
-            left: -1px;
+            left: 4px;
             top: -1px;
             background: $btn-icon-url no-repeat;
-            background-color: $imgBtn-bg-color;
             border-radius: $btn-border-radius 0 0 $btn-border-radius;
             @include box-sizing(border-box);
         }
     }
     &:hover {
-        background: $imgBtn-bg-color;
+        background: #3a73b4;
     }
     &:active {
         box-shadow: $active-shadow-effect;
@@ -91,6 +88,16 @@ button {
     }
 }
 
+table {
+    button {
+        @include gradient(#fff, #e5e6e8);
+        color: #4f8dd4;
+        &:hover {
+            @include gradient(#f9f9f9, #d9d9d9);
+        }
+    }
+}
+
 button {
     &.new {
         &:before {
@@ -121,6 +128,12 @@ button {
 
 .btnArea {
     float: right;
+}
+
+.inner-btnArea {
+    float: right;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 .btn-sm {

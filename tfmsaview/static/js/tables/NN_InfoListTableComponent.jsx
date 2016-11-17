@@ -15,8 +15,8 @@ export default class NN_InfoListTableComponent extends React.Component {
         });
 
         return (
-            <div className="table">
-                <table>
+            <div>
+                <table className="table">
                     <thead>
                     <tr>
                         <th>category</th>

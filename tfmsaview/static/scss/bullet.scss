@@ -13,9 +13,14 @@
     }
 }
 
-span {
+td {
+    .bullet {
+        margin-left: 10px;
+    }
+}
+
+[class^="circle-"] {
     position: relative;
-    padding-left: 18px;
     &:before {
         content: '';
         @include box-sizing(border-box);
@@ -31,15 +36,14 @@ span {
         margin-left: -18px;
     }
 }
-
-span.circle-yellow:before {
+.circle-yellow:before {
     border-color: $yellow !important;
 }
 
-span.circle-green:before {
+.circle-green:before {
     border-color: $green !important;
 }
 
-span.circle-blue:before {
+.circle-blue:before {
     border-color: $blue !important;
 }

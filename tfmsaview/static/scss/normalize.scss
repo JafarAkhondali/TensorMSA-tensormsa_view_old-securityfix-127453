@@ -8,6 +8,11 @@ body {
     margin: 0;
     font-size: $font-size-base;
     min-width: 700px;
+    // overflow: hidden;
+}
+
+p {
+    margin: 0;
 }
 
 div,
@@ -20,6 +25,7 @@ h5,
 h6,
 input[type=textarea],
 input[type="text"],
+input[type="password"],
 textarea,
 button,
 ul,
@@ -106,4 +112,8 @@ input::-moz-focus-inner {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+label {
+    margin-right: 8px;
 }
