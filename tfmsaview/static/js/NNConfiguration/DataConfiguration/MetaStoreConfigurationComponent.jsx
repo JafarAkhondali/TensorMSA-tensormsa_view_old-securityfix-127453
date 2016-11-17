@@ -126,6 +126,13 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             this.setState({dataFramePost: resultData['result']})
         });
     }
+    wdnnTrainPost(opt_url){
+        console.log("wdnnTrainPost")
+        this.props.reportRepository.postWdnnTrain().then((resultData) => {
+            console.log('dataframepost results')
+            this.setState({dataFramePost: resultData['result']})
+        });
+    }
 
 
 
@@ -164,6 +171,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                                 <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="img-btn save">Format Save</button>
                                                 <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
+                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
                                             </td>
                                         </tr>
                                         </tbody>
