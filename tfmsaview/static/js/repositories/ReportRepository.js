@@ -246,4 +246,14 @@ export default class ReportRepository {
            return data;
         });
     }
+    postWdnnTrain(opt_url, params) {
+
+        opt_url = "nn0000102/"
+        let url='/api/v1/type/wdnn/train/' + opt_url; 
+        //let url = '/api/v1/type/wdnn/train/'
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
 }
