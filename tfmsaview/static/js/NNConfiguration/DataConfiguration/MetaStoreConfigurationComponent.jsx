@@ -10,28 +10,54 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
         this.closeModal = this.closeModal.bind(this);
+        this.c_tableName = null;
         this.state = {  
                 MetaStore_TableLayout : null,
                 WdnnTableData : null,
-                dataFormatTypes:{},
+                dataFormatTypes : {},
                 selModalView : null,
-                uploadFileList : []
+                uploadFileList : [],
+                tableRows : null,
+                dataBaseList : null,
+                databaseName : null,
+                tableList : null,
+                tableName : null,
+                nnid : "nn0000102"
                 };
                         
             //this.addDataframeType = this.addDataframeType.bind(this, param);                 
     }
+    //when page called on first 
+    componentDidMount(){
+        this.getDataBaseOnDataConfig();
+        console.log(this.state.dataBaseList)
+        
+    }
+        // combine get rest api url 
+    get_searchUrl(){
+        return "base/" + this.state.databaseName + "/table/" ;
+    }
     search_btn(params){
         let limit_cnt = {}
         limit_cnt["limits"] = 0
-        this.props.reportRepository.getWdnnTableDataFromHbase().then((tableData) => {
-            console.log('4')
+        //let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/'
+        let opt_url =  this.state.databaseName + '/table/' + this.c_tableName + '/data/'
+        this.props.reportRepository.getWdnnTableDataFromHbase(opt_url).then((tableData) => {
+            console.log('data configuration search end')
         this.setState({WdnnTableData: tableData['result']})
         });
     }
     child_dataframe_format_post_btn(params){
         //this.props.MetaStore_TableLayout.
         console.log('child')
-        this.refs.child.dataFramePost()
+        console.log(this.state.databaseName)
+        console.log(this.c_tableName)
+        console.log(this.state.nnid)
+
+        let opt_url =  this.state.databaseName + '/table/' + this.c_tableName + '/format/' + this.state.nnid + '/'
+        console.log(opt_url)
+
+        this.refs.child.dataFramePost(opt_url)
     }
     openModal(type){
         console.log(type)
@@ -42,6 +68,57 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     }
       // close modal 
     closeModal () { this.setState({open: false}); }
+        //get table list on seleceted base name
+    getTableListOnDataConfig(){
+        console.log("getTableListOnDataConfig")
+        console.log(this.state.databaseName)
+        //let requestUrl = this.get_searchUrl();
+        this.props.reportRepository.getTableListOnDataConfig(this.state.databaseName).then((table_list) => {
+        let option = [];
+        let i=0;
+        for (let tableNameValue of table_list['result']){
+            option.push(<option key={i++} value={tableNameValue}>{tableNameValue}</option>)
+        }
+        this.setState({tableList : option})
+        });
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        console.log("shouldComponentUpdate: " + this.state.databaseName + "nextstats ---> " + nextState ) ;
+        console.log(nextState)
+        return true;
+    }
+        //get table list on seleceted base name
+    getDataBaseOnDataConfig(){
+        //let request
+        this.props.reportRepository.getDataBaseOnDataConfig().then((database_list) => {
+            let optionRows = [];
+            let i=0;
+            for (let dbName of database_list['result']){
+                optionRows.push(<option key={i++} value={dbName}>{dbName}</option>)
+            }
+            this.setState({dataBaseList : optionRows})
+        });
+    }
+    setDataBaseOnDataConfig(obj)
+    {
+        console.log(obj.target.value)
+        //let selectedDatabaseName = this.state.databaseName
+        this.setState({databaseName: obj.target.value}, function(){this.getTableListOnDataConfig()});
+        console.log("setDataBaseOnDataConfig")
+        console.log(this.state.databaseName)
+        
+    }
+    setTableListOnDataConfig(obj)
+    {
+        console.log(obj.target.value)
+        let selectedtb = obj.target.value
+        //let selectedTablename = this.state.tablename
+        //this.setState({tablename: selectedtb, function(){render()}});
+        this.c_tableName = obj.target.value 
+        //c_tableName =  obj.target.value
+        console.log(this.c_tableName)
+    }
 
 
 
@@ -62,27 +139,27 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                         <tr>
                                             <th>Data Base List</th>
                                             <td>
-                                                <select>
-                                                    <option value="1">Data Base List</option>
-                                                    <option value="2"></option>
+                                                <select onChange={this.setDataBaseOnDataConfig.bind(this)} >
+                                                  <option key="default1">Database List</option>
+                                                  {this.state.dataBaseList}  
                                                 </select>
                                             </td>
                                             <th>Table List</th>
                                             <td>
-                                                <select>
-                                                <option value="1">Table List</option>
-                                                <option value="2"></option>
+                                                <select onChange={this.setTableListOnDataConfig.bind(this)}>
+                                                <option key="default1">Table List</option>
+                                                   {this.state.tableList}
                                                 </select>
                                             </td>
                                             <td>
-                                                <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
-                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn()} className="btn-sm">Format Save</button>
-                                                <button onClick={this.openModal.bind(this ,'table')}>Table</button>
+                                                <button type="button" onClick={() => this.search_btn()} className="btn-sm">Search</button>
+                                                {this.state.tableName}
+                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="img-btn save">Format Save</button>
+                                                <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    
                                     <MetaStore_TableLayout WdnnTableData={this.state.WdnnTableData} ref="child"/>
                                 </article>
                                 <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
@@ -96,10 +173,6 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                         
                             </div>
                         </div>
-                      
-
-
-
         )
     }
 }

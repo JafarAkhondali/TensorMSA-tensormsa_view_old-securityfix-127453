@@ -142,16 +142,14 @@ export default class NN_InfoListComponent extends React.Component {
         return (
             <section>
                 <h1 className="hidden">tensor MSA main table</h1>
-                <div className="searchArea">
-                    <label className="bullet" htmlFor="Name">Name</label>
-                    <input type="text" name="Name" placeholder="Name" />
-                    <label className="bullet" htmlFor="Name2">Name2</label>
-                    <input type="text" name="Name2" placeholder="Name" />
-                    <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
-
-                    <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent(this)} />
-
-                </div>
+                    <div className="searchArea">
+                        <label className="bullet" htmlFor="Name">Name</label>
+                        <input type="text" name="Name" placeholder="Name" />
+                        <label className="bullet" htmlFor="Name2">Name2</label>
+                        <input type="text" name="Name2" placeholder="Name" />
+                        <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
+                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent(this)} />
+                    </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">
                         <button onClick={this.openModal.bind(this, "add New")}>add New</button>
