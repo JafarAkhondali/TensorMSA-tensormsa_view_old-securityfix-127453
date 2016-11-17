@@ -41,11 +41,20 @@ export default class NN_HeaderComponent extends React.Component {
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
+<<<<<<< HEAD
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(0)}>Net Info</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(1)}>Data</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(2)}>Net conf</a></li>  
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(3)}>Train Statistics</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(4)}>Predict Test</a></li>
+						<li><a href="#" onClick={() => this.props.getHeaderEvent(5)}>Predict</a></li>
+=======
 						<li className={this.isActive(1)}><a href="#" onClick={this.setFilter.bind(this, 1)}>Net Info</a></li>
 						<li className={this.isActive(2)}><a href="#" onClick={this.setFilter.bind(this, 2)}>Data</a></li>
 						<li className={this.isActive(3)}><a href="#" onClick={this.setFilter.bind(this, 3)}>Net conf</a></li>  
 						<li className={this.isActive(4)}><a href="#" onClick={this.setFilter.bind(this, 4)}>Train Statistics</a></li>
 						<li className={this.isActive(5)}><a href="#" onClick={this.setFilter.bind(this, 5)}>Predict Test</a></li>
+>>>>>>> 0f876d1aeb31e5c0f398f8132deba0c1602efd93
 					</ul>
 				</nav>
 				<dl className="utilMenu">

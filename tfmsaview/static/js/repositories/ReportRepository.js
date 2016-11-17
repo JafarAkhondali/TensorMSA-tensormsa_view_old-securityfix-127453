@@ -180,20 +180,21 @@ export default class ReportRepository {
     getWdnnTableDataFromHbase(opt_url, params) {
         //let url='/api/v1/type/imagefile/' + opt_url ;
         ///api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/
-        let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/'
+        
+        let url = '/api/v1/type/dataframe/base/' + opt_url;
         return this.api.get(url, "").then((data) => {
             data = JSON.parse(data);
            return data;
         });
     }
-    postWdnnDataFrameFormat(databaseName,tableName,nnid, params) {
+    postWdnnDataFrameFormat(opt_url, params) {
         console.log(params)
         let key_set = Object.keys(params)
         for(let key of key_set){
             console.log(key +"---->"+ params[key]);
          }
-
-        let url = '/api/v1/type/dataframe/base/' + databaseName + '/table/' + tableName + '/' + nnid + '/'
+        let url='/api/v1/type/dataframe/base/' + opt_url; 
+        //let url = '/api/v1/type/dataframe/base/' + databaseName + '/table/' + tableName + '/format/' + nnid + '/'
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
@@ -214,6 +215,34 @@ export default class ReportRepository {
         return this.api.get(url, params).then((data) => {
             data = JSON.parse(data);
             console.log(data);
+           return data;
+        });
+    }
+    getDataFrameOnNetworkConfig(opt_url, params) {
+
+        opt_url = 'nn0000102/type/cell_feature/'
+        //opt_url = 'nn0000102/type/label/'
+        let url='/api/v1/type/dataframe/format/'+opt_url
+        console.log(url)
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
+    postWdnnConf(opt_url, params) {
+        params = {}
+        params["layer"] = [10,20,30,40]
+        opt_url = "nn0000102/"
+        console.log(params)
+        let key_set = Object.keys(params)
+        for(let key of key_set){
+            console.log(key +"---->"+ params[key]);
+         }
+        let url='/api/v1/type/wdnn/conf/' + opt_url; 
+        //let url = '/api/v1/type/dataframe/base/' + databaseName + '/table/' + tableName + '/format/' + nnid + '/'
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
            return data;
         });
     }

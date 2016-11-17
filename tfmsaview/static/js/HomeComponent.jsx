@@ -7,9 +7,13 @@ import NN_BasicInfoComponent from './NNConfiguration/NN_BasicInfoComponent'
 import NN_DataConfigurationComponent from './NNConfiguration/NN_DataConfigurationComponent'
 import NN_NetworkConfigurationComponent from './NNConfiguration/NN_NetworkConfigurationComponent'
 import NN_TrainStaticComponent from './NNConfiguration/NN_TrainStaticComponent'
+<<<<<<< HEAD
+import NN_PredictResultComponent from './NNConfiguration/NN_PredictResultComponent'
+=======
 import NN_ModalComponent from './NNLayout/NN_ModalComponent';
 import MainSectionComponent from './NNLayout/MainSectionComponent';
 import NN_PreProcessingComponent from './NNConfiguration/NN_PreProcessingComponent'
+>>>>>>> 0f876d1aeb31e5c0f398f8132deba0c1602efd93
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -44,7 +48,11 @@ export default class HomeComponent extends React.Component {
             case 4:
                 return this.getTimeStatistics(); //call Data Configuration
             case 5:
+<<<<<<< HEAD
+                return this.getPredictResult(); //call Data Configuration    
+=======
                 return this.getTimeStatistics(); //call Data Configuration
+>>>>>>> 0f876d1aeb31e5c0f398f8132deba0c1602efd93
         }
     }
 
@@ -71,6 +79,10 @@ export default class HomeComponent extends React.Component {
 
     getTimeStatistics(){
             this.setState({NN_InfoList: <NN_TrainStaticComponent/>});   
+    }
+
+    getPredictResult(){
+            this.setState({NN_InfoList: <NN_PredictResultComponent/>});   
     }
 
     render() {
