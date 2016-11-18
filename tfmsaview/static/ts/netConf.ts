@@ -460,6 +460,31 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
         updateHoverCard(null);
       });
   }
+    /*
+  let selectedNodeType = getTypeOfSelectedNode(Number(nodeId));
+
+  console.log(selectedNodeType);
+
+  let selectedNodeTypeSeqRemoved = selectedNodeType.replace(/[0-9]/g, '');
+  let bgColor = "";
+
+  switch(selectedNodeTypeSeqRemoved) {
+    case "CNN" :
+      bgColor = "blue";
+      break;
+    case "RESHAPE" :
+      bgColor = "red";
+      break;
+    case "DROP" :
+      bgColor = "yellow";
+      break;
+    case "OUT" :
+      bgColor = "sliver";
+      break;
+    default:
+      bgColor = "white";
+  }
+  */
 
   // Draw the node's canvas.
   let div = d3.select("#network").insert("div", ":first-child")
@@ -470,7 +495,8 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
     .style({
       position: "absolute",
       left: `${x + 3}px`,
-      top: `${y + 3}px`
+      top: `${y + 3}px`,
+      "background-color": "yellow"
     })
     .on("mouseenter", function () {
       selectedNodeId = nodeId;
@@ -522,12 +548,33 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           let newTr = nodeHiddenTbody.append("tr");
           newTr.append("td").text(entry);
           
-          if(selectedNodeTypeSeqRemoved === "RESHAPE" || selectedNodeTypeSeqRemoved === "OUT" )
+          if(selectedNodeTypeSeqRemoved === "RESHAPE" )
           {
-            newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+            if(entry === 'type')
+            {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape", disabled: true });
+            }
+            else
+            {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+            }
+          }
+          else if(selectedNodeTypeSeqRemoved === "OUT" ) {
+            if(entry === 'type')
+            {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: true });
+            }
+            else
+            {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+            }
           }
           else if(selectedNodeTypeSeqRemoved === "DROP"){
-            if(entry === 'active' || entry === 'droprate') {
+            if(entry === 'type')
+            {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: true  });
+            }
+            else if(entry === 'active' || entry === 'droprate') {
               newTr.append("td").append("input").attr({ type: "text", size: "8" });
             }
             else {
@@ -535,7 +582,14 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
             }
           }
           else {
-            newTr.append("td").append("input").attr({ type: "text", size: "8" });
+            if(entry === 'type')
+            {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: true  });
+            }
+            else {
+              newTr.append("td").append("input").attr({ type: "text", size: "8" });
+            }
+            
           }
         }
       }

@@ -9,10 +9,14 @@ export default class DiagramSectionComponent extends React.Component {
         
         this.state = {
             nnConfigBasicInfoField : null,
-            nnConfigFormatInfoField : null
-        }
+            nnConfigFormatInfoField : null,
+            saveBtnClickFlag: false
+        };
+
         this._getNetConfigBasicInfo = this._getNetConfigBasicInfo.bind(this);
         this._getNetConfigFormatInfo = this._getNetConfigFormatInfo.bind(this);
+        this._getDataObject = this._getDataObject.bind(this);
+        this._postNNNetConfigInfo = this._postNNNetConfigInfo.bind(this);
     }
 
     //1
@@ -22,6 +26,7 @@ export default class DiagramSectionComponent extends React.Component {
     }
 
     componentDidMount(){
+        console.log("componentDidMount");
         const libScript = document.createElement("script");
         const tsScript = document.createElement("script");
 
@@ -37,14 +42,21 @@ export default class DiagramSectionComponent extends React.Component {
 
     // 3!
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField === null);
+        console.log("shouldComponentUpdate");
+        return (this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField === null) || this.state.saveBtnClickFlag === true;
     }    
 
     //4!
     componentWillUpdate(nextProps, nextState){
-        if(this.state.nnConfigBasicInfoField !== null)
+         console.log("componentWillUpdate");
+        if(this.state.nnConfigBasicInfoField !== null && this.state.saveBtnClickFlag === false)
         {           
             this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, this.context.NN_ID);
+        }   
+
+        if(this.state.saveBtnClickFlag === true)
+        {           
+            this._postNNNetConfigInfo();
         }        
     }
 
@@ -71,22 +83,44 @@ export default class DiagramSectionComponent extends React.Component {
         });
     }    
 
+    _getDataObject() {
+        let dataObj = {}; 
+        
+        console.log(this.state.nnConfigBasicInfoField);
+        dataObj.datalen = this.state.nnConfigFormatInfoField.x_size*this.state.nnConfigFormatInfoField.y_size;
+        dataObj.taglen = JSON.parse(this.state.nnConfigBasicInfoField.datasets).length;
+        dataObj.matrix = [this.state.nnConfigFormatInfoField.x_size,this.state.nnConfigFormatInfoField.y_size];
+        dataObj.learnrate = 0.01;
+        dataObj.label = JSON.parse(this.state.nnConfigBasicInfoField.datasets);
+        dataObj.epoch = 10;
+
+        return dataObj;
+    }
+
     _isActive(value){
         return ((value===this.state.selected) ? 'current':'');
     }
 
+    _clickSaveButton(){
+        this.setState({saveBtnClickFlag: true});
+    }
+
     _postNNNetConfigInfo(){
         console.log(this.context.NN_ID);
-
-        // data json object 
-        let data = {"datalen": 1024,"taglen": 4,"matrix": [32, 32],"learnrate": 0.01,"label":[],"epoch": 10}
-
-        // layer json array
-        let domHiddenTable = document.getElementsByClassName('hidden_table');
-        let propName;
-        let propValue;
         let layerArray = [];
         let layerObj = {};
+        let postObj = {};
+        let propName;
+        let propValue;
+
+        // data json object 
+        let dataObj = this._getDataObject();
+
+        postObj.data = dataObj;
+        
+        // layer json array
+        let domHiddenTable = document.getElementsByClassName('hidden_table');
+
         for(let i=0; i < domHiddenTable.length; i++)
         {
             var tr = (domHiddenTable[i]).querySelectorAll('#CNN1 > tbody > tr')
@@ -112,13 +146,7 @@ export default class DiagramSectionComponent extends React.Component {
             layerArray.push(layerObj);
         }
 
-        debugger;
-        /* 
-        let postJson = {"data": data, "layer": layerArray};
-        
-        this.props.reportRepository.postNNNetConfigInfo(null, this.key_id, this.state).then((answer) => {
-        });;
-        */
+        postObj.layer = layerArray;
     }    
 
     render() {
@@ -128,9 +156,9 @@ export default class DiagramSectionComponent extends React.Component {
                     <ul className="tabHeader">
                         <li className='current'><a href="#">CNN</a></li>
                         <div className="btnArea">
-                            <button type="button" onClick={this._postNNNetConfigInfo.bind(this)}>Save</button>
+                            <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                         </div>                        
-                        <li><a href="#">WADP</a></li>
+                        <li><a href="#">WDND</a></li>
                     </ul> 
                         <div className="container tabBody">                 
                             <div id="main-part" className="l--page">
