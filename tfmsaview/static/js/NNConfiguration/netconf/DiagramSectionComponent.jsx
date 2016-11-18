@@ -17,7 +17,6 @@ export default class DiagramSectionComponent extends React.Component {
 
     //1
     componentWillMount(){
-        console.log("componentWillMount");
         this._getNetConfigBasicInfo('nn0000090');
 
     }
@@ -25,32 +24,24 @@ export default class DiagramSectionComponent extends React.Component {
     componentDidMount(){
         const libScript = document.createElement("script");
         const tsScript = document.createElement("script");
-        const tsMapScript = document.createElement("script");
 
         libScript.src = "../../../dist/lib.js";
         libScript.async = false;
         
         tsScript.src = "../../../dist/NetConf.js";
         tsScript.async = true;
-
-        tsMapScript.src = "../../../dist/NetConf.js.map";
-        tsMapScript.async = true;
-
-        document.body.appendChild(tsMapScript);
+       
         document.body.appendChild(libScript);
         document.body.appendChild(tsScript);
-        
     }
 
     // 3!
     shouldComponentUpdate(nextProps, nextState) {
-        console.log("shouldComponentUpdate");
         return (this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField === null);
     }    
 
     //4!
     componentWillUpdate(nextProps, nextState){
-        console.log("componentWillUpdate");
         if(this.state.nnConfigBasicInfoField !== null)
         {           
             this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000090');
@@ -131,7 +122,7 @@ export default class DiagramSectionComponent extends React.Component {
                                         <input className="mdl-slider mdl-js-slider" type="range" id="batchSize" min="1" max="30" step="1"/>
                                     </p>
                                 </div>
-                                <button className="basic-button" id="data-regen-button" title="Regenerate data">
+                                <button className="basic-button" id="data-regen-button" title="Post JSON Table Data">
                                     Save
                                 </button>
                             </div>
