@@ -7,8 +7,8 @@ var envPlugin = new webpack.DefinePlugin({
 
 module.exports = {
     entry: {
-        TensorMSA: './js/app.js',
-        netconf: './tsx/NetConf.tsx'
+        TensorMSA: './js/app.js'
+        //netconf: './tsx/NetConf.tsx'
     }, // Multiple Entry
     devtool: 'sourcemaps',
     cache: true,
