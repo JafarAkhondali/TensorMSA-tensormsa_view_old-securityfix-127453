@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .bullet {
     position: relative;
     &:before {
@@ -46,4 +47,94 @@ td {
 
 .circle-blue:before {
     border-color: $blue !important;
+||||||| merged common ancestors
+.bullet {
+    position: relative;
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: #3c92ca;
+        position: absolute;
+        left: -10px;
+        top: 7px;
+        margin-right: 2px;
+    }
+}
+
+span {
+    position: relative;
+    padding-left: 18px;
+    &:before {
+        content: '';
+        @include box-sizing(border-box);
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        position: absolute;
+        top: 5px;
+        margin-right: 2px;
+        border: 3px solid #333;
+        border-radius: 100%;
+        margin-left: -18px;
+    }
+}
+
+span.circle-yellow:before {
+    border-color: $yellow !important;
+}
+
+span.circle-green:before {
+    border-color: $green !important;
+}
+
+span.circle-blue:before {
+    border-color: $blue !important;
+=======
+.bullet {
+    position: relative;
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: #3c92ca;
+        position: absolute;
+        left: -10px;
+        top: 7px;
+        margin-right: 2px;
+    }
+}
+
+span {
+    position: relative;
+    padding-left: 18px;
+    &:before {
+        @include box-sizing(border-box);
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        position: absolute;
+        top: 5px;
+        margin-right: 2px;
+        border: 3px solid #333;
+        border-radius: 100%;
+        margin-left: -18px;
+    }
+}
+
+span.circle-yellow:before {
+    border-color: $yellow !important;
+}
+
+span.circle-green:before {
+    border-color: $green !important;
+}
+
+span.circle-blue:before {
+    border-color: $blue !important;
+>>>>>>> TensorMSAView_ashcroft147
 }

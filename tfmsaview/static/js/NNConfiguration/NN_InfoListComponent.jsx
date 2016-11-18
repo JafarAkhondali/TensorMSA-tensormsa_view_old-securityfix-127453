@@ -206,4 +206,3 @@ NN_InfoListComponent.defaultProps = {
 NN_InfoListComponent.contextTypes = {
     NN_ID: React.PropTypes.string
 };
-
