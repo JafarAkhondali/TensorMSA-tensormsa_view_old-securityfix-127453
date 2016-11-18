@@ -22,7 +22,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                 databaseName : null,
                 tableList : null,
                 tableName : null,
-                nnid : "nn0000102"
+                nnid : null
                 };
                         
             //this.addDataframeType = this.addDataframeType.bind(this, param);                 
@@ -30,6 +30,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     //when page called on first 
     componentDidMount(){
         this.getDataBaseOnDataConfig();
+        this.setState({nnid: this.context.NN_ID})
         console.log(this.state.dataBaseList)
         
     }
@@ -58,6 +59,9 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         console.log(opt_url)
 
         this.refs.child.dataFramePost(opt_url)
+    }
+    child_check_Column_dataType(){
+        this.refs.child.checkColumnDataType()
     }
     openModal(type){
         console.log(type)
@@ -172,6 +176,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                                 <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
+                                                <button type="button" className="btn-sm" onClick = {() => this.child_check_Column_dataType()}>column error check</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -194,4 +199,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
 }
 MetaStoreConfigurationComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
+};
+
+MetaStoreConfigurationComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
 };

@@ -72,12 +72,41 @@ export default class MetaStore_TableLayout extends React.Component {
          //}
     }
     dataFramePost(opt_url){
+
+        //error check assert
         console.log("dataframpost")
         this.props.reportRepository.postWdnnDataFrameFormat(opt_url,this.state.cellfeature).then((tableData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: tableData['result']})
         });
     }
+    checkColumnDataType(){
+        // Label이 하나만 있는가?
+        // let flag = this.state.cellfeature.map(function(_labelExist){
+        //     console.log(_labelExist)
+        //     return _labelExist
+        // })
+
+        // return flag
+        var numbers = [1, 4, 9];
+        var dic_number = {"one":1, "two":2, "three":3}
+        // var doubles = dic_number.map(i, function(num) {
+        //     console.log(num)
+        //     return num * 2;
+        // });
+
+        let flag = this.state.cellfeature
+        console.log(flag)
+        for (let [k, v] of Object.entries(flag)) {
+            // do something with k and v
+            console.log(k)
+            console.log(v)
+        } 
+
+        //console.log(doubles)
+
+    }
+
 
     render() {
     	if (!this.props.WdnnTableData) {return null;}
