@@ -1,8 +1,12 @@
 # tfmsaview - exclude NPM modules 
 /tfmsaview/static/node_modules/
-/tfmsaview/static/dist/
 /tfmsaview/templates/npm-debug.log
 npm-debug.log
 /tfmsaview/static/js/constants/EnvConstants.js
 /tfmsaview/static/js/utils/Api.js
 /tfmsaview/static/webpack.config.js
+/tfmsaview/static/dist/NetConf.js
+/tfmsaview/static/dist/NetConf.js.map
+/tfmsaview/static/dist/TensorMSA.js
+/tfmsaview/static/dist/TensorMSA.js.map
+/tfmsaview/static/dist/preview.png
