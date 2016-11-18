@@ -37,6 +37,7 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     //when page called on first 
     componentDidMount(){
+        alert(this.context.NN_ID)
         this.initDataBaseLov();
         
     }
@@ -245,4 +246,8 @@ export default class ImagesConfigurationComponent extends React.Component {
 
 ImagesConfigurationComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
+};
+
+ImagesConfigurationComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
 };
