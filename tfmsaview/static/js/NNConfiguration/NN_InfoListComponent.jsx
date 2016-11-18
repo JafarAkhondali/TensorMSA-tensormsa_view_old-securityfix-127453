@@ -173,8 +173,8 @@ export default class NN_InfoListComponent extends React.Component {
                             {this.NNButtonText(3)}
                         </button>
                     </div>
-                </div>
-                <div>
+
+                    <div className="net-info">
                     <BootstrapTable data={result} options={ options } cellEdit={cellEditProp}
                         striped={true}
                         hover={true}
@@ -204,6 +204,7 @@ export default class NN_InfoListComponent extends React.Component {
                             </span>
                         </div>
                     </Modal>
+                </div>
                 </div>
             </section>
         );

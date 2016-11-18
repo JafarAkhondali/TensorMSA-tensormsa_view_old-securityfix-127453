@@ -52,11 +52,11 @@ export default class NN_PreProcessingComponent extends React.Component {
             spendHist    = spendDim.group().reduceCount();
 
         yearRingChart
-            .width(300)
-            .height(300)
+            .width(200)
+            .height(200)
             .dimension(yearDim)
             .group(spendPerYear)
-            .innerRadius(50)
+            .innerRadius(40)
             .controlsUseVisibility(true);
 
         spendHistChart
@@ -130,24 +130,28 @@ export default class NN_PreProcessingComponent extends React.Component {
                     </div>
                 </ul>
                  <div className="container tabBody">
-                    <article>
-                        <dl className="data-box">
-                            <dt><span className="circle-yellow">Data info</span></dt>
-                            <dd id="chart-ring-year"></dd>
-                        </dl>
-                        <dl className="data-box">
-                            <dt><span className="circle-yellow">Train Status</span></dt>
-                            <dd id="chart-hist-spend"></dd>
-                        </dl>
-                        <dl className="data-box">
-                            <dt><span className="circle-yellow">TestResult</span></dt>
-                            <dd id="chart-row-spenders"></dd>
-                        </dl>
+                    <article className="min-width-1">
+                    <div className="data-box-wrap">
+                        <div className="center-box">
+                            <dl className="data-box">
+                                <dt><span>Data info</span></dt>
+                                <dd id="chart-ring-year"></dd>
+                            </dl>
+                            <dl className="data-box width350">
+                                <dt><span>Train Status</span></dt>
+                                <dd id="chart-hist-spend"></dd>
+                            </dl>
+                            <dl className="data-box width350">
+                                <dt><span>TestResult</span></dt>
+                                <dd id="chart-row-spenders"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div className="pre-tbl-wrap">
+                            <table id="table" className="table"></table>
+                        </div>
                     </article>
                  </div>  
-                <div style={{clear: "both", margin: "30px", float: "left"}}>
-                    <div id="table" className="table"></div>
-                </div>
             </section>
         )
     }
