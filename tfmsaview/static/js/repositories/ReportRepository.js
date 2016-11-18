@@ -301,6 +301,16 @@ export default class ReportRepository {
            return data;
         });
     }  
+
+    postNNNetConfigInfo(params) {
+        //let url = '/api/v1/type/imagefile/base/'+params.dir+'/table/'+params.table+'/format/'+nnid+'/';
+
+        console.log("postNNNetConfigInfo!!!");
+        // return this.api.get(url).then((data) => {
+        //     console.log(data);
+        //    return data;
+        // });
+    }      
 }
 
   
