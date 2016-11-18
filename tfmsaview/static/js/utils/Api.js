@@ -10,8 +10,7 @@ function Api() {
 Api.prototype.get = function (url, params) {
     console.log(EnvConstants.getApiServerUrl() + url + params)
     return fetch(
-        'http://52.78.19.96:8989' + url,
-        //EnvConstants.getApiServerUrl() + url + params,
+        EnvConstants.getApiServerUrl() + url + params,
         {
             method: 'GET',
             mode: "cors",

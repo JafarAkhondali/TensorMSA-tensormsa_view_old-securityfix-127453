@@ -285,8 +285,9 @@ export default class ReportRepository {
         });
     }
     
-    getNetConfigBasicInfo(param) {
-        let url = '/api/v1/type/common/nninfo/nn0000090/category//subcate//'
+    getNetConfigBasicInfo(nnid) {
+        console.log(nnid);
+        let url = '/api/v1/type/common/nninfo/'+ nnid +'/category//subcate//'
         return this.api.get(url).then((data) => {
             console.log(data);
            return data;

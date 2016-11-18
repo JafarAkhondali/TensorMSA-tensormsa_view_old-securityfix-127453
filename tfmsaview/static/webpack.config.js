@@ -7,16 +7,8 @@ var envPlugin = new webpack.DefinePlugin({
 
 module.exports = {
     entry: {
-<<<<<<< HEAD
-        TensorMSA: './js/app.js'
-        //netconf: './tsx/NetConf.tsx'
-||||||| merged common ancestors
-        TensorMSA: './js/app.js',
-        netconf: './tsx/NetConf.tsx'
-=======
         TensorMSA: './js/app.js',
         NetConf: './ts/netConf.ts'
->>>>>>> TensorMSAView_ashcroft147
     }, // Multiple Entry
     devtool: 'sourcemaps',
     cache: true,

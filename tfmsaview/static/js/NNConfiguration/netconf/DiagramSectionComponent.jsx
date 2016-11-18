@@ -17,7 +17,7 @@ export default class DiagramSectionComponent extends React.Component {
 
     //1
     componentWillMount(){
-        this._getNetConfigBasicInfo('nn0000090');
+        this._getNetConfigBasicInfo(this.context.NN_ID);
 
     }
 
@@ -44,7 +44,7 @@ export default class DiagramSectionComponent extends React.Component {
     componentWillUpdate(nextProps, nextState){
         if(this.state.nnConfigBasicInfoField !== null)
         {           
-            this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, 'nn0000090');
+            this._getNetConfigFormatInfo(this.state.nnConfigBasicInfoField, this.context.NN_ID);
         }        
     }
 
@@ -205,3 +205,7 @@ export default class DiagramSectionComponent extends React.Component {
 DiagramSectionComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 }
+
+DiagramSectionComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
+};
