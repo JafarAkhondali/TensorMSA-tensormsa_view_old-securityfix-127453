@@ -33,6 +33,11 @@ function signalFormatter(cell, row) {
     return `<i class='` + color + `'></i>`;
 }
 
+function precisionFormatter(cell, row) {
+    //console.log(cell);
+  return Number(cell).toPrecision(2);
+}
+
 export default class NN_InfoListComponent extends React.Component {
     constructor(props, context) {
         super(props);
@@ -44,6 +49,12 @@ export default class NN_InfoListComponent extends React.Component {
             selModalView: null,
             NN_ID : null
         };
+    }
+
+    componentDidMount(){
+        //alert(this.context.NN_ID)
+        this.getCommonNNInfo();
+        
     }
 
     getCommonNNInfo(params) {
@@ -177,11 +188,11 @@ export default class NN_InfoListComponent extends React.Component {
                         <TableHeaderColumn dataField="type" width="70">타입</TableHeaderColumn>
                         <TableHeaderColumn dataField="name" width="100">제목</TableHeaderColumn>
                         <TableHeaderColumn dataField="desc" width="150">설명</TableHeaderColumn>
-                        <TableHeaderColumn dataField="datavaild" width="50" editable={false}>Data</TableHeaderColumn>
+                        <TableHeaderColumn dataField="datavaild" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">Data</TableHeaderColumn>
                         <TableHeaderColumn dataField="config" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">Conf</TableHeaderColumn>
-                        <TableHeaderColumn dataField="confvaild" width="50" editable={false}>정합성</TableHeaderColumn>
-                        <TableHeaderColumn dataField="train" width="50" editable={false}>Train</TableHeaderColumn>
-                        <TableHeaderColumn dataField="acc" width="80" editable={false}>정확도</TableHeaderColumn>
+                        <TableHeaderColumn dataField="confvaild" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">정합성</TableHeaderColumn>
+                        <TableHeaderColumn dataField="train" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">Train</TableHeaderColumn>
+                        <TableHeaderColumn dataField="acc" width="80" editable={false} dataFormat={precisionFormatter}>정확도</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
                 <div>
@@ -206,4 +217,3 @@ NN_InfoListComponent.defaultProps = {
 NN_InfoListComponent.contextTypes = {
     NN_ID: React.PropTypes.string
 };
-
