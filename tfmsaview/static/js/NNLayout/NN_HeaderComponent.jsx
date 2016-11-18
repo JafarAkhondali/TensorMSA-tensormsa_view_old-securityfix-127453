@@ -21,6 +21,8 @@ export default class NN_HeaderComponent extends React.Component {
                 return this.props.getHeaderEvent(4); //call Data Configuration
             case 5:
                 return this.props.getHeaderEvent(5); //call Data Configuration
+            case 6:
+                return this.props.getHeaderEvent(6); //call Data Configuration
         }
     }
 
@@ -42,7 +44,8 @@ export default class NN_HeaderComponent extends React.Component {
 					<h1 className="hidden">Navigator</h1>
 					<ul>
 						<li className={this.isActive(1)}><a href="#" onClick={this.setFilter.bind(this, 1)}>Net Info</a></li>
-						<li className={this.isActive(2)}><a href="#" onClick={this.setFilter.bind(this, 2)}>Data</a></li>
+						<li className={this.isActive(6)}><a href="#" onClick={this.setFilter.bind(this, 6)}>Pre Process</a></li>
+						<li className={this.isActive(2)}><a href="#" onClick={this.setFilter.bind(this, 2)}>Data Process</a></li>
 						<li className={this.isActive(3)}><a href="#" onClick={this.setFilter.bind(this, 3)}>Net conf</a></li>  
 						<li className={this.isActive(4)}><a href="#" onClick={this.setFilter.bind(this, 4)}>Train Statistics</a></li>
 						<li className={this.isActive(5)}><a href="#" onClick={this.setFilter.bind(this, 5)}>Predict Test</a></li>

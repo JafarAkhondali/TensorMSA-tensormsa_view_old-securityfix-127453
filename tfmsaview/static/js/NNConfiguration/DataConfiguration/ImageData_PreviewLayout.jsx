@@ -39,7 +39,7 @@ export default class ImagePreviewLayout extends React.Component {
     setFormUrl(label){
         let testIp = "http://52.78.19.96:8989"  // will be deleted on jango server
         let uploadUrl = "/api/v1/type/imagefile/base/" + this.props.imageDataSet.baseDom + "/table/" + 
-        this.props.imageDataSet.tableDom + "/label/" + label +"/data/"+ this.props.imageDataSet.networkId +"/"
+        this.props.imageDataSet.tableDom + "/label/" + label +"/data/"+ this.props.netId +"/"
         testIp = testIp + uploadUrl
         this.setState({formAction: testIp})
 

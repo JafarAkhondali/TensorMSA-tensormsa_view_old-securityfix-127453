@@ -41,13 +41,16 @@ $nav-bar-color4: darken($nav-bar-color,
 30%);
 $nav-bar-color5: darken($nav-bar-color,
 40%);
+$nav-bar-color6: darken($nav-bar-color,
+45%);
 $nav-bar-hover-color: darken($nav-bar-color,
 50%);
-$nav-icon-color1:#4b77e9;
-$nav-icon-color2:$green;
-$nav-icon-color3:$dark-blue;
-$nav-icon-color4:#4b77e9;
-$nav-icon-color5: $yellow;
+$nav-icon-color1:$dark-blue;
+$nav-icon-color2: #4b77e9;
+$nav-icon-color3:$green;
+$nav-icon-color4:$dark-blue;
+$nav-icon-color5:#4b77e9;
+$nav-icon-color6: $yellow;
 //util menu
 $utilMenu-icon-url:url("#{$img-route}topIcon.png");
 $utilMenus-font-size: $font-size-base;
@@ -120,3 +123,7 @@ $login-bg1-url:url("#{$img-route}login-bg1.png");
 $login-bg2-url:url("#{$img-route}login-bg2.png");
 //img-box
 $img-box-btn-url:url("#{$img-route}btnIcon.png");
+//predict-box
+$predict-box-container-width:937px;
+$predict-box-left-width:454px;
+$predict-box-right-width:471px;

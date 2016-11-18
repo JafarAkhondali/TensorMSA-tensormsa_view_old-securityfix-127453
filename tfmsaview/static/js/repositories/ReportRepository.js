@@ -97,7 +97,7 @@ export default class ReportRepository {
     // }
 
     getPreviewImagePath(params) {
-        let url='/api/v1/type/imgpreview/nnid/';//local test for JSON
+        let url='/api/v1/type/imgpreview/nnid/';
         return this.api.get(url, params + "/").then((data) => {
             data = JSON.parse(data);
            return data;
@@ -105,7 +105,7 @@ export default class ReportRepository {
     }
 
     getTableList(params) {
-        let url='/api/v1/type/imagefile/';//local test for JSON
+        let url='/api/v1/type/imagefile/';
         return this.api.get(url, params).then((data) => {
             data = JSON.parse(data);
             console.log(data);
@@ -114,7 +114,7 @@ export default class ReportRepository {
     }
 
     postTableList(opt_url, params) {
-        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        let url='/api/v1/type/imagefile/' + opt_url;
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
@@ -122,7 +122,7 @@ export default class ReportRepository {
     }
 
     deleteTableList(opt_url, params) {
-        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        let url='/api/v1/type/imagefile/' + opt_url;
         return this.api.delete(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
@@ -130,7 +130,7 @@ export default class ReportRepository {
     }
 
     getImageFormatData(opt_url, params) {
-        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        let url='/api/v1/type/imagefile/' + opt_url;
         return this.api.get(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
@@ -138,14 +138,14 @@ export default class ReportRepository {
     }
 
     postImageFormatData(opt_url, params) {
-        let url='/api/v1/type/imagefile/' + opt_url;//local test for JSON
+        let url='/api/v1/type/imagefile/' + opt_url;
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
            return data;
         });
     }
 
-        getNetBaseInfo(opt_url, params) {
+    getNetBaseInfo(opt_url, params) {
         let url='/api/v1/type/common/nninfo/' + opt_url + '/category//subcate//';
         return this.api.get(url, "").then((data) => {
             data = JSON.parse(data);
@@ -243,6 +243,44 @@ export default class ReportRepository {
         //let url = '/api/v1/type/dataframe/base/' + databaseName + '/table/' + tableName + '/format/' + nnid + '/'
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    postWdnnTrain(opt_url, params) {
+
+        opt_url = "nn0000102/"
+        let url='/api/v1/type/wdnn/train/' + opt_url; 
+        //let url = '/api/v1/type/wdnn/train/'
+        return this.api.post(url, params).then((data) => {
+            data = JSON.parse(data);
+        });
+    }
+
+
+    getCategoryList() {
+        let url='/api/v1/type/common/item/category//';
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
+
+    getSubCategoryList(cate) {
+        let url='/api/v1/type/common/item/subcategory/' + cate + '/';
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }   
+
+    getNameSpaceList(datatype, preprocess , category, subcategory) {
+        let url='/api/v1/type/schema/datatype/' +datatype+'/preprocess/'+preprocess+'/category/'+category+'/subcategory/'+subcategory+'/'
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
            return data;
         });
     }
