@@ -56,7 +56,7 @@ export default class HomeComponent extends React.Component {
     }
 
     getNetInfo(){
-        this.setState({NN_InfoList: <NN_InfoListComponent setActiveItem={this.setActiveItem} addNewNNInfo={this.addNewNNInfo} getHeaderEvent={this.getHeaderEvent} />});        
+       this.setState({NN_InfoList: <NN_InfoListComponent setActiveItem={this.setActiveItem} addNewNNInfo={this.addNewNNInfo} getHeaderEvent={this.getHeaderEvent} />});
     }
     
     addNewNNInfo(){
