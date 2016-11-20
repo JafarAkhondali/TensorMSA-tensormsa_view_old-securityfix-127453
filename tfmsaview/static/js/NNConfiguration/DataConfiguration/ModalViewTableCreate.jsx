@@ -60,7 +60,7 @@ export default class ModalViewTableCreate extends React.Component {
             let rows = [];
             let i=0;
             for (let tableName of table_list['result']){
-                rows.push(<tr key={i++}><td><input id={tableName} onClick={this.setSaveTableName.bind(this, tableName)} type="radio"/></td><td>{tableName}</td></tr>)
+                rows.push(<tr key={i++}><td><input id={tableName} name ="modal" onClick={this.setSaveTableName.bind(this, tableName)} type="radio"/></td><td>{tableName}</td></tr>)
             }
             this.setState({tableRows : rows})
         });

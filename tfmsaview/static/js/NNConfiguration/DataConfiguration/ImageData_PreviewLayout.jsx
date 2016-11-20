@@ -63,15 +63,12 @@ export default class ImagePreviewLayout extends React.Component {
 			let clickEvent = this.setFormUrl.bind(this, key)
 			for(let path_info of imagePaths_info){
 				let path = "http://52.78.19.96:8989" + path_info;
-				rows.push(<img src= {path} key={i++} width='140' height='140' />)
+				rows.push(<div><img src= {path} key={i++} width='200' height='200'/></div>)
 			}
-			rows2.push(<dl className='layer-box'>
+			rows2.push(<dl className='img-box'>
 						   <dt>
 						   		<FileUpload options={fileUploadOptions}>
-							   		<span className='circle-blue'>
-							   		{key}
-					           		</span>	
-					           		<button onClick={clickEvent} className="img-btn save" ref="chooseAndUpload">up</button>
+					           		<button onClick={clickEvent} className="img-btn save" ref="chooseAndUpload"><h2>{key}</h2></button>
 					       		</FileUpload>
 						   </dt>
 						   <dd>
@@ -82,11 +79,9 @@ export default class ImagePreviewLayout extends React.Component {
     	
 
         return (   
-					<main>
-						<article>
+					<div>
 						{rows2}
-						</article>
-					</main>
+					</div>
         )
     }
 }
