@@ -84,6 +84,7 @@ export default class NN_PredictResultComponent extends React.Component {
         
 
         return (
+            /*
             <section>
                 <h1 className="hidden">PredictResult</h1>
                 <ul className="tabHeader">
@@ -119,6 +120,39 @@ export default class NN_PredictResultComponent extends React.Component {
                     </article>
                  </div>  
             </section>
+*/
+
+                 <div className="container tabBody">
+                 <div className="btnArea">
+                        <button type="button" className="save">예측</button>
+                    </div>
+                    <article>
+                        <table className="form-table">
+                            <colgroup>
+                            <col width="20%" />
+                            <col width="30%" />
+                            <col width="20%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Network ID</th>
+                                    <td className="left">
+                                        <select>
+                                            <option>Data Base List</option>
+                                        </select>
+                                    </td>
+                                    <th>제목</th>
+                                    <td className="left">제목</td>
+                                </tr>
+                            </thead>
+                        </table>
+                        
+                        <div className="result">
+                           
+                        </div>
+                    </article>
+                 </div>  
+            
         )
     }
 }

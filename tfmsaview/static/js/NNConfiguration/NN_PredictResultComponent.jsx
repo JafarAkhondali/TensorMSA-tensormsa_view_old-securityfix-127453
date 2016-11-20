@@ -1,93 +1,49 @@
-import React from 'react';
-import FileUpload from 'react-fileupload';
-import DropzoneComponent from 'react-dropzone-component';
+import React from 'react'
+import PredictResultCNNComponent from './PredictResult/PredictResultCNN'
+import PredictResultWDNNComponent from './PredictResult/PredictResultWDNN'
+import StepArrowComponent from './../NNLayout/common/StepArrowComponent'
+
 
 export default class NN_PredictResultComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {result:'image uplaod'};
+        this.state = {
+                PredictResultComponent : <PredictResultWDNNComponent/>,
+                selected:'WDNN' //initail lodaing is WDNN
+                };
     }
 
-    updateResult(result) {
-        console.log('updateResult Called : ' + result);
-        this.setState(JSON.parse(result));
+    setFilter(filter){
+        this.setState({selected  : filter})
+        if (filter == 'WDNN') {
+           // return this.getTableData();
+            return this.setState({PredictResultComponent  : <PredictResultWDNNComponent/>});
+        }
+        else{
+            return this.setState({PredictResultComponent  : <PredictResultCNNComponent/>});
+        }
     }
+
+    
+
+    isActive(value){
+    return ((value===this.state.selected) ? 'current':'');
+    }
+
 
     render() {
-        const options = {
-            baseUrl:'http://52.78.19.96:8989/api/v1/type/cnn/predict/nn0000045/',
-            fileFieldName(file) {
-                return "file"
-            },
-            uploadSuccess : function(resp){
-                this.props.updateState(resp)
-                console.log('upload success..!' + resp)
-                
-            }
-        }  
-        
-            
-        var dropzone;
-
-        var componentConfig = {
-            iconFiletypes: ['.jpg', '.png', '.gif'],
-            showFiletypeIcon: true,
-            postUrl: 'http://52.78.19.96:8989/api/v1/type/cnn/predict/nn0000045/',
-            uploadMultiple: true
-        };
-
-        var djsConfig = { autoProcessQueue: true }
-        var eventHandlers = { 
-            init: (passedDropzone) => dropzone = passedDropzone,
-            addedfile: (file) => console.log(file),
-            success: (e, response) => {
-                console.log(response);
-                this.updateResult(response);
-            }
-
-        }
-
-
-        
-
         return (
             <section>
-                <h1 className="hidden">PredictResult</h1>
-                <ul className="tabHeader">
-                    <li className="current"><a href="#">WDNN</a></li>
-                    <li><a href="#">CNN</a></li>                  
+                <h1 className="hidden">Network Configuration</h1>
+                    <ul className="tabHeader">
+                        <li className={this.isActive('WDNN')} onClick={this.setFilter.bind(this, 'WDNN')}><a href="#">WDNN</a></li>
+                        <li className={this.isActive('CNN')} onClick={this.setFilter.bind(this, 'CNN')}><a href="#">CNN</a></li>
                     <div className="btnArea">
-                        <button type="button" className="img-btn save">Select file</button>
-                        <button type="button" className="img-btn save">Predict</button>     
-                               
-                                     
+                        <StepArrowComponent />
                     </div>
-                </ul>
-                <FileUpload options={options} updateState={this.updateResult.bind(this)}>
-                    <button ref="chooseBtn">choose</button>
-                    <button ref="uploadBtn">upload</button>
-                </FileUpload>
-                 <div className="container tabBody">
-                    <article>
-
-                    <DropzoneComponent config={componentConfig}
-                       eventHandlers={eventHandlers}
-                       djsConfig={djsConfig} 
-                        updateState={this.updateResult.bind(this)}
-                       />,
-
-                       
-                        <dl className="data-box clearB w100p hInherit marginT10">
-                            <dt><span className="circle-green">Sample Data</span></dt>
-                            <dd>
-                              <div>result : {this.state.result}</div>  
-                            </dd>
-                        </dl>
-                    </article>
-                 </div>  
+                    </ul>
+				    {this.state.PredictResultComponent}
             </section>
         )
     }
 }
-
-                       
