@@ -19,17 +19,22 @@
 @import "align";
 @import "label";
 @import "option-select";
-@import "data-box";
 @import "layer-box";
 @import "login";
 @import "img-box";
 @import "modal";
 @import "object";
-@import "bootstrap-table";
-@import "spinner";
 @import "scroll";
 @import "predict-box";
-
-// Network Configuration
+@import "train";
+@import "pagination";
+@import "boot-table";
+@import "react-table";
+@import "spinner";
 @import "netconf-diagram";
 @import "netconf-table";
+@import "grid";
+@import "form";
+@import "preprocess";
+@import "filepicker";
+@import "dropzone";

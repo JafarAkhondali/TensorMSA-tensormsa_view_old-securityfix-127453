@@ -84,10 +84,7 @@ export default class ModalViewLabelCreate extends React.Component {
                                     </td>
                                     <td>
                                         <button type="button" onClick={this.getLabelList.bind(this)}>Search</button>
-                         <span className="modal-footer">
-                    <button onClick={this.saveModal.bind(this)}>Save</button>
-                    <button onClick={this.props.closeModal}>Close</button>
-                </span>               <button type="button" onClick={this.postLabelList.bind(this)}>Add</button>
+                                        <button type="button" onClick={this.postLabelList.bind(this)}>Add</button>
                                         <button type="button" onClick={this.deleteLabelList.bind(this)}>Delete</button>
                                     </td>
                                 </tr>

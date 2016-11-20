@@ -169,6 +169,14 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                        <div className="container tabBody">
                             <div id="tab1">
                                 <article>
+                                <div className="inner-btnArea">
+                                <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
+                                                {this.state.tableName}
+                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="img-btn save">Format Save</button>
+                                                <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
+                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
+                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
+                                </div>
                                     <table className="form-table align-left">
                                         <colgroup>
                                             <col width="10%"/>

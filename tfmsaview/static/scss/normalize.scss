@@ -2,12 +2,14 @@ html {
     font-family: $font-family-base;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    height: 100%;
 }
 
 body {
     margin: 0;
     font-size: $font-size-base;
     min-width: 700px;
+    height: 100%;
     // overflow: hidden;
 }
 
@@ -116,4 +118,16 @@ table {
 
 label {
     margin-right: 8px;
+}
+
+section,
+article,
+#main,
+#main>div,
+main {
+    height: 100%;
+}
+
+section {
+    height: calc(100% - $mainHeader-height);
 }

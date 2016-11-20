@@ -38,7 +38,7 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     //when page called on first 
     componentDidMount(){
-        alert(this.context.NN_ID)
+        //alert(this.context.NN_ID)
         this.networkId = this.context.NN_ID
         this.initDataBaseLov();
     }
@@ -117,7 +117,7 @@ export default class ImagesConfigurationComponent extends React.Component {
             this.setState({selModalView : <ModalViewTableCreate saveModal={this.saveModal} closeModal={this.closeModal}/>} )
         }
         else if (type == 'label'){
-            this.setState({selModalView : <ModalViewLabelCreate networkId={this.networkId}/>})
+            this.setState({selModalView : <ModalViewLabelCreate networkId={this.networkId} closeModal={this.closeModal}/>})
         }
         this.setState({open: true})
     }
@@ -188,9 +188,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                         </Modal>
                         
                         <div className="img-box-wrap">
-                            <div className="img-box-container">
                                 <ImagePreviewLayout imageDataSet={this.state} netId={this.networkId}/>
-                            </div>
                         </div>
                     </article>
                 </div>

@@ -62,7 +62,7 @@ export default class LabelByChartComponent extends React.Component {
         let section = d3.keys(this.state.data);
         for (const numSection of section){
             chartSection1.push(<dl className='data-box' key = {numSection}>
-                                <dt><span className="circle-yellow">{numSection}</span></dt>
+                                <dt><span>{numSection}</span></dt>
                                 <dd id={numSection}></dd>
                             </dl>);
         }

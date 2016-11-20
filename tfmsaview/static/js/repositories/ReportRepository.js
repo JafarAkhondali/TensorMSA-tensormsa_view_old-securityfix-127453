@@ -248,13 +248,41 @@ export default class ReportRepository {
         });
     }
 
-    postWdnnTrain(opt_url, params) {
+    postCnnTrain(opt_url, params) {
+        opt_url = "mesm10cnn61110/";
+        params = { epoch :"12", testset : "10"}
+        let url='/api/v1/type/cnn/train/' + opt_url; 
+        //let url = '/api/v1/type/wdnn/train/'
+        return this.api.post(url, params).then((data) => {
+            //data = JSON.parse(data);
+        });
+    }
 
+    postCnnEval(opt_url, params) {
+        opt_url = "mesm10cnn61110/"
+        params = { samplenum :"12", samplenethod : ""}
+        let url='/api/v1/type/cnn/eval/' + opt_url; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            //data = JSON.parse(data);
+        });
+    }
+
+    postWdnnTrain(opt_url, params) {
         opt_url = "nn0000102/"
         let url='/api/v1/type/wdnn/train/' + opt_url; 
         //let url = '/api/v1/type/wdnn/train/'
         return this.api.post(url, params).then((data) => {
-            data = JSON.parse(data);
+            //data = JSON.parse(data);
+        });
+    }
+
+    postWdnnEval(opt_url, params) {
+        opt_url = "nn0000102/"
+        let url='/api/v1/type/wdnn/eval/' + opt_url; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            //data = JSON.parse(data);
         });
     }
 
@@ -302,6 +330,16 @@ export default class ReportRepository {
            return data;
         });
     }  
+
+    postNNNetConfigInfo(params) {
+        //let url = '/api/v1/type/imagefile/base/'+params.dir+'/table/'+params.table+'/format/'+nnid+'/';
+
+        console.log("postNNNetConfigInfo!!!");
+        // return this.api.get(url).then((data) => {
+        //     console.log(data);
+        //    return data;
+        // });
+    }      
 }
 
   
