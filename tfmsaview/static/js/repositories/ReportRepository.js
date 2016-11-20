@@ -248,7 +248,8 @@ export default class ReportRepository {
     }
 
     postCnnTrain(opt_url, params) {
-        opt_url = "mesm10cnn61110/"
+        opt_url = "mesm10cnn61110/";
+        params = { epoch :"12", testset : "10"}
         let url='/api/v1/type/cnn/train/' + opt_url; 
         //let url = '/api/v1/type/wdnn/train/'
         return this.api.post(url, params).then((data) => {
@@ -258,6 +259,7 @@ export default class ReportRepository {
 
     postCnnEval(opt_url, params) {
         opt_url = "mesm10cnn61110/"
+        params = { samplenum :"12", samplenethod : ""}
         let url='/api/v1/type/cnn/eval/' + opt_url; 
         //let url = '/api/v1/type/wdnn/eval/'
         return this.api.post(url, params).then((data) => {

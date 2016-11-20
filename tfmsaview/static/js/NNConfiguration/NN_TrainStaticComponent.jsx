@@ -1,6 +1,7 @@
 import React from 'react';
 import StepArrowComponent from './../NNLayout/common/StepArrowComponent';
 import LabelByChartComponent from './TrainStatic/LabelByChartComponent'
+import TrainRealTimeChartComponent from './TrainStatic/TrainRealTimeChartComponent'
 import ReportRepository from './../repositories/ReportRepository'
 import Api from './../utils/Api'
 
@@ -50,16 +51,17 @@ export default class NN_TrainStaticComponent extends React.Component {
                 </ul>
                  <div className="container tabBody">
                 <div className="btnArea">
-                        <button type="button" className="img-btn save" onClick={this.callWdnnTrain.bind(this)}>WDNN Eval</button>
-                        <button type="button" className="img-btn save" onClick={this.callWdnnEval.bind(this)}>WDNN Train</button>
-                        <button type="button" className="img-btn save" onClick={this.callCnnTrain.bind(this)}>CNN Eval</button>
-                        <button type="button" className="img-btn save" onClick={this.callCnnEval.bind(this)}>CNN Train</button>
+                        <button type="button" className="img-btn save" onClick={this.callWdnnTrain.bind(this)}>WDNN Train</button>
+                        <button type="button" className="img-btn save" onClick={this.callWdnnEval.bind(this)}>WDNN  Eval</button>
+                        <button type="button" className="img-btn save" onClick={this.callCnnTrain.bind(this)}>CNN Train</button>
+                        <button type="button" className="img-btn save" onClick={this.callCnnEval.bind(this)}>CNN Eval</button>
                 </div>
                     <article className="train">
                         <section className="train-result">
                             <div className="train-wrap-top">
                                 <dl className="statistics">
                                     <dt><span className="circle-yellow">Train statistics</span></dt>
+                                        <TrainRealTimeChartComponent />
                                     <dd></dd>
                                 </dl>
                                 <dl className="test-result">
