@@ -238,11 +238,12 @@ export default class ReportRepository {
     }
     getDataFrameOnNetworkConfig(opt_url, params) {
 
-        opt_url = 'nn0000102/type/cell_feature/'
+        //opt_url = 'nn0000102/type/cell_feature/'
         //opt_url = 'nn0000102/type/label/'
+        opt_url = 'nn0000102/type/all/'
         let url='/api/v1/type/dataframe/format/'+opt_url
         console.log(url)
-        return this.api.get(url, params).then((data) => {
+        return this.api.get(url).then((data) => {
             data = JSON.parse(data);
             console.log(data);
            return data;

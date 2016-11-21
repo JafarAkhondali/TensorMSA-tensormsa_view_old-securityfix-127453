@@ -14,6 +14,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         this.state = {  
                 MetaStore_TableLayout : null,
                 WdnnTableData : null,
+                WdnnTableColumnType:null,
                 dataFormatTypes : {},
                 selModalView : null,
                 uploadFileList : [],
@@ -22,7 +23,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                 databaseName : null,
                 tableList : null,
                 tableName : null,
-                nnid : "nn0000102"
+                nnid : null
                 };
                         
             //this.addDataframeType = this.addDataframeType.bind(this, param);                 
@@ -30,6 +31,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     //when page called on first 
     componentDidMount(){
         this.getDataBaseOnDataConfig();
+        this.setState({nnid: this.context.NN_ID})
         console.log(this.state.dataBaseList)
         
     }
@@ -46,7 +48,28 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             console.log('data configuration search end')
         this.setState({WdnnTableData: tableData['result']})
         });
+        this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
+             console.log('dataframepost results end');
+             this.setState({WdnnTableColumnType: resultData['result']},function(){this.refs.child.setWdnnTableColumnType()});
+             // for (let[k,v] of Object.entries(resultData['result'])){
+             //     console.log(k); 
+             //     console.log(v);
+             // }
+        });
+        //this.refs.child.setWdnnTableColumnType();
+        console.log('dataframepost results end')
+        //this.getDataFrameType()
     }
+    // getDataFrameType () {
+    //     let results = {};
+    //     console.log("getDataFrameType")
+        
+    //     this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
+    //         console.log('dataframepost results end')
+    //         this.setState({WdnnTableColumnType: resultData['result']})
+    //         //results = resultData['result']
+    //     });
+    // }
     child_dataframe_format_post_btn(params){
         //this.props.MetaStore_TableLayout.
         console.log('child')
@@ -58,6 +81,9 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         console.log(opt_url)
 
         this.refs.child.dataFramePost(opt_url)
+    }
+    child_check_Column_dataType(){
+         this.refs.child.getDataFrameType()
     }
     openModal(type){
         console.log(type)
@@ -83,11 +109,11 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         });
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        console.log("shouldComponentUpdate: " + this.state.databaseName + "nextstats ---> " + nextState ) ;
-        console.log(nextState)
-        return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     console.log("shouldComponentUpdate: " + this.state.databaseName + "nextstats ---> " + nextState ) ;
+    //     console.log(nextState)
+    //     return true;
+    // }
         //get table list on seleceted base name
     getDataBaseOnDataConfig(){
         //let request
@@ -137,6 +163,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
 
 
 
+
     render() {
         return (
                        <div className="container tabBody">
@@ -152,10 +179,11 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                 </div>
                                     <table className="form-table align-left">
                                         <colgroup>
-                                        <col width="150" />
-                                        <col width="500" />
-                                        <col width="150" />
-                                        <col width="500" />
+                                            <col width="10%"/>
+                                            <col width="10%"/>
+                                            <col width="10%"/>
+                                            <col width="10%"/>
+                                            <col width="60%"/>
                                         </colgroup> 
                                         <tbody>
                                         <tr>
@@ -173,10 +201,19 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                                    {this.state.tableList}
                                                 </select>
                                             </td>
+                                            <td>
+                                                <button type="button" onClick={() => this.search_btn()} className="btn-sm">Search</button>
+                                                {this.state.tableName}
+                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="img-btn save">Format Save</button>
+                                                <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
+                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
+                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
+                                                <button type="button" className="btn-sm" onClick = {() => this.child_check_Column_dataType()}>get_type</button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <MetaStore_TableLayout WdnnTableData={this.state.WdnnTableData} ref="child"/>
+                                    <MetaStore_TableLayout WdnnTableData={this.state.WdnnTableData} WdnnTableColumnType={this.state.WdnnTableColumnType} ref="child"/>
                                 </article>
                                 <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
                                         onRequestClose={this.closeModal}>
@@ -194,4 +231,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
 }
 MetaStoreConfigurationComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
+};
+
+MetaStoreConfigurationComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
 };
