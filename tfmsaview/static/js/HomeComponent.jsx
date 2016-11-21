@@ -23,7 +23,7 @@ export default class HomeComponent extends React.Component {
                         NN_CONFIG : null,
                         NN_CONFVALID : null,
                         NN_TRAIN : null,
-                        NN_IMAGEPRE : null
+                        NN_DATATYPE : null
                          };
             this.addNewNNInfo = this.addNewNNInfo.bind(this); 
             this.getHeaderEvent = this.getHeaderEvent.bind(this);
@@ -37,7 +37,7 @@ export default class HomeComponent extends React.Component {
                   NN_CONFIG    : this.state.NN_CONFIG,
                   NN_CONFVALID : this.state.NN_CONFVALID,
                   NN_TRAIN     : this.state.NN_TRAIN,
-                  NN_IMAGEPRE  : this.state.NN_IMAGEPRE};
+                  NN_DATATYPE  : this.state.NN_DATATYPE};
     }
 
     setActiveItem(item1, item2, item3, item4, item5, item6, item7) {
@@ -47,25 +47,25 @@ export default class HomeComponent extends React.Component {
                        NN_CONFIG    : item4,
                        NN_CONFVALID : item5,
                        NN_TRAIN     : item6,
-                       NN_IMAGEPRE  : item7});
+                       NN_DATATYPE  : item7});
     }
 
     getHeaderEvent(i){
         switch (i) {
             case 0:
-                return this.getMainInfo(); //call Net Info
+                return this.getMainInfo(); 
             case 1:
-                return this.getNetInfo(); //call Net Info
+                return this.getNetInfo();
             case 2:
-                return this.setDataConfiguration(); //call Data Configuration
+                return this.getPreProcessing(); 
             case 3:
-                return this.setNetConfiguration(); //call Data Configuration
+                return this.setDataConfiguration();  
             case 4:
-                return this.getTimeStatistics(); //call Data Configuration
+                return this.setNetConfiguration(); 
             case 5:
-                return this.getPredictResult(); //call Data Configuration    
+                return this.getTimeStatistics();
             case 6:
-                return this.getPreProcessing(); //call Data Configuration 
+                return this.getPredictResult(); 
         }
     }
 
@@ -78,29 +78,30 @@ export default class HomeComponent extends React.Component {
     }
     
     addNewNNInfo(){
-            this.setState({NN_InfoList: <NN_BasicInfoComponent/>});   
-    }
-    
-    setDataConfiguration(){
-            this.setState({NN_InfoList: <NN_DataConfigurationComponent/>});   
-              
-    }
-
-    setNetConfiguration(){
-            this.setState({NN_InfoList: <NN_NetworkConfigurationComponent/>});  
-    }
-
-    getTimeStatistics(){
-            this.setState({NN_InfoList: <NN_TrainStaticComponent/>});   
-    }
-
-    getPredictResult(){
-            this.setState({NN_InfoList: <NN_PredictResultComponent/>});   
+        this.setState({NN_InfoList: <NN_BasicInfoComponent/>});    
     }
 
     getPreProcessing(){
-            this.setState({NN_InfoList: <NN_PreProcessingComponent/>});   
+        this.setState({NN_InfoList: <NN_PreProcessingComponent/>});   
     }
+    
+    setDataConfiguration(){
+        this.setState({NN_InfoList: <NN_DataConfigurationComponent/>});   
+    }
+
+    setNetConfiguration(){
+        this.setState({NN_InfoList: <NN_NetworkConfigurationComponent/>});  
+    }
+
+    getTimeStatistics(){
+        this.setState({NN_InfoList: <NN_TrainStaticComponent/>});   
+    }
+
+    getPredictResult(){
+        this.setState({NN_InfoList: <NN_PredictResultComponent/>});   
+    }
+
+    
 
     render() {
         return (
@@ -120,5 +121,5 @@ HomeComponent.childContextTypes = {
   NN_CONFIG    : React.PropTypes.string,
   NN_CONFVALID : React.PropTypes.string,
   NN_TRAIN     : React.PropTypes.string,
-  NN_IMAGEPRE  : React.PropTypes.string
+  NN_DATATYPE  : React.PropTypes.string
 }
