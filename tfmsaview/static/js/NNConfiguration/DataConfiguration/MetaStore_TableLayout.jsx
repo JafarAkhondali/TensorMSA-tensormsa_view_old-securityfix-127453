@@ -440,6 +440,7 @@ export default class MetaStore_TableLayout extends React.Component {
                     // {
                     //     console.log("catch")
                     //     this.celHeaderSelectBoxValue[columnValues] = "NONE"
+                    // id={columnValues} defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]} >
 
                     // } 
 
@@ -447,7 +448,7 @@ export default class MetaStore_TableLayout extends React.Component {
                      celHeaderCategory.push(    <td key={k++}>
                                                     <div className="option-select">
                                                     <select ref="s1" onChange={this.handleChange.bind(this)}
-                                                            id={columnValues} defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]} >
+                                                           id={columnValues} >
                                                        <option value="NONE">None</option>
                                                        <option  value="CATEGORICAL">Category Type</option>
                                                        <option value="CONTINUOUS">Continuous Type</option>

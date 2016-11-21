@@ -48,14 +48,14 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             console.log('data configuration search end')
         this.setState({WdnnTableData: tableData['result']})
         });
-        this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
-             console.log('dataframepost results end');
-             this.setState({WdnnTableColumnType: resultData['result']},function(){this.refs.child.setWdnnTableColumnType()});
-             // for (let[k,v] of Object.entries(resultData['result'])){
-             //     console.log(k); 
-             //     console.log(v);
-             // }
-        });
+        // this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
+        //      console.log('dataframepost results end');
+        //      this.setState({WdnnTableColumnType: resultData['result']},function(){this.refs.child.setWdnnTableColumnType()});
+        //      // for (let[k,v] of Object.entries(resultData['result'])){
+        //      //     console.log(k); 
+        //      //     console.log(v);
+        //      // }
+        // });
         //this.refs.child.setWdnnTableColumnType();
         console.log('dataframepost results end')
         //this.getDataFrameType()
