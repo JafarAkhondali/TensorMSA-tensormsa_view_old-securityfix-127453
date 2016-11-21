@@ -18,7 +18,12 @@ export default class HomeComponent extends React.Component {
             this.state = {  
                         NN_InfoList : <MainSectionComponent />,
                         NN_ID : null,
-                        NN_TYPE : null
+                        NN_TYPE : null,
+                        NN_DATAVALID : null,
+                        NN_CONFIG : null,
+                        NN_CONFVALID : null,
+                        NN_TRAIN : null,
+                        NN_IMAGEPRE : null
                          };
             this.addNewNNInfo = this.addNewNNInfo.bind(this); 
             this.getHeaderEvent = this.getHeaderEvent.bind(this);
@@ -26,12 +31,23 @@ export default class HomeComponent extends React.Component {
         }
 
     getChildContext() {
-          return {NN_ID : this.state.NN_ID,
-                  NN_TYPE : this.state.NN_TYPE};
+          return {NN_ID        : this.state.NN_ID,
+                  NN_TYPE      : this.state.NN_TYPE,
+                  NN_DATAVALID : this.state.NN_DATAVALID,
+                  NN_CONFIG    : this.state.NN_CONFIG,
+                  NN_CONFVALID : this.state.NN_CONFVALID,
+                  NN_TRAIN     : this.state.NN_TRAIN,
+                  NN_IMAGEPRE  : this.state.NN_IMAGEPRE};
     }
 
-    setActiveItem(item1, item2) {
-        this.setState({NN_ID: item1, NN_TYPE : item2});
+    setActiveItem(item1, item2, item3, item4, item5, item6, item7) {
+        this.setState({NN_ID        : item1,
+                       NN_TYPE      : item2,
+                       NN_DATAVALID : item3,
+                       NN_CONFIG    : item4,
+                       NN_CONFVALID : item5,
+                       NN_TRAIN     : item6,
+                       NN_IMAGEPRE  : item7});
     }
 
     getHeaderEvent(i){
@@ -98,6 +114,11 @@ export default class HomeComponent extends React.Component {
 }
 
 HomeComponent.childContextTypes = {
-  NN_ID: React.PropTypes.string,
-  NN_TYPE: React.PropTypes.string
+  NN_ID        : React.PropTypes.string,
+  NN_TYPE      : React.PropTypes.string,
+  NN_DATAVALID : React.PropTypes.string,
+  NN_CONFIG    : React.PropTypes.string,
+  NN_CONFVALID : React.PropTypes.string,
+  NN_TRAIN     : React.PropTypes.string,
+  NN_IMAGEPRE  : React.PropTypes.string
 }

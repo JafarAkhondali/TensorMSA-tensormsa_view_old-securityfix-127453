@@ -65,8 +65,9 @@ export default class NN_InfoListComponent extends React.Component {
     }
 
     deleteCommonNNInfo(params) {
-        this.props.reportRepository.deleteCommonNNInfo(params);
-        this.getCommonNNInfo();
+        this.props.reportRepository.deleteCommonNNInfo(params).then((tableData) => {
+            this.getCommonNNInfo();
+        });
     }
 
     NNButtonText(i) {
@@ -112,7 +113,18 @@ export default class NN_InfoListComponent extends React.Component {
             //alert(`You click row id: ${row.key}`);
             //console.log(this.thisClass.props)
             console.log("row정보 : " + row.type)
-            this.thisClass.props.setActiveItem(row.key, row.type);
+            console.log("row정보 : " + row.datavaild)
+            console.log("row정보 : " + row.config)
+            console.log("row정보 : " + row.confvaild)
+            console.log("row정보 : " + row.train)
+            console.log("row정보 : " + row.imagepre)
+            this.thisClass.props.setActiveItem(row.key,
+                                               row.type,
+                                               row.datavaild,
+                                               row.config,
+                                               row.confvaild,
+                                               row.train,
+                                               row.imagepre);
         }
 
         const selectRowProp = {
@@ -182,6 +194,7 @@ export default class NN_InfoListComponent extends React.Component {
                             <TableHeaderColumn dataField="confvaild" width="80" editable={false} dataFormat={signalFormatter} dataAlign="center">Consistency</TableHeaderColumn>
                             <TableHeaderColumn dataField="train" width="80" editable={false} dataFormat={signalFormatter} dataAlign="center">Train</TableHeaderColumn>
                             <TableHeaderColumn dataField="acc" width="80" editable={false} dataFormat={precisionFormatter}>Accuracy</TableHeaderColumn>
+                            <TableHeaderColumn dataField="imagepre" hidden>Imagepre</TableHeaderColumn>
                         </BootstrapTable>
                     </div>
                     <div>
