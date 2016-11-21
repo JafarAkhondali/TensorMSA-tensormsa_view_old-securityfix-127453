@@ -35,6 +35,24 @@ export default class ReportRepository {
         });
     }
 
+    getCategoryList(opt_url, params) {
+        let url='/api/v1/type/common/item/' + opt_url + '/';
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
+
+    getSubCategoryList(opt_url, params) {
+        let url='/api/v1/type/common/item/subcategory/' + opt_url + '/';
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
+
     getConfigNnCnn(params) {
         return this.api.get(`/api/v1/type/cnn/config/`, params).then((data) => {
             console.log(data);

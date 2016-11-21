@@ -58,6 +58,7 @@ export default class NN_InfoListComponent extends React.Component {
     }
 
     getCommonNNInfo(params) {
+        //console.log("call getCommonNNInfo");
         this.props.reportRepository.getCommonNNInfo(params).then((tableData) => {
             this.setState({ NN_TableData: tableData })
         });
@@ -71,27 +72,15 @@ export default class NN_InfoListComponent extends React.Component {
     NNButtonText(i) {
         switch (i) {
             case 0:
-                return "add New";
+                return "Search";
             case 1:
+                return "Add New";
+            case 2:
                 return "Delete";
-            case 2:
+            case 3:
                 return "Modify";
-            case 3:
+            case 4:
                 return "Detail";
-            default:
-                return "";
-        }
-    }
-    NNClickEvent(i) {
-        switch (i) {
-            case 0:
-                this.props.addNewNNInfo(); //call parent function to render
-            case 1:
-                return "";
-            case 2:
-                return "";
-            case 3:
-                return "";
             default:
                 return "";
         }
@@ -110,7 +99,7 @@ export default class NN_InfoListComponent extends React.Component {
         this.setState({ open: false });
         this.getCommonNNInfo();
     }
-
+    
     render() {
 
         function onAfterDeleteRow(rowKeys) {
@@ -122,7 +111,8 @@ export default class NN_InfoListComponent extends React.Component {
         function onSelectRow(row) {
             //alert(`You click row id: ${row.key}`);
             //console.log(this.thisClass.props)
-            this.thisClass.props.setActiveItem(row.key);
+            console.log("row정보 : " + row.type)
+            this.thisClass.props.setActiveItem(row.key, row.type);
         }
 
         const selectRowProp = {
@@ -152,59 +142,58 @@ export default class NN_InfoListComponent extends React.Component {
         return (
             <section>
                 <h1 className="hidden">tensor MSA main table</h1>
-                    <div className="searchArea">
-                        <label className="bullet" htmlFor="Name">Name</label>
-                        <input type="text" name="Name" placeholder="Name" />
-                        <label className="bullet" htmlFor="Name2">Name2</label>
-                        <input type="text" name="Name2" placeholder="Name" />
-                        <button className="btn-sm" type="button" onClick={() => this.getCommonNNInfo()}>search</button>
-                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent(this)} />
-                    </div>
+                <div className="searchArea">
+                    <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent(this)} />
+                </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">
-                        <button onClick={this.openModal.bind(this, "add New")}>add New</button>
-                        <button type="button" className="delete" onClick={this.NNClickEvent(1)}>
-                            {this.NNButtonText(1)}
+                        <button type="button" className="search" >
+                             {this.NNButtonText(0)}
                         </button>
-                        <button type="button" className="modify" onClick={this.NNClickEvent(2)}>
+                        <button onClick={this.openModal.bind(this, "add New")}>
+                             {this.NNButtonText(1)}
+                        </button>
+                        <button type="button" className="delete" >
                             {this.NNButtonText(2)}
                         </button>
-                        <button type="button" className="detail" onClick={this.NNClickEvent(3)}>
+                        <button type="button" className="modify" >
                             {this.NNButtonText(3)}
                         </button>
+                        <button type="button" className="detail" >
+                            {this.NNButtonText(4)}
+                        </button>
                     </div>
-
                     <div className="net-info">
-                    <BootstrapTable data={result} options={ options } cellEdit={cellEditProp}
-                        striped={true}
-                        hover={true}
-                        condensed={true}
-                        pagination={true}
-                        selectRow={selectRowProp}
-                        deleteRow={true}
-                        search={true}>
-                        <TableHeaderColumn isKey={true} dataField="key" width="100">ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField="category" width="70">그룹</TableHeaderColumn>
-                        <TableHeaderColumn dataField="type" width="70">타입</TableHeaderColumn>
-                        <TableHeaderColumn dataField="name" width="100">제목</TableHeaderColumn>
-                        <TableHeaderColumn dataField="desc" width="150">설명</TableHeaderColumn>
-                        <TableHeaderColumn dataField="datavaild" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">Data</TableHeaderColumn>
-                        <TableHeaderColumn dataField="config" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">Conf</TableHeaderColumn>
-                        <TableHeaderColumn dataField="confvaild" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">정합성</TableHeaderColumn>
-                        <TableHeaderColumn dataField="train" width="50" editable={false} dataFormat={signalFormatter} dataAlign="center">Train</TableHeaderColumn>
-                        <TableHeaderColumn dataField="acc" width="80" editable={false} dataFormat={precisionFormatter}>정확도</TableHeaderColumn>
-                    </BootstrapTable>
-                </div>
-                <div>
-                    <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
-                        onRequestClose={this.closeModal}>
-                        <div className="modal-dialog modal-lg">{this.state.selModalView}
-                            <span className="modal-footer">
-                                <button onClick={this.closeModal}>Close</button>
-                            </span>
-                        </div>
-                    </Modal>
-                </div>
+                        <BootstrapTable data={result} options={ options } cellEdit={cellEditProp}
+                            striped={true}
+                            hover={true}
+                            condensed={true}
+                            pagination={true}
+                            selectRow={selectRowProp}
+                            deleteRow={true}
+                            search={true}>
+                            <TableHeaderColumn isKey={true} dataField="key" width="120">ID</TableHeaderColumn>
+                            <TableHeaderColumn dataField="category" width="70">Category</TableHeaderColumn>
+                            <TableHeaderColumn dataField="type" width="70">Type</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" width="120">Title</TableHeaderColumn>
+                            <TableHeaderColumn dataField="desc" width="150">Description</TableHeaderColumn>
+                            <TableHeaderColumn dataField="datavaild" width="80" editable={false} dataFormat={signalFormatter} dataAlign="center">DataVaild</TableHeaderColumn>
+                            <TableHeaderColumn dataField="config" width="80" editable={false} dataFormat={signalFormatter} dataAlign="center">Config</TableHeaderColumn>
+                            <TableHeaderColumn dataField="confvaild" width="80" editable={false} dataFormat={signalFormatter} dataAlign="center">Consistency</TableHeaderColumn>
+                            <TableHeaderColumn dataField="train" width="80" editable={false} dataFormat={signalFormatter} dataAlign="center">Train</TableHeaderColumn>
+                            <TableHeaderColumn dataField="acc" width="80" editable={false} dataFormat={precisionFormatter}>Accuracy</TableHeaderColumn>
+                        </BootstrapTable>
+                    </div>
+                    <div>
+                        <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
+                            onRequestClose={this.closeModal}>
+                            <div className="modal-dialog modal-lg">{this.state.selModalView}
+                                <span className="modal-footer">
+                                    <button onClick={this.closeModal}>Close</button>
+                                </span>
+                            </div>
+                        </Modal>
+                    </div>
                 </div>
             </section>
         );

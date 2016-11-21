@@ -17,7 +17,8 @@ export default class HomeComponent extends React.Component {
         super(props);
             this.state = {  
                         NN_InfoList : <MainSectionComponent />,
-                        NN_ID : null
+                        NN_ID : null,
+                        NN_TYPE : null
                          };
             this.addNewNNInfo = this.addNewNNInfo.bind(this); 
             this.getHeaderEvent = this.getHeaderEvent.bind(this);
@@ -25,11 +26,12 @@ export default class HomeComponent extends React.Component {
         }
 
     getChildContext() {
-          return {NN_ID : this.state.NN_ID};
+          return {NN_ID : this.state.NN_ID,
+                  NN_TYPE : this.state.NN_TYPE};
     }
 
-    setActiveItem(item) {
-        this.setState({NN_ID: item});
+    setActiveItem(item1, item2) {
+        this.setState({NN_ID: item1, NN_TYPE : item2});
     }
 
     getHeaderEvent(i){
@@ -96,5 +98,6 @@ export default class HomeComponent extends React.Component {
 }
 
 HomeComponent.childContextTypes = {
-  NN_ID: React.PropTypes.string
+  NN_ID: React.PropTypes.string,
+  NN_TYPE: React.PropTypes.string
 }

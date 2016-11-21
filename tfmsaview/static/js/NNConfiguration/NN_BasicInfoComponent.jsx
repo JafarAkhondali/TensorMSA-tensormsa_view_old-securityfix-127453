@@ -9,25 +9,35 @@ export default class NN_BasicInfoComponent extends React.Component {
         this.state = {
                 nn_id     : null,
                 category  : null,
+                categoryList : null,
                 subcate   : null,
+                subcateList   : null,
                 type      : null,
                 name      : null,
                 desc      : null               
                 };
     }
 
+    componentDidMount(){
+        this.getCategoryList();
+        console.log(this.state.categoryList)
+        
+    }
     //set category name on state variable
     setCategory(obj){
-        this.setState({category: obj.target.value});
+        console.log("setCategory : " + obj.target.value)
+        this.setState({category: obj.target.value}, function(){this.getSubCategoryList()});
     }
 
     //set subCategory on state variable
     setSubCategory(obj){
+        console.log("setSubCategory : " + obj.target.value)
         this.setState({subcate: obj.target.value});
     }
 
     //set netWorkType on state variable
     setNetWorkType(obj){
+        console.log("setNetWorkType : " + obj.target.value)
         this.setState({type: obj.target.value});
     }
 
@@ -42,7 +52,7 @@ export default class NN_BasicInfoComponent extends React.Component {
     }
 
     make_nn_id(){
-        this.key_id = this.state.category + this.state.subcate + this.state.type + Math.floor((Math.random() * 100000) + 1);
+        this.key_id = this.state.category + '_' + this.state.subcate + '_' + this.state.type + '_' + Math.floor((Math.random() * 100000) + 1);
     }
     // add user request new table
     postCommonNNInfo(){
@@ -59,7 +69,30 @@ export default class NN_BasicInfoComponent extends React.Component {
             
         });;
     }
+
+    getCategoryList(){
+        let defaultUrl = "category";
+        this.props.reportRepository.getCategoryList(defaultUrl).then((category_list) => {
+        let option = [];
+        let i=0;
+        for (let categoryValue of category_list['result']){
+            option.push(<option key={i++} value={categoryValue}>{categoryValue}</option>)
+        }
+        this.setState({categoryList : option})
+        });
+    }
     
+    getSubCategoryList(){
+        this.props.reportRepository.getSubCategoryList(this.state.category).then((subCate_list) => {
+        let option = [];
+        let i=0;
+        for (let subCateValue of subCate_list['result']){
+            option.push(<option key={i++} value={subCateValue}>{subCateValue}</option>)
+        }
+        this.setState({subcateList : option})
+        });
+    }
+
     render() {
         return (
                 <section>
@@ -85,19 +118,15 @@ export default class NN_BasicInfoComponent extends React.Component {
                                         <tr>
                                             <th>GROUP(Business Category)</th>
                                             <td>
-                                                <select onChange={this.setCategory.bind(this)} value={this.state.value}>
-                                                    <option value="1">category</option>
-                                                    <option value="mes">MES</option>
-                                                    <option value="scm">SCM</option>
-                                                    <option value="erp">ERP</option>
+                                                <select onChange={this.setCategory.bind(this)} >
+                                                  <option key="default1">Category List</option>
+                                                  {this.state.categoryList}  
                                                 </select>
                                             </td>
                                             <td>
-                                                <select onChange={this.setSubCategory.bind(this)} value={this.state.value}>
-                                                    <option value="1">subcategory</option>
-                                                    <option value="m10">용선관제</option>
-                                                    <option value="m11">제압관제</option>
-                                                    <option value="m12">냉연관제</option>
+                                                <select onChange={this.setSubCategory.bind(this)}>
+                                                <option key="default1">subCategory List</option>
+                                                   {this.state.subcateList}
                                                 </select>
                                             </td>
                                             <th>Neural Network Type</th>
