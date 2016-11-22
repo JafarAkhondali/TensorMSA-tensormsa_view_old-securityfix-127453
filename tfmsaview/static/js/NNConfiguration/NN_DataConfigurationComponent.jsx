@@ -6,12 +6,14 @@ import StepArrowComponent from './../NNLayout/common/StepArrowComponent'
 export default class NN_DataConfigurationComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.selected = 'meta';
         this.state = {
                 DataConfigurationComponent : null,
-                selected:'meta', //initail lodaing is meta,
                 tabMeta : null,
                 tabImage : null,
-                tabText : null
+                tabText : null,
+                stepBack : 2,
+                stepForward : 4
             };
     }
 
@@ -20,7 +22,7 @@ export default class NN_DataConfigurationComponent extends React.Component {
     }
 
     setFilter(filter){
-        this.setState({selected  : filter})
+        this.selected  = filter
         if (filter == 'meta') {
             return this.getTableData();
         }
@@ -30,15 +32,17 @@ export default class NN_DataConfigurationComponent extends React.Component {
     }
 
     getTableData(){
+        this.setTabContent()
         this.setState({DataConfigurationComponent  : <MetaStoreConfigurationComponent/>});
     }
 
     getImageData(){
+        this.setTabContent()
         this.setState({DataConfigurationComponent  : <ImagesConfigurationComponent/>});
     }
 
     isActive(value){
-    return ((value===this.state.selected) ? 'current':'');
+        return ((value===this.selected) ? 'current':'');
     }
 
     setTabContent(){
@@ -46,6 +50,7 @@ export default class NN_DataConfigurationComponent extends React.Component {
             this.setState({tabMeta : <li className={this.isActive('meta')} onClick={this.setFilter.bind(this, 'meta')}><a href="#">Meta Store</a></li>})
             this.setState({tabImage : <li className={this.isActive('images')} onClick={this.setFilter.bind(this, 'images')}><a href="#">Images</a></li>})
             this.setState({tabText : <li className={this.isActive('texts')} onClick={this.setFilter.bind(this, 'texts')}><a href="#">Raw Texts</a></li>})
+            this.setState({DataConfigurationComponent  : <MetaStoreConfigurationComponent/>});
         }else if(this.context.NN_DATATYPE == '1'){
             this.setState({tabMeta : <li className={this.isActive('meta')} onClick={this.setFilter.bind(this, 'meta')}><a href="#">Meta Store</a></li>})
             this.setState({DataConfigurationComponent  : <MetaStoreConfigurationComponent/>});
@@ -69,7 +74,7 @@ export default class NN_DataConfigurationComponent extends React.Component {
                         {this.state.tabMeta}
                         {this.state.tabImage}
                         {this.state.tabText}
-                        <StepArrowComponent />
+                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                     </ul>
 				    {this.state.DataConfigurationComponent}
             </section>

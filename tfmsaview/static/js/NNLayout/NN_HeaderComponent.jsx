@@ -1,4 +1,5 @@
 import React from 'react'
+import StepArrowComponent from './common/StepArrowComponent'
 
 export default class NN_HeaderComponent extends React.Component {
     constructor(props) {

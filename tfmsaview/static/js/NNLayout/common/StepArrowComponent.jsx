@@ -9,8 +9,8 @@ export default class StepArrowComponent extends React.Component {
         return (   
             <div className="btnArea">
                 <div className="PNBtn">
-                    <button type="button" className="prev" onClick={() => this.props.getHeaderEvent(1)}>Prev</button>
-                    <button type="button" className="next" onClick={() => this.props.getHeaderEvent(2)}>Next</button>
+                    <button type="button" className="prev" onClick={() => this.props.getHeaderEvent(this.props.stepBack)}>Prev</button>
+                    <button type="button" className="next" onClick={() => this.props.getHeaderEvent(this.props.stepForward)}>Next</button>
                 </div>
             </div>
         )
