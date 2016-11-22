@@ -23,7 +23,8 @@ export default class HomeComponent extends React.Component {
                         NN_CONFIG : null,
                         NN_CONFVALID : null,
                         NN_TRAIN : null,
-                        NN_DATATYPE : null
+                        NN_DATATYPE : null,
+
                          };
             this.addNewNNInfo = this.addNewNNInfo.bind(this); 
             this.getHeaderEvent = this.getHeaderEvent.bind(this);
@@ -66,11 +67,11 @@ export default class HomeComponent extends React.Component {
                 return this.getTimeStatistics();
             case 6:
                 return this.getPredictResult(); 
-        }
+            }
     }
 
     getMainInfo(){
-        this.setState({NN_InfoList: <MainSectionComponent />});    
+        this.setState({NN_InfoList: <MainSectionComponent getHeaderEvent={this.getHeaderEvent}/>});    
     }
 
     getNetInfo(){
@@ -78,27 +79,37 @@ export default class HomeComponent extends React.Component {
     }
     
     addNewNNInfo(){
-        this.setState({NN_InfoList: <NN_BasicInfoComponent/>});    
+        this.setState({NN_InfoList: <NN_BasicInfoComponent getHeaderEvent={this.getHeaderEvent}/> });    
     }
 
     getPreProcessing(){
-        this.setState({NN_InfoList: <NN_PreProcessingComponent/>});   
+        if(this.state.NN_ID){
+            this.setState({NN_InfoList: <NN_PreProcessingComponent getHeaderEvent={this.getHeaderEvent}/> });  
+        } 
     }
     
     setDataConfiguration(){
-        this.setState({NN_InfoList: <NN_DataConfigurationComponent/>});   
+        if(this.state.NN_ID){
+            this.setState({NN_InfoList: <NN_DataConfigurationComponent getHeaderEvent={this.getHeaderEvent}/> });   
+        }
     }
 
     setNetConfiguration(){
-        this.setState({NN_InfoList: <NN_NetworkConfigurationComponent/>});  
+        if(this.state.NN_DATAVALID){
+            this.setState({NN_InfoList: <NN_NetworkConfigurationComponent getHeaderEvent={this.getHeaderEvent}/> });  
+        }
     }
 
     getTimeStatistics(){
-        this.setState({NN_InfoList: <NN_TrainStaticComponent/>});   
+        if(this.state.NN_CONFIG){
+            this.setState({NN_InfoList: <NN_TrainStaticComponent getHeaderEvent={this.getHeaderEvent}/> }); 
+        }  
     }
 
     getPredictResult(){
-        this.setState({NN_InfoList: <NN_PredictResultComponent/>});   
+        if(this.state.NN_TRAIN){
+            this.setState({NN_InfoList: <NN_PredictResultComponent getHeaderEvent={this.getHeaderEvent}/> });   
+        }
     }
 
     
@@ -123,3 +134,13 @@ HomeComponent.childContextTypes = {
   NN_TRAIN     : React.PropTypes.string,
   NN_DATATYPE  : React.PropTypes.string
 }
+
+HomeComponent.contextTypes = {
+    NN_ID        : React.PropTypes.string,
+    NN_TYPE      : React.PropTypes.string,
+    NN_DATAVALID : React.PropTypes.string,
+    NN_CONFIG    : React.PropTypes.string,
+    NN_CONFVALID : React.PropTypes.string,
+    NN_TRAIN     : React.PropTypes.string,
+    NN_DATATYPE  : React.PropTypes.string
+};

@@ -8,6 +8,10 @@ import Api from './../utils/Api'
 export default class NN_TrainStaticComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+                stepBack : 4,
+                stepForward : 6
+            };
     }
 
     callWdnnTrain(nnid){
@@ -46,7 +50,7 @@ export default class NN_TrainStaticComponent extends React.Component {
                         <button type="button" className="img-btn save">Save</button>
                         <button type="button" className="img-btn save">Error Check</button>
                         <button type="button" className="img-btn save">Train</button>
-                        <StepArrowComponent />
+                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                     </div>
                 </ul>
                  <div className="container tabBody">
