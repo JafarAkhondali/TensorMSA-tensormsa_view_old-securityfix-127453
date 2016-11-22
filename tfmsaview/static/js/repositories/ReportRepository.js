@@ -16,7 +16,8 @@ export default class ReportRepository {
         });
     }
 
-    postCommonNNInfo(opt_url, id, params) {
+    postCommonNNInfo(opt_url, id, params) {data = JSON.parse(data);
+           return data.result;
         let url='/api/v1/type/common/nninfo/';
         console.log("키값은 : " + id);
         params["nn_id"] = id;
@@ -38,7 +39,8 @@ export default class ReportRepository {
     getCategoryList(opt_url, params) {
         let url='/api/v1/type/common/item/' + opt_url + '/';
         return this.api.get(url, params).then((data) => {
-            data = JSON.parse(data);
+            data = JSON.parse(data);data = JSON.parse(data);
+           return data.result;
             console.log(data);
            return data;
         });
@@ -357,7 +359,39 @@ export default class ReportRepository {
         //     console.log(data);
         //    return data;
         // });
-    }      
+    }     
+
+    postNeuralNetTrain(netType, netId, params) {
+        let url='/api/v1/type/' + netType + '/train/' + netId + '/'; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            return data
+        });
+    } 
+
+    postNeuralNetEval(netType, netId, params) {
+        let url='/api/v1/type/' + netType + '/eval/' + netId + '/'; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            return data
+        });
+    } 
+
+    postNeuralNetCheck(netType, netId, params) {
+        let url='/api/v1/type/' + netType + '/eval/' + netId + '/'; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            return data
+        });
+    } 
+
+    getNeuralNetStat(netId) {
+        let url='/api/v1/type/common/stat/' + netId + '/'; 
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+            return data.result;
+        });
+    } 
 }
 
   

@@ -5,39 +5,7 @@ export default class LabelByChartComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                        data : {
-                                    "A": [{
-                                        "label": "A",
-                                        "value": "20"
-                                    }, {
-                                        "label": "B",
-                                        "value": "50"
-                                    }, {
-                                        "label": "C",
-                                        "value": "30"
-                                    }],
-                                    "B": [{
-                                        "label": "A",
-                                        "value": "10"
-                                    }, {
-                                        "label": "B",
-                                        "value": "30"
-                                    }, {
-                                        "label": "C",
-                                        "value": "20"
-                                    }],
-                                     "C": [{
-                                        "label": "A",
-                                        "value": "50"
-                                    }, {
-                                        "label": "B",
-                                        "value": "20"
-                                    }, {
-                                        "label": "C",
-                                        "value": "40"
-                                    }]
-                                },
-                        chartSection : null
+            chartSection : null
         };
     }
 
@@ -51,15 +19,15 @@ export default class LabelByChartComponent extends React.Component {
 
     makeChart(){ 
         const chartSection1 = [];
-        let section = d3.keys(this.state.data);
+        let section = d3.keys(this.props.data);
         for (const numSection of section){
-            this.createChart(numSection, this.state.data);
+            this.createChart(numSection, this.props.data);
         }
     }
 
     makeChartDOM(){
         const chartSection1 = [];
-        let section = d3.keys(this.state.data);
+        let section = d3.keys(this.props.data);
         for (const numSection of section){
             chartSection1.push(<dl className='data-box' key = {numSection}>
                                 <dt><span>{numSection}</span></dt>

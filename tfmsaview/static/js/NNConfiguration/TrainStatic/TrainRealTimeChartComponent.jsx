@@ -4,19 +4,21 @@ import * as d3 from "d3"
 export default class TrainRealTimeChartComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.dataLen = 0;
     }
 
     componentDidMount() { //after DOM make D3 Chart
-        this.createChart();
+        this.createChart(this.props.data);
     }
 
-    createChart(){
-          var limit = 60 * 1,
-            duration = 750,
+    createChart(inputData){
+        var data = inputData
+        var limit = inputData.length,
+            duration = 700,
             now = new Date(Date.now() - duration)
 
         var width = 500,
-            height = 200
+            height = 150
 
         var groups = {
             current: {
@@ -33,7 +35,7 @@ export default class TrainRealTimeChartComponent extends React.Component {
             .range([0, width])
 
         var y = d3.scale.linear()
-            .domain([0, 100])
+            .domain([0, 1])
             .range([height, 0])
 
         var line = d3.svg.line()
@@ -67,12 +69,14 @@ export default class TrainRealTimeChartComponent extends React.Component {
 
         function tick() {
         now = new Date()
-
             // Add new values
             for (var name in groups) {
                 var group = groups[name]
-                //group.data.push(group.value) // Real values arrive at irregular intervals
-                group.data.push(20 + Math.random() * 10)
+                for(var val of data){
+                    group.data.push(val)
+                }
+                //group.data.push(data[data.length]) // Real values arrive at irregular intervals
+                //group.data.push(20 + Math.random() * 10)
                 group.path.attr('d', line)
             }
 

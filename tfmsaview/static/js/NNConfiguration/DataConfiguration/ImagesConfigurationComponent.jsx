@@ -38,7 +38,6 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     //when page called on first 
     componentDidMount(){
-        //alert(this.context.NN_ID)
         this.networkId = this.context.NN_ID
         this.initDataBaseLov();
     }
