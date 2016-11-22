@@ -194,6 +194,14 @@ export default class ReportRepository {
            return data;
         });
     }
+    getWdnnTableList(params) {
+        let url='/api/v1/type/dataframe/';
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
 
     getWdnnTableDataFromHbase(opt_url, params) {
         //let url='/api/v1/type/imagefile/' + opt_url ;
@@ -240,7 +248,7 @@ export default class ReportRepository {
 
         //opt_url = 'nn0000102/type/cell_feature/'
         //opt_url = 'nn0000102/type/label/'
-        opt_url = 'nn0000102/type/all/'
+        //opt_url = 'nn0000102/type/all/'
         let url='/api/v1/type/dataframe/format/'+opt_url
         console.log(url)
         return this.api.get(url).then((data) => {
@@ -287,7 +295,7 @@ export default class ReportRepository {
     }
 
     postWdnnTrain(opt_url, params) {
-        opt_url = "nn0000102/"
+        //opt_url = "nn0000102/"
         let url='/api/v1/type/wdnn/train/' + opt_url; 
         //let url = '/api/v1/type/wdnn/train/'
         return this.api.post(url, params).then((data) => {

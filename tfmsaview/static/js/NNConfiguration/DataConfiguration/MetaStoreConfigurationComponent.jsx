@@ -2,15 +2,20 @@ import React from 'react';
 import MetaStore_TableLayout from './MetaStore_TableLayout';
 import ReportRepository from './../../repositories/ReportRepository';
 import Api from './../../utils/Api';
-import ModalViewTableCsvCreate from './ModalViewTableCsvCreate';
+import ModalViewWdnnCsvCreate from './ModalViewWdnnCsvCreate';
 import Modal from 'react-modal';
+import FileUpload from 'react-fileupload'; //why?? 
 
 export default class MetaStoreConfigurationComponent extends React.Component {
     
     constructor(props) {
         super(props);
+        this.saveModal = this.saveModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.databaseName = null,
+        this.tableName = null,
         this.c_tableName = null;
+        this.networkId = null;
         this.state = {  
                 MetaStore_TableLayout : null,
                 WdnnTableData : null,
@@ -20,64 +25,83 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                 uploadFileList : [],
                 tableRows : null,
                 dataBaseList : null,
-                databaseName : null,
                 tableList : null,
-                tableName : null,
-                nnid : null
+                nnid : null,
+                baseDom : null,
+                tableDom : null,
                 };
                         
             //this.addDataframeType = this.addDataframeType.bind(this, param);                 
     }
     //when page called on first 
     componentDidMount(){
-        this.getDataBaseOnDataConfig();
+        
+        //this.getDataBaseOnDataConfig();
         this.setState({nnid: this.context.NN_ID})
+        this.networkId = this.context.NN_ID
+        //networkId = this.context.NN_ID
+        this.initDataBaseLov()
         console.log(this.state.dataBaseList)
         
     }
-        // combine get rest api url 
+    saveModal(base, table) { 
+        this.databaseName = base
+        this.tableName = table
+        this.setState({baseDom : base})
+        this.setState({tableDom : table})
+        this.setState({open: false});
+    }
+        // combine get rest api url getNetBaseInfo
+
+ 
     get_searchUrl(){
         return "base/" + this.state.databaseName + "/table/" ;
     }
+        // 
+    initDataBaseLov(){
+        console.log("initDataBaseLov")
+        console.log(this.state.nnid)
+        this.props.reportRepository.getNetBaseInfo(this.networkId).then((nnBaseInfo) => {
+            console.log(nnBaseInfo['result'])
+            let base = nnBaseInfo['result'][0]['fields']['dir'];
+            let table = nnBaseInfo['result'][0]['fields']['table'];   
+            this.setState({baseDom : base});
+            this.setState({tableDom : table});
+            
+        });
+    }
+    // init table lov
+
+
+
+
     search_btn(params){
         let limit_cnt = {}
         limit_cnt["limits"] = 0
         //let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/'
-        let opt_url =  this.state.databaseName + '/table/' + this.c_tableName + '/data/'
+        let opt_url =  this.state.baseDom + '/table/' + this.state.tableDom + '/data/'
         this.props.reportRepository.getWdnnTableDataFromHbase(opt_url).then((tableData) => {
             console.log('data configuration search end')
         this.setState({WdnnTableData: tableData['result']})
         });
-        // this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
-        //      console.log('dataframepost results end');
-        //      this.setState({WdnnTableColumnType: resultData['result']},function(){this.refs.child.setWdnnTableColumnType()});
-        //      // for (let[k,v] of Object.entries(resultData['result'])){
-        //      //     console.log(k); 
-        //      //     console.log(v);
-        //      // }
-        // });
-        //this.refs.child.setWdnnTableColumnType();
         console.log('dataframepost results end')
-        //this.getDataFrameType()
+        //this.getDataFrameType() WdnnTableColumnType
+        console.log('categorical set')
+        let colum_type = this.getDataframeColumnOnDataConfig()
+        console.log(colum_type)
+        //this.setState({WdnnTableColumnType:colum_type })
+        console.log('categorical end')
+       
     }
-    // getDataFrameType () {
-    //     let results = {};
-    //     console.log("getDataFrameType")
-        
-    //     this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
-    //         console.log('dataframepost results end')
-    //         this.setState({WdnnTableColumnType: resultData['result']})
-    //         //results = resultData['result']
-    //     });
-    // }
+
     child_dataframe_format_post_btn(params){
         //this.props.MetaStore_TableLayout.
         console.log('child')
-        console.log(this.state.databaseName)
-        console.log(this.c_tableName)
+        console.log(this.databaseName)
+        console.log(this.tableName)
         console.log(this.state.nnid)
 
-        let opt_url =  this.state.databaseName + '/table/' + this.c_tableName + '/format/' + this.state.nnid + '/'
+        let opt_url =  this.databaseName + '/table/' + this.tableName + '/format/' + this.state.nnid + '/'
         console.log(opt_url)
 
         this.refs.child.dataFramePost(opt_url)
@@ -86,10 +110,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
          this.refs.child.getDataFrameType()
     }
     openModal(type){
-        console.log(type)
-        if(type == 'table'){
-            this.setState({selModalView : <ModalViewTableCsvCreate/>})
-        }
+        this.setState({selModalView : <ModalViewWdnnCsvCreate saveModal={this.saveModal} closeModal={this.closeModal}/>})
+      
         this.setState({open: true})
     }
       // close modal 
@@ -109,12 +131,6 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         });
     }
 
-    // shouldComponentUpdate(nextProps, nextState){
-    //     console.log("shouldComponentUpdate: " + this.state.databaseName + "nextstats ---> " + nextState ) ;
-    //     console.log(nextState)
-    //     return true;
-    // }
-        //get table list on seleceted base name
     getDataBaseOnDataConfig(){
         //let request
         this.props.reportRepository.getDataBaseOnDataConfig().then((database_list) => {
@@ -125,6 +141,34 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             }
             this.setState({dataBaseList : optionRows})
         });
+    }
+    getDataframeColumnOnDataConfig(){
+        //let request
+        let _url  = this.state.nnid+"/type/all/"
+        let col_type = {}
+        this.props.reportRepository.getDataFrameOnNetworkConfig(_url).then((column_type) => {
+            let optionRows = [];
+            let i=0;
+            console.log(column_type['result'])
+            // for (let [k,v] of Object.entries(column_type['result']))
+            // {
+            //     console.log(k)
+            //     console.log(v)
+            // }
+            col_type = column_type['result']
+            this.setState({WdnnTableColumnType:col_type})
+            // for (let dbName of column_type['result']){
+            //     for(let col of dbName){
+            //         console.log("getDataframeColumnOnDataConfig")
+            //         console.log(col)
+            //     }
+            // }
+
+
+          
+            
+        });
+        return col_type
     }
     setDataBaseOnDataConfig(obj)
     {
@@ -152,15 +196,16 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             this.setState({dataFramePost: resultData['result']})
         });
     }
-    wdnnTrainPost(opt_url){
+    wdnnTrainPost(){
         console.log("wdnnTrainPost")
-        this.props.reportRepository.postWdnnTrain().then((resultData) => {
+        console.log(this.state.nnid)
+        
+        let _url =  this.state.nnid+"/"
+        this.props.reportRepository.postWdnnTrain(_url).then((resultData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: resultData['result']})
         });
     }
-
-
 
 
 
@@ -176,6 +221,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                                 <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
+                                                <button type="button" className="btn-sm" onClick = {() => this.getDataframeColumnOnDataConfig()}>get_type</button>
+                                                <button type="button" className="btn-sm" onClick = {() => this.child_check_Column_dataType()}>check_child_col_type</button>
                                 </div>
                                     <table className="form-table align-left">
                                         <colgroup>
@@ -189,26 +236,14 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                         <tr>
                                             <th>Data Base List</th>
                                             <td>
-                                                <select onChange={this.setDataBaseOnDataConfig.bind(this)} >
-                                                  <option key="default1">Database List</option>
-                                                  {this.state.dataBaseList}  
-                                                </select>
+                                                {this.state.baseDom}
                                             </td>
                                             <th>Table List</th>
                                             <td>
-                                                <select onChange={this.setTableListOnDataConfig.bind(this)}>
-                                                <option key="default1">Table List</option>
-                                                   {this.state.tableList}
-                                                </select>
+                                                {this.state.tableDom}
                                             </td>
                                             <td>
-                                                <button type="button" onClick={() => this.search_btn()} className="btn-sm">Search</button>
-                                                {this.state.tableName}
-                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="img-btn save">Format Save</button>
-                                                <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
-                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
-                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
-                                                <button type="button" className="btn-sm" onClick = {() => this.child_check_Column_dataType()}>get_type</button>
+
                                             </td>
                                         </tr>
                                         </tbody>
@@ -217,13 +252,10 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                 </article>
                                 <Modal className="modal" overlayClassName="modal" isOpen={this.state.open}
                                         onRequestClose={this.closeModal}>
-                                    <div className="modal-dialog modal-lg">{this.state.selModalView}
-                                    <span className="modal-footer">
-                                        <button onClick={this.closeModal}>Close</button>
-                                    </span>
+                                    <div className="modal-dialog modal-lg">
+                                      {this.state.selModalView}
                                     </div>
-                                </Modal>
-                        
+                                </Modal>                        
                             </div>
                         </div>
         )
