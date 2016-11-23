@@ -31,7 +31,7 @@ export default class LabelByChartComponent extends React.Component {
         for (const numSection of section){
             chartSection1.push(<dl className='data-box' key = {numSection}>
                                 <dt><span>{numSection}</span></dt>
-                                <dd id={numSection}></dd>
+                                <dd id={'L'+numSection}></dd>
                             </dl>);
         }
         this.setState({chartSection: chartSection1});   
@@ -44,7 +44,7 @@ export default class LabelByChartComponent extends React.Component {
             var r = h/4;
             var color = d3.scale.category20c();
 
-            var vis = d3.select('#'+ section).append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+            var vis = d3.select('#L'+ section).append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
             var pie = d3.layout.pie().value(function(d){return d.value;});
 
             // declare an arc generator function
