@@ -16,8 +16,7 @@ export default class ReportRepository {
         });
     }
 
-    postCommonNNInfo(opt_url, id, params) {data = JSON.parse(data);
-           return data.result;
+    postCommonNNInfo(opt_url, id, params) {
         let url='/api/v1/type/common/nninfo/';
         console.log("키값은 : " + id);
         params["nn_id"] = id;
