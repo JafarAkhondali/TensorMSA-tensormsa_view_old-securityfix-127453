@@ -53,7 +53,7 @@ export default class NN_TrainStaticComponent extends React.Component {
         this.props.reportRepository.getNeuralNetStat(this.context.NN_ID).then((data) => { 
             if(this.threadFlag == true){
                 this.renderGraphs(data);
-                setTimeout(this.getNeuralNetStat.bind(this), 3000);    
+                setTimeout(this.getNeuralNetStat.bind(this), 5000);    
             }
         });
     }
@@ -65,6 +65,7 @@ export default class NN_TrainStaticComponent extends React.Component {
         let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
         let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
 
+        console.log(labelData)
         this.setState({graphLoss : <TrainRealTimeChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
