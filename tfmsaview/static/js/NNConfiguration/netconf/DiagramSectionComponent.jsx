@@ -154,7 +154,6 @@ export default class DiagramSectionComponent extends React.Component {
 
     render() {
         return (
-            <section>
                 <section id='netconf-diagram'>
                     <ul className="tabHeader">
                         <li className='current'><a href="#">CNN</a></li>
@@ -278,14 +277,14 @@ export default class DiagramSectionComponent extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
+                            {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
+                                <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
+                                                       nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
+                                />
+                            }
                     </div>
                 </section>
-                {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
-                    <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
-                                           nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
-                    />
-                }
-            </section>
         )
     }
 }

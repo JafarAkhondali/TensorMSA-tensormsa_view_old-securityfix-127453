@@ -8,9 +8,7 @@ export default class NN_NetworkConfigurationComponent extends React.Component {
 
     render() {
         return (
-            <section>
                 <DiagramSectionComponent getHeaderEvent={this.props.getHeaderEvent}/>
-            </section>
         )
     }
 }

@@ -67,8 +67,9 @@ export default class ImagePreviewLayout extends React.Component {
 			}
 			rows2.push(<dl className='img-box'>
 						   <dt>
+						   		<h1 className="circle-blue">{key}</h1>
 						   		<FileUpload options={fileUploadOptions}>
-					           		<button onClick={clickEvent} className="img-btn save" ref="chooseAndUpload"><h2>{key}</h2></button>
+					           		<button onClick={clickEvent} className="upload" ref="chooseAndUpload">Upload</button>
 					       		</FileUpload>
 						   </dt>
 						   <dd>
