@@ -8,6 +8,8 @@ import Api from './../utils/Api'
 export default class NN_TrainStaticComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.historyData = [];
+        this.threadFlag = false;
         this.state = {
                 stepBack : 4,
                 stepForward : 6,
@@ -20,6 +22,11 @@ export default class NN_TrainStaticComponent extends React.Component {
 
     componentDidMount(){
         this.getNeuralNetStat();
+        this.threadFlag = true;
+    }
+
+    componentWillUnmount(){
+        this.threadFlag = false;
     }
 
 
@@ -36,15 +43,18 @@ export default class NN_TrainStaticComponent extends React.Component {
     }
 
     evalNeuralNet(){
-        this.props.reportRepository.postNeuralNetEval(this.context.NN_TYPE, this.context.NN_ID, "").then((data) => {
+        var params = {samplenum : '1' , samplemethod : 'random'}
+        this.props.reportRepository.postNeuralNetEval(this.context.NN_TYPE, this.context.NN_ID, params).then((data) => {
         //    this.setState({data: data})
         });
     }
 
     getNeuralNetStat(){
-        this.props.reportRepository.getNeuralNetStat(this.context.NN_ID).then((data) => {
-            this.renderGraphs(data);
-            //setTimeout(this.getNeuralNetStat.bind(this), 10000);   
+        this.props.reportRepository.getNeuralNetStat(this.context.NN_ID).then((data) => { 
+            if(this.threadFlag == true){
+                this.renderGraphs(data);
+                setTimeout(this.getNeuralNetStat.bind(this), 3000);    
+            }
         });
     }
 
@@ -52,10 +62,11 @@ export default class NN_TrainStaticComponent extends React.Component {
         let labelData = data['detail']
         let lossData = data['loss']
         let summaryData = data['summary']
-        console.log(summaryData['testpass'])
-        let accuracy = parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100
-        let summatDetail = summaryData['testpass'] + "/" + summaryData['testfail']
-        this.setState({graphLoss : <TrainRealTimeChartComponent data={lossData}/>})
+        let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
+        let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
+
+        this.setState({graphLoss : <TrainRealTimeChartComponent historyData={this.historyData} currData={lossData}/>})
+        this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
         this.setState({graphSummary : <dd><span>{accuracy}%</span></dd>})
         this.setState({graphSummaryDetail : <dd><span>{summatDetail}</span></dd>})
