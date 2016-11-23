@@ -16,8 +16,7 @@ export default class ReportRepository {
         });
     }
 
-    postCommonNNInfo(opt_url, id, params) {data = JSON.parse(data);
-           return data.result;
+    postCommonNNInfo(opt_url, id, params) {
         let url='/api/v1/type/common/nninfo/';
         console.log("키값은 : " + id);
         params["nn_id"] = id;
@@ -261,8 +260,8 @@ export default class ReportRepository {
     }
     postWdnnConf(opt_url, params) {
         params = {}
-        params["layer"] = [10,20,30,40]
-        opt_url = "nn0000102/"
+        params["layer"] = [20,20,30,20]
+        //opt_url = "nn0000102/"
         console.log(params)
         let key_set = Object.keys(params)
         for(let key of key_set){
@@ -306,7 +305,7 @@ export default class ReportRepository {
     }
 
     postWdnnEval(opt_url, params) {
-        opt_url = "nn0000102/"
+        //opt_url = "nn0000102/"
         let url='/api/v1/type/wdnn/eval/' + opt_url; 
         //let url = '/api/v1/type/wdnn/eval/'
         return this.api.post(url, params).then((data) => {

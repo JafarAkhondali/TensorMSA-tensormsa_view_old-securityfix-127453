@@ -101,7 +101,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         console.log(this.tableName)
         console.log(this.state.nnid)
 
-        let opt_url =  this.databaseName + '/table/' + this.tableName + '/format/' + this.state.nnid + '/'
+        let opt_url =  this.state.baseDom + '/table/' + this.state.tableDom + '/format/' + this.state.nnid + '/'
         console.log(opt_url)
 
         this.refs.child.dataFramePost(opt_url)
@@ -191,7 +191,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     }
     wdnnconfPost(opt_url){
         console.log("dataframpost")
-        this.props.reportRepository.postWdnnConf().then((resultData) => {
+          let _url =  this.state.nnid+"/"
+        this.props.reportRepository.postWdnnConf(_url).then((resultData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: resultData['result']})
         });
@@ -202,6 +203,16 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         
         let _url =  this.state.nnid+"/"
         this.props.reportRepository.postWdnnTrain(_url).then((resultData) => {
+            console.log('dataframepost results')
+            this.setState({dataFramePost: resultData['result']})
+        });
+    }
+    wdnnEvalPost(){
+        console.log("wdnnEvalPost")
+        console.log(this.state.nnid)
+        
+        let _url =  this.state.nnid+"/"
+        this.props.reportRepository.postWdnnEval(_url).then((resultData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: resultData['result']})
         });
@@ -221,6 +232,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                                                 <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
                                                 <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
+                                                <button type="button" className="btn-sm" onClick = {() => this.wdnnEvalPost()}>wdnn eval</button>
                                                 <button type="button" className="btn-sm" onClick = {() => this.getDataframeColumnOnDataConfig()}>get_type</button>
                                                 <button type="button" className="btn-sm" onClick = {() => this.child_check_Column_dataType()}>check_child_col_type</button>
                                 </div>
