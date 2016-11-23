@@ -43,7 +43,8 @@ export default class NN_TrainStaticComponent extends React.Component {
     }
 
     evalNeuralNet(){
-        this.props.reportRepository.postNeuralNetEval(this.context.NN_TYPE, this.context.NN_ID, "").then((data) => {
+        var params = {samplenum : '1' , samplemethod : 'random'}
+        this.props.reportRepository.postNeuralNetEval(this.context.NN_TYPE, this.context.NN_ID, params).then((data) => {
         //    this.setState({data: data})
         });
     }
@@ -61,8 +62,8 @@ export default class NN_TrainStaticComponent extends React.Component {
         let labelData = data['detail']
         let lossData = data['loss']
         let summaryData = data['summary']
-        let accuracy = parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100
-        let summatDetail = summaryData['testpass'] + "/" + summaryData['testfail']
+        let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
+        let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
 
         this.setState({graphLoss : <TrainRealTimeChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;

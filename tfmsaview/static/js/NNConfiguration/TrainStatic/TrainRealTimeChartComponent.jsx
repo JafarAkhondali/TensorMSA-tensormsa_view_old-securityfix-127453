@@ -31,11 +31,17 @@ export default class TrainRealTimeChartComponent extends React.Component {
             count = 0,
             width = 500,
             height = 150,
-            duration = 100
+            duration = 100,
+            maxY = 0
 
-        var maxY = currData.reduce(function(previous, current){
-            return previous > current ? previous:current;
-        })
+        if(currData.length > 0){
+            maxY = currData.reduce(function(previous, current){
+                return previous > current ? previous:current;
+            })
+        }else{
+            return false;
+        }
+        
 
         if(this.svg){
 
