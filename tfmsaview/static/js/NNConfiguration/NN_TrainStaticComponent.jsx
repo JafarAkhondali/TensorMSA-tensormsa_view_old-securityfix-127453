@@ -31,7 +31,7 @@ export default class NN_TrainStaticComponent extends React.Component {
 
 
     checkNeuralNet(){
-        this.props.reportRepository.postNeuralNetCheck(this.context.NN_TYPE, this.context.NN_ID, "").then((data) => {
+        this.props.reportRepository.postNeuralNetCheck(this.context.NN_ID, "").then((data) => {
       //      this.setState({data: data})
         });
     }
