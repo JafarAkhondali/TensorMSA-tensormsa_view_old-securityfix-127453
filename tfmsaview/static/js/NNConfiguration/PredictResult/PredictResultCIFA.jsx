@@ -8,14 +8,14 @@ export default class NN_PredictResultComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            result:'결과',
+            result:'cifar 결과',
             NN_TableData: null,
             selModalView: null,
             NN_ID : '',
             networkList: null,
             networkTitle: '',
             dropzoneConfig: {
-                iconFiletypes: ['.jpg', '.png', '.gif'],
+            //    iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
                 postUrl: 'no-url'            
             }
@@ -80,7 +80,7 @@ export default class NN_PredictResultComponent extends React.Component {
         this.setState({dropzoneConfig: {
                 iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
-                postUrl: 'http://52.78.19.96:8989/api/v1/type/cnn/predict/' + networkId + '/'               
+                postUrl: 'http://52.78.19.96:8989/api/v1/type/cifar/kind/ten/'             
             }})     
     }   
 

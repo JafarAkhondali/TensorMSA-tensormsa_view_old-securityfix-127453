@@ -1,6 +1,7 @@
 import React from 'react'
 import PredictResultCNNComponent from './PredictResult/PredictResultCNN'
 import PredictResultWDNNComponent from './PredictResult/PredictResultWDNN'
+import PredictResultCIFAComponent from './PredictResult/PredictResultCIFA'
 import StepArrowComponent from './../NNLayout/common/StepArrowComponent'
 
 
@@ -19,8 +20,11 @@ export default class NN_PredictResultComponent extends React.Component {
            // return this.getTableData();
             return this.setState({PredictResultComponent  : <PredictResultWDNNComponent/>});
         }
-        else{
+        else if (filter == 'CNN'){
             return this.setState({PredictResultComponent  : <PredictResultCNNComponent/>});
+        }
+        else {
+            return this.setState({PredictResultComponent  : <PredictResultCIFAComponent/>});
         }
     }
 
@@ -38,6 +42,7 @@ export default class NN_PredictResultComponent extends React.Component {
                     <ul className="tabHeader">
                         <li className={this.isActive('WDNN')} onClick={this.setFilter.bind(this, 'WDNN')}><a href="#">WDNN</a></li>
                         <li className={this.isActive('CNN')} onClick={this.setFilter.bind(this, 'CNN')}><a href="#">CNN</a></li>
+                        <li className={this.isActive('CIFA')} onClick={this.setFilter.bind(this, 'CIFA')}><a href="#">CIFA</a></li>
                     <div className="btnArea">
                         <StepArrowComponent />
                     </div>
