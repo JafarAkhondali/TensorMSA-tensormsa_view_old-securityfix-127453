@@ -56,18 +56,15 @@ export default class NN_BasicInfoComponent extends React.Component {
     }
     // add user request new table
     postCommonNNInfo(){
-        //let keyValue = 'nn00009999';
-        //this.setState({nn_id: keyValue});
-
         this.make_nn_id();
         console.log("키는 : " + this.key_id);
-        //nninfoObj = new Object();
-        //nninfoObj.nn_id = 'nn00009999';
 
         this.props.reportRepository.postCommonNNInfo(null, this.key_id, this.state).then((answer) => {
-            
-            
-        });;
+            //console.log(answer.status);
+            if(answer.status == "200") {
+                alert("저장되었습니다");
+            }
+        });
     }
 
     getCategoryList(){
@@ -100,7 +97,6 @@ export default class NN_BasicInfoComponent extends React.Component {
                     <ul className="tabHeader">
                         <li className="current"><a href="#">Network Basic Information</a></li>
                         <div className="btnArea">
-                            <button type="button" className="img-btn uplode">Upload</button>
                             <button type="button" onClick={this.postCommonNNInfo.bind(this)}>Save</button>
                         </div>
                     </ul>   
@@ -134,8 +130,8 @@ export default class NN_BasicInfoComponent extends React.Component {
                                                 <select onChange={this.setNetWorkType.bind(this)} value={this.state.value}>
                                                 <option value="1">Network Type</option>
                                                 <option value="cnn">CNN</option>
-                                                <option value="rnn">RNN</option>
-                                                <option value="fully">Fully</option>
+                                                <option value="wdnn">WDNN</option>
+                                                <option value="cifar">CIFAR</option>
                                                 </select>
                                             </td>
                                         </tr>

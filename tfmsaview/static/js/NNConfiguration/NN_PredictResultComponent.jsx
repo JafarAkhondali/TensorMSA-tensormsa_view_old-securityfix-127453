@@ -10,7 +10,9 @@ export default class NN_PredictResultComponent extends React.Component {
         super(props);
         this.state = {
                 PredictResultComponent : <PredictResultWDNNComponent/>,
-                selected:'WDNN' //initail lodaing is WDNN
+                selected:'WDNN', //initail lodaing is WDNN
+                stepBack : 5,
+                stepForward : 6
                 };
     }
 
@@ -44,7 +46,7 @@ export default class NN_PredictResultComponent extends React.Component {
                         <li className={this.isActive('CNN')} onClick={this.setFilter.bind(this, 'CNN')}><a href="#">CNN</a></li>
                         <li className={this.isActive('CIFA')} onClick={this.setFilter.bind(this, 'CIFA')}><a href="#">CIFA</a></li>
                     <div className="btnArea">
-                        <StepArrowComponent />
+                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                     </div>
                     </ul>
 				    {this.state.PredictResultComponent}

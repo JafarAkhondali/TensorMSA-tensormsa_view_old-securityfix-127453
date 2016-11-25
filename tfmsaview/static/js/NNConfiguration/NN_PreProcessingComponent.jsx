@@ -25,7 +25,9 @@ export default class NN_PreProcessingComponent extends React.Component {
                 {Name: 'BJH', Spent: '$50', Year: 2013},
                 {Name: 'KSW', Spent: '$30', Year: 2013},
                 {Name: 'KGH', Spent: '$30', Year: 2013}
-            ]
+            ],
+            stepBack : 1,
+            stepForward : 3
         }
     }
 
@@ -125,8 +127,7 @@ export default class NN_PreProcessingComponent extends React.Component {
                 <ul className="tabHeader">
                     <li className="current"><a href="#">Data</a></li>
                     <div className="btnArea">
-                        <button type="button" className="img-btn save">Upload</button>
-                        <StepArrowComponent />
+                        <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                     </div>
                 </ul>
                  <div className="container tabBody">

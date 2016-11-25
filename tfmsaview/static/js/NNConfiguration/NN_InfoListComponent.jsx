@@ -47,7 +47,9 @@ export default class NN_InfoListComponent extends React.Component {
             tableData: null,
             NN_TableData: null,
             selModalView: null,
-            NN_ID : null
+            NN_ID : null,
+            stepBack : 1,
+            stepForward : 2
         };
     }
 
@@ -124,7 +126,7 @@ export default class NN_InfoListComponent extends React.Component {
                                                row.config,
                                                row.confvaild,
                                                row.train,
-                                               row.imagepre);
+                                               row.preprocess);
         }
 
         const selectRowProp = {
@@ -155,7 +157,7 @@ export default class NN_InfoListComponent extends React.Component {
             <section>
                 <h1 className="hidden">tensor MSA main table</h1>
                 <div className="searchArea">
-                    <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent(this)} />
+                    <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                 </div>
                 <div className="container paddingT10">
                     <div className="tblBtnArea">
