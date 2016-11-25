@@ -94,7 +94,6 @@ export default class NN_PredictResultComponent extends React.Component {
             init: (passedDropzone) => {
                 this.setDropzone(passedDropzone)
             },
-            addedfile: (file) => console.log(file),
             success: (e, response) => {
                 console.log(response);
                 this.updateResult(response);

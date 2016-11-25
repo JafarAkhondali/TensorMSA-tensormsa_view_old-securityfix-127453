@@ -25,6 +25,7 @@ export default class NN_PredictResultComponent extends React.Component {
     componentDidMount(){
         this.getNetworkList();
         console.log('NN_ID : ' + this.context.NN_ID)   
+        this.setState({rows: [["Melong"][1]]})
     }    
 
     updateResult(result) {
@@ -59,7 +60,7 @@ export default class NN_PredictResultComponent extends React.Component {
             this.setState({NN_TableData: networkData})
             console.log('optionRows')
             console.log(optionRows)
-            this.setNetwork(optionRows[0].props.value)
+            this.setNetwork(this.context.NN_ID);
         });
     }
 
@@ -94,7 +95,6 @@ export default class NN_PredictResultComponent extends React.Component {
             init: (passedDropzone) => {
                 this.setDropzone(passedDropzone)
             },
-            addedfile: (file) => console.log(file),
             success: (e, response) => {
                 console.log(response);
                 this.updateResult(response);
@@ -216,3 +216,6 @@ NN_PredictResultComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 }; 
 
+NN_PredictResultComponent.contextTypes = {
+    NN_ID: React.PropTypes.string
+};
