@@ -8,7 +8,7 @@ import ReportRepository from './../../repositories/ReportRepository'
 
 
 
-export default class NN_PredictResultComponent extends React.Component {
+export default class PredictResultWDNNComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,8 +31,10 @@ export default class NN_PredictResultComponent extends React.Component {
     }
 
     componentDidMount(){
+        console.log("WDNN did mount!!!!")
         this.getNetworkList();
         console.log('NN_ID : ' + this.context.NN_ID)   
+
         
     }    
 
@@ -63,8 +65,10 @@ export default class NN_PredictResultComponent extends React.Component {
             console.log(network_list)
             for (var i in network_list) {
                 let networkId = network_list[i]['pk']
-                optionRows.push(<option key={i} value={networkId}>{networkId}</option>)
-                networkData[networkId] = network_list[i]
+                if (network_list[i]['fields']['type'] == 'wdnn') {
+                    optionRows.push(<option key={i} value={networkId}>{networkId}</option>)
+                    networkData[networkId] = network_list[i]
+                }
             }
             this.setState({networkList : optionRows})
             this.setState({NN_TableData: networkData})
@@ -81,6 +85,10 @@ export default class NN_PredictResultComponent extends React.Component {
     setNetwork(networkId)
     {
         console.log('value : ' +  networkId)
+        if (this.state.NN_TableData[networkId] == null) {
+            networkId = Object.keys(this.NN_TableData)[0]
+            console.log('first key : ' + networkId)
+        }
         console.log(this.state.NN_TableData[networkId]['fields'])
         this.setState({NN_ID: networkId})
         this.setState({networkTitle: this.state.NN_TableData[networkId]['fields']['name']});
@@ -130,8 +138,8 @@ export default class NN_PredictResultComponent extends React.Component {
         
 
         return (
-            <div className="form-table">
             <article>
+         <div className="container paddingT10">
                 <table className="form-table">
                     <colgroup>
                     <col width="20%" />
@@ -151,7 +159,25 @@ export default class NN_PredictResultComponent extends React.Component {
                         </tr>
                     </thead>
                 </table>
-                
+                <div className="form-table">
+                    <div className="tblBtnArea">
+                       <DropzoneComponent config={this.state.dropzoneConfig}
+                                        eventHandlers={eventHandlers}
+                                        djsConfig={djsConfig} 
+                                        />
+                    </div>
+                    <div className="net-info">
+                     <Table rows ={this.state.rows}
+                                       settings={this.state.settings}
+                                       onClickCell={onClickCell}
+                                   
+                                   />
+                      
+                    </div>
+                </div>          
+            </div>
+
+{/*               
                 <div className="predict-box-wrap">
                     <div className="predict-box-container">
                         <div className="predict-tit">
@@ -183,26 +209,28 @@ export default class NN_PredictResultComponent extends React.Component {
                         </div>
                     </div>
                 </div>
+*/}
+
             </article>
                                       
-            </div> 
+            
         )
     }
 }
 
 
 
-NN_PredictResultComponent.defaultProps = {
+PredictResultWDNNComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 }; 
 
-NN_PredictResultComponent.contextTypes = {
+PredictResultWDNNComponent.contextTypes = {
     NN_ID: React.PropTypes.string
 };
 
 
 
-// export default class NN_PredictResultComponent extends React.Component {
+// export default class PredictResultWDNNComponent extends React.Component {
 //     constructor(props) {
 //         super(props);
 //         this.state = {

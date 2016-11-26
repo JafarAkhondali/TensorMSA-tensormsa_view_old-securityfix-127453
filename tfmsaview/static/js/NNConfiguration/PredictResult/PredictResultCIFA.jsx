@@ -23,6 +23,7 @@ export default class NN_PredictResultComponent extends React.Component {
     }
 
     componentDidMount(){
+        console.log("CIFA did mounted!!!!")
         this.getNetworkList();
         console.log('NN_ID : ' + this.context.NN_ID)   
     }    
@@ -214,4 +215,5 @@ export default class NN_PredictResultComponent extends React.Component {
 NN_PredictResultComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 }; 
+
 

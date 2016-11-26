@@ -9,12 +9,19 @@ export default class NN_PredictResultComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                PredictResultComponent : <PredictResultWDNNComponent/>,
-                selected:'WDNN', //initail lodaing is WDNN
-                stepBack : 5,
+                PredictResultComponent : null,
+                selected: null, //this.context.NN_TYPE.toUpperCase(), //initail lodaing is WDNN
+                stepBack : 5,                
                 stepForward : 6
                 };
     }
+
+     componentDidMount(){
+         console.log("Predict Main did mounted!!!!!")
+        console.log('NN_TYPE : ' + this.context.NN_TYPE)   
+        this.setFilter(this.context.NN_TYPE.toUpperCase())
+        
+    } 
 
     setFilter(filter){
         this.setState({selected  : filter})
@@ -25,15 +32,19 @@ export default class NN_PredictResultComponent extends React.Component {
         else if (filter == 'CNN'){
             return this.setState({PredictResultComponent  : <PredictResultCNNComponent/>});
         }
-        else {
+        else if (filter == 'CIFAR'){
             return this.setState({PredictResultComponent  : <PredictResultCIFAComponent/>});
+        }
+        else {
+          
+          //  return this.setState({PredictResultComponent  : <PredictResultCIFAComponent/>});
         }
     }
 
     
 
     isActive(value){
-    return ((value===this.state.selected) ? 'current':'');
+        return ((value===this.state.selected) ? 'current':'not_current');
     }
 
 
@@ -44,7 +55,7 @@ export default class NN_PredictResultComponent extends React.Component {
                     <ul className="tabHeader">
                         <li className={this.isActive('WDNN')} onClick={this.setFilter.bind(this, 'WDNN')}><a href="#">WDNN</a></li>
                         <li className={this.isActive('CNN')} onClick={this.setFilter.bind(this, 'CNN')}><a href="#">CNN</a></li>
-                        <li className={this.isActive('CIFA')} onClick={this.setFilter.bind(this, 'CIFA')}><a href="#">CIFA</a></li>
+                        <li className={this.isActive('CIFAR')} onClick={this.setFilter.bind(this, 'CIFAR')}><a href="#">CIFAR</a></li>
                     <div className="btnArea">
                         <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                     </div>
@@ -54,3 +65,9 @@ export default class NN_PredictResultComponent extends React.Component {
         )
     }
 }
+
+
+NN_PredictResultComponent.contextTypes = {
+    //NN_ID: React.PropTypes.string
+    NN_TYPE: React.PropTypes.string
+};
