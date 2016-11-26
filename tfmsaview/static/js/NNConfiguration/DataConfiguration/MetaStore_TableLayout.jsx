@@ -472,8 +472,8 @@ export default class MetaStore_TableLayout extends React.Component {
 
                     // } 
                     //celHeaderCategory1.push(<select ref="s1" onChange={this.handleChange.bind(this)} id={columnValues}>  {}</select>)
-                    console.log(this.celHeaderSelectBoxValue2[columnValues])
-                    if (this.celHeaderSelectBoxValue2[columnValues]){
+   
+                    if (this.celHeaderSelectBoxValue2 && this.celHeaderSelectBoxValue2[columnValues]){
 
                   
                      celHeaderCategory.push(    <td key={k++}>
