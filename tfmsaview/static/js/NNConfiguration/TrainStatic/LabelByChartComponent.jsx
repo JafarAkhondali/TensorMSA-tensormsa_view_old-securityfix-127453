@@ -31,7 +31,10 @@ export default class LabelByChartComponent extends React.Component {
 
         console.log("Data 3: " );
         console.log(this.props.data);
-                this.makeChart();
+        if(this.state.chartSection == null){
+            this.makeChartDOM();
+        }
+        this.makeChart();
     }
 
     makeChart(){ 
@@ -62,7 +65,7 @@ export default class LabelByChartComponent extends React.Component {
             let dataGroup = Dimension.group().reduceSum(function(d) {return d.value;});
 
             chart
-                .width(300)
+                .width(200)
                 .height(200)
                 .innerRadius(0)
                 .dimension(Dimension)
