@@ -96,31 +96,31 @@ export default class HomeComponent extends React.Component {
     }
 
     getPreProcessing(){
-        if(this.state.NN_ID){
+        if(this.state.NN_ID && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_PreProcessingComponent getHeaderEvent={this.getHeaderEvent}/> });  
         } 
     }
     
     setDataConfiguration(){
-        if(this.state.NN_ID){
+        if(this.state.NN_ID && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_DataConfigurationComponent getHeaderEvent={this.getHeaderEvent}/> });   
         }
     }
 
     setNetConfiguration(){
-        if(this.state.NN_DATAVALID){
+        if(this.state.NN_DATAVALID && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_NetworkConfigurationComponent getHeaderEvent={this.getHeaderEvent}/> });  
         }
     }
 
     getTimeStatistics(){
-        if(this.state.NN_CONFIG){
+        if(this.state.NN_CONFIG && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_TrainStaticComponent getHeaderEvent={this.getHeaderEvent}/> }); 
         }  
     }
 
     getPredictResult(){
-        if(this.state.NN_TRAIN){
+        if(this.state.NN_TRAIN || this.state.NN_TYPE == 'cifar'){
             this.setState({NN_InfoList: <NN_PredictResultComponent getHeaderEvent={this.getHeaderEvent}/> });   
         }
     }
