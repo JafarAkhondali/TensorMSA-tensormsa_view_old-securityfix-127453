@@ -182,10 +182,10 @@ export default class NN_InfoListComponent extends React.Component {
                             striped={true}
                             hover={true}
                             condensed={true}
-                            pagination={true}
+                            pagination={false}
                             selectRow={selectRowProp}
-                            deleteRow={true}
-                            search={true}>
+                            deleteRow={false}
+                            search={false}>
                             <TableHeaderColumn isKey={true} dataField="key" width="120">ID</TableHeaderColumn>
                             <TableHeaderColumn dataField="category" width="70">Category</TableHeaderColumn>
                             <TableHeaderColumn dataField="type" width="70">Type</TableHeaderColumn>
