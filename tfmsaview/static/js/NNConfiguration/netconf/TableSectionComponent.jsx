@@ -6,7 +6,7 @@ export default class TableSectionComponent extends React.Component {
 
         this.state = {
             datasets : null
-        }
+        };
     }
 
     componentWillMount(){

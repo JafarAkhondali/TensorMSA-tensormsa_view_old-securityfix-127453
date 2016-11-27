@@ -8,14 +8,14 @@ export default class NN_PredictResultComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            result:'결과',
+            result:'cifar 결과',
             NN_TableData: null,
             selModalView: null,
             NN_ID : '',
             networkList: null,
             networkTitle: '',
             dropzoneConfig: {
-                iconFiletypes: ['.jpg', '.png', '.gif'],
+            //    iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
                 postUrl: 'no-url'            
             }
@@ -23,7 +23,7 @@ export default class NN_PredictResultComponent extends React.Component {
     }
 
     componentDidMount(){
-        console.log("CNN did mounted!!!!!")
+        console.log("CIFA did mounted!!!!")
         this.getNetworkList();
         console.log('NN_ID : ' + this.context.NN_ID)   
     }    
@@ -60,7 +60,7 @@ export default class NN_PredictResultComponent extends React.Component {
             this.setState({NN_TableData: networkData})
             console.log('optionRows')
             console.log(optionRows)
-            this.setNetwork(this.context.NN_ID);
+            this.setNetwork(optionRows[0].props.value)
         });
     }
 
@@ -81,7 +81,7 @@ export default class NN_PredictResultComponent extends React.Component {
         this.setState({dropzoneConfig: {
                 iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
-                postUrl: 'http://52.78.19.96:8989/api/v1/type/cnn/predict/' + networkId + '/'               
+                postUrl: 'http://52.78.19.96:8989/api/v1/type/cifar/kind/ten/'             
             }})     
     }   
 
@@ -89,9 +89,7 @@ export default class NN_PredictResultComponent extends React.Component {
         var djsConfig = { 
             addRemoveLinks: false,
             acceptedFiles: "image/jpeg,image/png,image/gif",
-            dictDefaultMessage: '이미지 파일을 첨부하려면 여기를 클릭하세요',
-            thumbnailWidth: 300,
-            thumbnailHeight: 300
+            dictDefaultMessage: '파일 여기'
          }
         var eventHandlers = { 
             init: (passedDropzone) => {
@@ -125,11 +123,9 @@ export default class NN_PredictResultComponent extends React.Component {
             <article>
                 <table className="form-table">
                     <colgroup>
-                        <col width="10%"/>
-                        <col width="10%"/>
-                        <col width="10%"/>
-                        <col width="20%"/>
-                        <col width="50%"/>
+                    <col width="20%" />
+                    <col width="30%" />
+                    <col width="20%" />
                     </colgroup>
                     <thead>
                         <tr>
@@ -141,7 +137,6 @@ export default class NN_PredictResultComponent extends React.Component {
                             </td>
                             <th>제목</th>
                             <td className="left">{this.state.networkTitle}</td>
-                            <td></td>
                         </tr>
                     </thead>
                 </table>
@@ -221,6 +216,4 @@ NN_PredictResultComponent.defaultProps = {
     reportRepository: new ReportRepository(new Api())
 }; 
 
-NN_PredictResultComponent.contextTypes = {
-    NN_ID: React.PropTypes.string
-};
+

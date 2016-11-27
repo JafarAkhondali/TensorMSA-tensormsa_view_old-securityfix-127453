@@ -20,14 +20,15 @@ export default class MetaStore_TableLayout extends React.Component {
         this.celHeaderSelectBoxValue2 = {};
         this.first_time = true;
     }
-    // componentDidUpdate() {
+     componentDidUpdate() {
     //     console.log("componentDidUpdatechild")
     //     if(!this.props.WdnnTableColumnType) {return null;}
     //     this.setState({celStateHeaderSelectBoxValue:this.props.WdnnTableColumnType})
     //     // Use Materialize custom select input
     //     calWdnnTableColumnType()
     //     //this.refs.s1.forceUpdate();
-    // }
+            this.getCategoryType3(this.props.WdnnTableColumnType)
+    }
     setWdnnTableColumnType()
     {
             console.log("setWdnnTableColumnType  true")
@@ -59,6 +60,7 @@ export default class MetaStore_TableLayout extends React.Component {
         let selectDataFormatLabel = this.state.dataFormatTypesLabel
         let selectCellFeature = this.state.cellfeature
         let selectDataFormatTypeCell = {}
+        let selectDataFormatTypeLabel = {}
         //this.celHeaderSelectBoxValue[selectedValue.target.id]=selectedValue.target.value
         let _celHeaderSelectBoxValue = {}
         let _celHeaderSelectBox = {}
@@ -81,7 +83,8 @@ export default class MetaStore_TableLayout extends React.Component {
         }
         if ('LABEL' == selectedValue.target.value){
             console.log(selectedValue.target.value)
-            selectDataFormatLabel[selectedValue.target.id] = selectedValue.target.value
+            selectDataFormatTypeLabel['column_type'] = selectedValue.target.value
+            selectDataFormatLabel[selectedValue.target.id] = selectDataFormatTypeLabel
             this.setState({dataFormatTypesLabel : selectDataFormatLabel})
         }
         selectCellFeature['cell_feature'] = selectDataFormatType
@@ -331,22 +334,45 @@ export default class MetaStore_TableLayout extends React.Component {
     }
     getCategoryType3(WdnnTableColumnType)
     {
-        let _celHeaderSelectBoxValue = {}
-        let _celHeaderSelectBox = {}
-        let _WdnnTableColumnType = {}
-        console.log(this.first_time)
-        if (this.first_time == true){
-            console.log("WdnnTableColumnType true")
-            _WdnnTableColumnType = this.props.WdnnTableColumnType
-        }else{
-            console.log("celHeaderSelectBoxValue false")
-            _WdnnTableColumnType = this.celHeaderSelectBoxValue
-        }
+        if (!this.props.WdnnTableColumnType) {
+            console.log("props.WdnnTableColumnType is null")
+            let column_type = {}
+            let row_column_type = {}
+            //var key = Object.keyAt(this.props.WdnnTableData, 0);
+            //var val = this.props.WdnnTableData[key];
 
-        this.first_time =false
-        console.log("it should be false")
-        console.log(this.first_time)
-        this.celHeaderSelectBoxValue2 = _WdnnTableColumnType 
+            //console.log(key); // => 'bar'
+            //console.log(val); // => '2nd'
+            console.log(this.props.WdnnTableData)
+           // console.log(Object.keys(this.props.WdnnTableData)[0]); // "a"
+
+            // let opt_url =  this.props.baseDom + '/table/' + this.props.tableDom + '/data/'
+            // this.props.reportRepository.getWdnnTableDataFromHbase(opt_url).then((tableData) => {
+            //     console.log('data configuration search end')
+            // this.setState({WdnnTableData: tableData['result']})
+            // });
+
+            this.celHeaderSelectBoxValue2 = null
+        }
+        else{
+            console.log("console.log( props.WdnnTableColumnType is null has value")
+            let _celHeaderSelectBoxValue = {}
+            let _celHeaderSelectBox = {}
+            let _WdnnTableColumnType = {}
+            console.log(this.first_time)
+            if (this.first_time == true){
+                console.log("WdnnTableColumnType true")
+                _WdnnTableColumnType = this.props.WdnnTableColumnType
+            }else{
+                console.log("celHeaderSelectBoxValue false")
+                _WdnnTableColumnType = this.celHeaderSelectBoxValue
+            }
+
+            this.first_time =false
+            console.log("it should be false")
+            console.log(this.first_time)
+            this.celHeaderSelectBoxValue2 = _WdnnTableColumnType 
+        }
         return this.celHeaderSelectBoxValue2
     }
 
@@ -372,7 +398,7 @@ export default class MetaStore_TableLayout extends React.Component {
         console.log(this.props.WdnnTableColumnType)
         //뭔가 한번만
         //this.celHeaderSelectBoxValue2 = this.props.WdnnTableColumnType
-        this.getCategoryType3(this.props.WdnnTableColumnType)
+
         //console.log("#############################################")
         //console.log(this.celHeaderSelectBoxValue)
 
@@ -383,6 +409,8 @@ export default class MetaStore_TableLayout extends React.Component {
 		for(let rows of this.props.WdnnTableData){
 
             let celHeaderCategory = [];
+            let celHeaderCategory1 = [];
+            let celHeaderCategory2 = [];
             let celHeader = [];
             let celData = [];
 			for(let columnValues of rows){
@@ -437,15 +465,30 @@ export default class MetaStore_TableLayout extends React.Component {
                     //         this.celHeaderSelectBoxValue[columnValues] = "LABEL"            
                     //     }
                     // }catch(e)
-                    // {
+                    // {defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]}
                     //     console.log("catch")
                     //     this.celHeaderSelectBoxValue[columnValues] = "NONE"
                     // id={columnValues} defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]} >
 
                     // } 
+                    //celHeaderCategory1.push(<select ref="s1" onChange={this.handleChange.bind(this)} id={columnValues}>  {}</select>)
+   
+                    if (this.celHeaderSelectBoxValue2 && this.celHeaderSelectBoxValue2[columnValues]){
 
-
+                  
                      celHeaderCategory.push(    <td key={k++}>
+                                                    <div className="option-select">
+                                                    <select ref="s1" onChange={this.handleChange.bind(this)}
+                                                           id={columnValues} defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]}>
+                                                       <option value="NONE">None</option>
+                                                       <option  value="CATEGORICAL">Category Type</option>
+                                                       <option value="CONTINUOUS">Continuous Type</option>
+                                                       <option  value="LABEL">Label</option>
+                                                    </select>
+                                                    </div>
+                                                </td>)
+                    }else{
+                                  celHeaderCategory.push(    <td key={k++}>
                                                     <div className="option-select">
                                                     <select ref="s1" onChange={this.handleChange.bind(this)}
                                                            id={columnValues} >
@@ -456,6 +499,7 @@ export default class MetaStore_TableLayout extends React.Component {
                                                     </select>
                                                     </div>
                                                 </td>)
+                    }
 
                     // celHeaderCategory.push(    <td key={k++}>
                     //                                 <div className="option-select">

@@ -2,6 +2,7 @@ import React from 'react'
 import ReportRepository from './../../repositories/ReportRepository'
 import Api from './../../utils/Api'
 import TableSectionComponent from './TableSectionComponent';
+import StepArrowComponent from './../../NNLayout/common/StepArrowComponent'
 
 export default class DiagramSectionComponent extends React.Component {
     constructor(props){
@@ -10,7 +11,9 @@ export default class DiagramSectionComponent extends React.Component {
         this.state = {
             nnConfigBasicInfoField : null,
             nnConfigFormatInfoField : null,
-            saveBtnClickFlag: false
+            saveBtnClickFlag: false,
+            stepBack : 3,
+            stepForward : 5
         };
 
         this._getNetConfigBasicInfo = this._getNetConfigBasicInfo.bind(this);
@@ -130,14 +133,14 @@ export default class DiagramSectionComponent extends React.Component {
                 if([0,1,7,8,9].indexOf(j) >= 0)
                 {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').innerText;
+                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').value;
 
                     layerObj[propName] = propValue;
                     
                 }
                 else {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = new Array(tr[j].querySelector('td:nth-child(2) > input[type=text]').innerText);
+                    propValue = new Array(tr[j].querySelector('td:nth-child(2) > input[type=text]').value.split(","));
 
                     layerObj[propName] = propValue;
                 }
@@ -151,12 +154,12 @@ export default class DiagramSectionComponent extends React.Component {
 
     render() {
         return (
-            <section>
                 <section id='netconf-diagram'>
                     <ul className="tabHeader">
                         <li className='current'><a href="#">CNN</a></li>
                         <div className="btnArea">
                             <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
+                            <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
                         <li><a href="#">WDND</a></li>
                     </ul> 
@@ -274,14 +277,14 @@ export default class DiagramSectionComponent extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
+                            {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
+                                <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
+                                                       nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
+                                />
+                            }
                     </div>
                 </section>
-                {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
-                    <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
-                                           nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
-                    />
-                }
-            </section>
         )
     }
 }

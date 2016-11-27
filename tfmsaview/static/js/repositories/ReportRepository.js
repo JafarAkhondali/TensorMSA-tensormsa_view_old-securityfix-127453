@@ -38,7 +38,8 @@ export default class ReportRepository {
     getCategoryList(opt_url, params) {
         let url='/api/v1/type/common/item/' + opt_url + '/';
         return this.api.get(url, params).then((data) => {
-            data = JSON.parse(data);
+            data = JSON.parse(data);data = JSON.parse(data);
+           return data.result;
             console.log(data);
            return data;
         });
@@ -194,6 +195,14 @@ export default class ReportRepository {
            return data;
         });
     }
+    getWdnnTableList(params) {
+        let url='/api/v1/type/dataframe/';
+        return this.api.get(url, params).then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
 
     getWdnnTableDataFromHbase(opt_url, params) {
         //let url='/api/v1/type/imagefile/' + opt_url ;
@@ -240,7 +249,7 @@ export default class ReportRepository {
 
         //opt_url = 'nn0000102/type/cell_feature/'
         //opt_url = 'nn0000102/type/label/'
-        opt_url = 'nn0000102/type/all/'
+        //opt_url = 'nn0000102/type/all/'
         let url='/api/v1/type/dataframe/format/'+opt_url
         console.log(url)
         return this.api.get(url).then((data) => {
@@ -251,8 +260,8 @@ export default class ReportRepository {
     }
     postWdnnConf(opt_url, params) {
         params = {}
-        params["layer"] = [10,20,30,40]
-        opt_url = "nn0000102/"
+        params["layer"] = [20,20,30,20]
+        //opt_url = "nn0000102/"
         console.log(params)
         let key_set = Object.keys(params)
         for(let key of key_set){
@@ -287,7 +296,7 @@ export default class ReportRepository {
     }
 
     postWdnnTrain(opt_url, params) {
-        opt_url = "nn0000102/"
+        //opt_url = "nn0000102/"
         let url='/api/v1/type/wdnn/train/' + opt_url; 
         //let url = '/api/v1/type/wdnn/train/'
         return this.api.post(url, params).then((data) => {
@@ -296,7 +305,7 @@ export default class ReportRepository {
     }
 
     postWdnnEval(opt_url, params) {
-        opt_url = "nn0000102/"
+        //opt_url = "nn0000102/"
         let url='/api/v1/type/wdnn/eval/' + opt_url; 
         //let url = '/api/v1/type/wdnn/eval/'
         return this.api.post(url, params).then((data) => {
@@ -357,7 +366,39 @@ export default class ReportRepository {
         //     console.log(data);
         //    return data;
         // });
-    }      
+    }     
+
+    postNeuralNetTrain(netType, netId, params) {
+        let url='/api/v1/type/' + netType + '/train/' + netId + '/'; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            return data
+        });
+    } 
+
+    postNeuralNetEval(netType, netId, params) {
+        let url='/api/v1/type/' + netType + '/eval/' + netId + '/'; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, params).then((data) => {
+            return data
+        });
+    } 
+
+    postNeuralNetCheck(netId, params) {
+        let url='/api/v1/type/cnn/checker/' + netId + '/'; 
+        //let url = '/api/v1/type/wdnn/eval/'
+        return this.api.post(url, "").then((data) => {
+            return data
+        });
+    } 
+
+    getNeuralNetStat(netId) {
+        let url='/api/v1/type/common/stat/' + netId + '/'; 
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+            return data.result;
+        });
+    } 
 }
 
   
