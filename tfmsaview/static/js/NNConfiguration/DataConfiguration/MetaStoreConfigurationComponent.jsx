@@ -79,7 +79,9 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         let opt_url =  this.state.baseDom + '/table/' + this.state.tableDom + '/data/'
         this.props.reportRepository.getWdnnTableDataFromHbase(opt_url).then((tableData) => {
             console.log('data configuration search end')
-        this.setState({WdnnTableData: tableData['result']})
+        if(tableData['status'] == '200'){
+            this.setState({WdnnTableData: tableData['result']})
+        }
         });
         console.log('dataframepost results end')
         //this.getDataFrameType() WdnnTableColumnType
