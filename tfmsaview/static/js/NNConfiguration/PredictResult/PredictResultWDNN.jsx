@@ -47,8 +47,8 @@ export default class PredictResultWDNNComponent extends React.Component {
 
     setDropzone(dropzone) {
         console.log('setDropzone')
-        console.log(dropzone)
         this.dropzone = dropzone
+        console.log(this.dropzone)
     }
 
     removeDropZoneFile() {
@@ -103,6 +103,8 @@ export default class PredictResultWDNNComponent extends React.Component {
             }})     
     }   
 
+ 
+
     render() {
         var djsConfig = { 
             addRemoveLinks: false,
@@ -111,6 +113,7 @@ export default class PredictResultWDNNComponent extends React.Component {
          }
         var eventHandlers = { 
             init: (passedDropzone) => {
+                console.log('init Dropzone')
                 this.setDropzone(passedDropzone)
             },
             success: (e, response) => {
@@ -140,11 +143,13 @@ export default class PredictResultWDNNComponent extends React.Component {
         return (
             <article>
          <div className="container paddingT10">
-                <table className="form-table">
+                <table className="form-table align-left">
                     <colgroup>
-                    <col width="20%" />
-                    <col width="30%" />
-                    <col width="20%" />
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="20%"/>
+                        <col width="50%"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -156,24 +161,24 @@ export default class PredictResultWDNNComponent extends React.Component {
                             </td>
                             <th>제목</th>
                             <td className="left">{this.state.networkTitle}</td>
+                            <td>           
+                            </td>
                         </tr>
                     </thead>
                 </table>
-                <div className="form-table">
-                    <div className="tblBtnArea">
-                       <DropzoneComponent config={this.state.dropzoneConfig}
+                <div className="wdnn-dropzone">
+                                <DropzoneComponent config={this.state.dropzoneConfig}
                                         eventHandlers={eventHandlers}
                                         djsConfig={djsConfig} 
                                         />
-                    </div>
-                    <div className="net-info">
-                     <Table rows ={this.state.rows}
+                </div>
+                <div className="table marginT10 predict-box-wrap">
+                     <Table rows ={this.state.rows} className="table marginT10"
                                        settings={this.state.settings}
                                        onClickCell={onClickCell}
                                    
                                    />
                       
-                    </div>
                 </div>          
             </div>
 

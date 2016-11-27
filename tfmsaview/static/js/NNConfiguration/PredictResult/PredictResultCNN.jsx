@@ -89,7 +89,7 @@ export default class NN_PredictResultComponent extends React.Component {
         var djsConfig = { 
             addRemoveLinks: false,
             acceptedFiles: "image/jpeg,image/png,image/gif",
-            dictDefaultMessage: '파일 여기'
+            dictDefaultMessage: '이미지 파일을 첨부하려면 여기를 클릭하세요',
          }
         var eventHandlers = { 
             init: (passedDropzone) => {
