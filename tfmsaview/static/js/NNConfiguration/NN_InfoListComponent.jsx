@@ -178,14 +178,14 @@ export default class NN_InfoListComponent extends React.Component {
                         </button>
                     </div>
                     <div className="net-info">
-                        <BootstrapTable data={result} options={ options } cellEdit={cellEditProp}
+                        <BootstrapTable data={result} height='400' options={ options } cellEdit={cellEditProp} 
                             striped={true}
                             hover={true}
                             condensed={true}
-                            pagination={true}
+                            pagination={false}
                             selectRow={selectRowProp}
-                            deleteRow={true}
-                            search={true}>
+                            deleteRow={false}
+                            search={false}>
                             <TableHeaderColumn isKey={true} dataField="key" width="120">ID</TableHeaderColumn>
                             <TableHeaderColumn dataField="category" width="70">Category</TableHeaderColumn>
                             <TableHeaderColumn dataField="type" width="70">Type</TableHeaderColumn>

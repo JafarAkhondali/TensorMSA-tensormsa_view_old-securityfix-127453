@@ -16,10 +16,18 @@ export default class TrainRealTimeChartComponent extends React.Component {
     }
 
     componentDidMount() { //after DOM make D3 Chart
+        console.log("history");
+        console.log(this.props.historyData);
+                console.log("currData");
+        console.log(this.props.currData);
+
         this.createChart(this.props.historyData, this.props.currData);
     }
 
     componentDidUpdate() { //after DOM make D3 Chart
+                console.log("history2");
+        console.log(this.props.historyData);
+                console.log("currData2");
         this.createChart(this.props.historyData, this.props.currData);
     }
 

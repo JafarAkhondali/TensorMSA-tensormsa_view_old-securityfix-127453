@@ -126,21 +126,21 @@ export default class DiagramSectionComponent extends React.Component {
 
         for(let i=0; i < domHiddenTable.length; i++)
         {
-            var tr = (domHiddenTable[i]).querySelectorAll('#CNN1 > tbody > tr')
+            var tr = (domHiddenTable[i]).querySelectorAll('tbody > tr');
 
             for(let j=0; j < tr.length; j++)
             {
                 if([0,1,7,8,9].indexOf(j) >= 0)
                 {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').innerText;
+                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').value;
 
                     layerObj[propName] = propValue;
                     
                 }
                 else {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = new Array(tr[j].querySelector('td:nth-child(2) > input[type=text]').innerText);
+                    propValue = new Array(tr[j].querySelector('td:nth-child(2) > input[type=text]').value.split(","));
 
                     layerObj[propName] = propValue;
                 }
@@ -150,6 +150,8 @@ export default class DiagramSectionComponent extends React.Component {
         }
 
         postObj.layer = layerArray;
+
+        this.props.reportRepository.postNNNetConfigInfo(this.context.NN_ID, params);
     }    
 
     render() {
@@ -294,5 +296,21 @@ DiagramSectionComponent.defaultProps = {
 }
 
 DiagramSectionComponent.contextTypes = {
-    NN_ID: React.PropTypes.string
+    NN_ID        : React.PropTypes.string,
+    NN_TYPE      : React.PropTypes.string,
+    NN_DATAVALID : React.PropTypes.string,
+    NN_CONFIG    : React.PropTypes.string,
+    NN_CONFVALID : React.PropTypes.string,
+    NN_TRAIN     : React.PropTypes.string,
+    NN_DATATYPE  : React.PropTypes.string
 };
+
+DiagramSectionComponent.childContextTypes = {
+  NN_ID        : React.PropTypes.string,
+  NN_TYPE      : React.PropTypes.string,
+  NN_DATAVALID : React.PropTypes.string,
+  NN_CONFIG    : React.PropTypes.string,
+  NN_CONFVALID : React.PropTypes.string,
+  NN_TRAIN     : React.PropTypes.string,
+  NN_DATATYPE  : React.PropTypes.string
+}

@@ -89,7 +89,9 @@ export default class NN_PredictResultComponent extends React.Component {
         var djsConfig = { 
             addRemoveLinks: false,
             acceptedFiles: "image/jpeg,image/png,image/gif",
-            dictDefaultMessage: '파일 여기'
+            dictDefaultMessage: '이미지 파일을 첨부하려면 여기를 클릭하세요',
+            thumbnailWidth: 300,
+            thumbnailHeight: 300
          }
         var eventHandlers = { 
             init: (passedDropzone) => {
@@ -123,9 +125,11 @@ export default class NN_PredictResultComponent extends React.Component {
             <article>
                 <table className="form-table">
                     <colgroup>
-                    <col width="20%" />
-                    <col width="30%" />
-                    <col width="20%" />
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="20%"/>
+                        <col width="50%"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -137,6 +141,7 @@ export default class NN_PredictResultComponent extends React.Component {
                             </td>
                             <th>제목</th>
                             <td className="left">{this.state.networkTitle}</td>
+                            <td></td>
                         </tr>
                     </thead>
                 </table>

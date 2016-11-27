@@ -2,6 +2,7 @@ import React from 'react';
 import StepArrowComponent from './../NNLayout/common/StepArrowComponent';
 import LabelByChartComponent from './TrainStatic/LabelByChartComponent'
 import TrainRealTimeChartComponent from './TrainStatic/TrainRealTimeChartComponent'
+import RealTimeLineChartComponent from './TrainStatic/RealTimeLineChartComponent'
 import ReportRepository from './../repositories/ReportRepository'
 import Api from './../utils/Api'
 
@@ -59,7 +60,8 @@ export default class NN_TrainStaticComponent extends React.Component {
             if(this.threadFlag == true){
                 this.setState({searchDisable : true});
                 this.renderGraphs(data);
-                setTimeout(this.getNeuralNetStat.bind(this), 5000);    
+                console.log("Tracking setTimeout");
+                setTimeout(this.getNeuralNetStat.bind(this), 15000);    
             }else{
                 this.threadFlag = true
                 this.setState({searchDisable : false});
@@ -76,8 +78,8 @@ export default class NN_TrainStaticComponent extends React.Component {
         let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
         let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
 
-        console.log(labelData)
-        this.setState({graphLoss : <TrainRealTimeChartComponent historyData={this.historyData} currData={lossData}/>})
+        //console.log(labelData)
+        this.setState({graphLoss : <RealTimeLineChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
         this.setState({graphSummary : <dd><span>{accuracy}%</span></dd>})

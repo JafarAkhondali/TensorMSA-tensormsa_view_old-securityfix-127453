@@ -542,6 +542,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
         let nodeHiddenTbody = d3.select("#"+selectedNodeType+".hidden_table > tbody");
         let rowLen = 8;
         let propArray = ['type', 'active', 'cnnfilter', 'cnnstride', 'maxpoolmatrix', 'maxpoolstride', 'node_in_out', 'regualizer', 'padding', 'droprate'];
+        let matrixPropArray = ["cnnfilter","cnnstride","maxpoolmatrix","maxpoolstride","node_in_out"];
         let selectedNodeTypeSeqRemoved = selectedNodeType.replace(/[0-9]/g, '');
 
         for (let entry of propArray) {
@@ -556,7 +557,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
             }
             else
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "" ,disabled: true });
             }
           }
           else if(selectedNodeTypeSeqRemoved === "OUT" ) {
@@ -566,7 +567,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
             }
             else
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "", disabled: true });
             }
           }
           else if(selectedNodeTypeSeqRemoved === "DROP"){
@@ -575,10 +576,16 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
               newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: true  });
             }
             else if(entry === 'active' || entry === 'droprate') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8" });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "" });
             }
             else {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+              if(matrixPropArray.indexOf(entry) >= 0)
+              {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "x,y"});
+              }
+              else {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "string"});
+              }
             }
           }
           else {
@@ -587,9 +594,14 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
               newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: true  });
             }
             else {
-              newTr.append("td").append("input").attr({ type: "text", size: "8" });
+              if(matrixPropArray.indexOf(entry) >= 0)
+              {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "x,y"});
+              }
+              else {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "string"});
+              }
             }
-            
           }
         }
       }

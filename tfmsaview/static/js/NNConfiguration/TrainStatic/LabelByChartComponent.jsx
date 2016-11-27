@@ -13,24 +13,14 @@ export default class LabelByChartComponent extends React.Component {
     }
 
     componentWillMount() {
-
-        console.log("Data 1: " );
-        console.log(this.props.data);
-
         this.makeChartDOM();
     }
 
     componentDidMount() { //after DOM make D3 Chart
-
-        console.log("Data 2: " );
-        console.log(this.props.data);
         this.makeChart();
     }
 
     componentDidUpdate() { 
-
-        console.log("Data 3: " );
-        console.log(this.props.data);
         if(this.state.chartSection == null){
             this.makeChartDOM();
         }
