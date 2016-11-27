@@ -60,7 +60,8 @@ export default class NN_TrainStaticComponent extends React.Component {
             if(this.threadFlag == true){
                 this.setState({searchDisable : true});
                 this.renderGraphs(data);
-                setTimeout(this.getNeuralNetStat.bind(this), 5000);    
+                console.log("Tracking setTimeout");
+                setTimeout(this.getNeuralNetStat.bind(this), 15000);    
             }else{
                 this.threadFlag = true
                 this.setState({searchDisable : false});

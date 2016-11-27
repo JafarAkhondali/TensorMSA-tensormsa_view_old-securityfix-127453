@@ -40,7 +40,7 @@ export default class NN_HeaderComponent extends React.Component {
     }
 
     isActive(value){
-        console.log(this.context.NN_TYPE == 'cifar')
+        //console.log(this.context.NN_TYPE == 'cifar')
     	switch (value) {
             case 1:
         		this.checkPrerequirement = 1;
