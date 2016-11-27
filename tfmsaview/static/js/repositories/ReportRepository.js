@@ -358,14 +358,13 @@ export default class ReportRepository {
         });
     }  
 
-    postNNNetConfigInfo(params) {
-        //let url = '/api/v1/type/imagefile/base/'+params.dir+'/table/'+params.table+'/format/'+nnid+'/';
+    postNNNetConfigInfo(nnid,params) {
+        let url = '/api/v1/type/cnn/conf/' + nnid + '/';
 
-        console.log("postNNNetConfigInfo!!!");
-        // return this.api.get(url).then((data) => {
-        //     console.log(data);
-        //    return data;
-        // });
+        console.log(url);
+        return this.api.post(url, params).then((data) => {
+            return data
+        });
     }     
 
     postNeuralNetTrain(netType, netId, params) {
