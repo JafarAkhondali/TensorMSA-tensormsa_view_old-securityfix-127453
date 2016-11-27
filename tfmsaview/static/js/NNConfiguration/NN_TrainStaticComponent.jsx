@@ -96,7 +96,7 @@ export default class NN_TrainStaticComponent extends React.Component {
                     </div>
                 </ul>
                 <div className="container tabBody">
-                <div className="btnArea">
+                <div className="inner-btnArea">
                     <button type="button" className="search" onClick={this.checkNeuralNet.bind(this)}>Error Check</button>
                     <button type="button" className="search" onClick={this.trainNeuralNet.bind(this)}>Train</button>
                     <button type="button" className="search" onClick={this.evalNeuralNet.bind(this)}>Eval</button>    
