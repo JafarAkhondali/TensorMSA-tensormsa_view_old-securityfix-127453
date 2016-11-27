@@ -31,7 +31,7 @@ export default class RealTimeLineChartComponent extends React.Component {
             let lineChart = dc.lineChart("#loss","lossChart")
                 .brushOn(false)
                 .width(600)
-                .height(290)
+                .height(220)
                 .elasticY(true)
                 .x(d3.scale.linear().domain([0, lossData.length-1]))
                 .dimension(timeDimension)
