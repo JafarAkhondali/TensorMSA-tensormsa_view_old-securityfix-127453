@@ -15,10 +15,10 @@ export default class PredictResultWDNNComponent extends React.Component {
             result:' wdnn 결과',
             NN_TableData: null,
             selModalView: null,
-            rows: [["ash1", "vm"],["ash", "vm"]],
-                  settings : {
-                      header: false
-                                }  ,
+            rows: [["파일을 업로드 하세요"]],
+            settings : {
+                header: false
+                        }  ,
             NN_ID : '',
             networkList: null,
             networkTitle: '',
@@ -26,6 +26,15 @@ export default class PredictResultWDNNComponent extends React.Component {
             //    iconFiletypes: ['.jpg', '.png', '.gif'],
             //    showFiletypeIcon: true,
                 postUrl: 'no-url'            
+            },
+            fileUploadOption: {
+                    baseUrl:'http://52.78.19.96:8989/api/v1/type/wdnn/predict/scm_default_wdnn_1508/',
+                    fileFieldName(file) {
+                        return "file"
+                    },
+                    chooseAndUpload: true,
+                    uploadSuccess : this.updateResult.bind(this)
+                
             }
         };
     }
@@ -39,7 +48,12 @@ export default class PredictResultWDNNComponent extends React.Component {
     }    
 
     updateResult(result) {
-        var resultData = JSON.parse(JSON.parse(result));
+        var resultData;
+        try {
+            resultData = JSON.parse(JSON.parse(result));
+        } catch (e) {
+            resultData = [["에러가 발생했습니다. 담당자에게 문의하세요"]]
+        }
         console.log('updateResult Called : ' + resultData);
         // this.setState({result: resultData});
         this.setState({rows: resultData});
@@ -92,14 +106,28 @@ export default class PredictResultWDNNComponent extends React.Component {
         console.log(this.state.NN_TableData[networkId]['fields'])
         this.setState({NN_ID: networkId})
         this.setState({networkTitle: this.state.NN_TableData[networkId]['fields']['name']});
-        this.setDropZoneUrl(networkId)
+        this.setFileUploadUrl(networkId)
+        // this.setDropZoneUrl(networkId)
     } 
+
+    setFileUploadUrl(networkId) {
+        this.setState({
+            fileUploadOption: {
+                    baseUrl:'http://52.78.19.96:8989/api/v1/type/wdnn/predict/' + networkId + '/',
+                    fileFieldName(file) {
+                        return "file"
+                    },
+                    chooseAndUpload: true,
+                    uploadSuccess : this.updateResult.bind(this)
+            }
+        })
+    }
 
     setDropZoneUrl(networkId) {
         this.setState({dropzoneConfig: {
             //    iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
-                postUrl: 'http://52.78.19.96:8989/api/v1/type/wdnn/predict/mes_m00_wdnn_5424/'               
+                postUrl: 'http://52.78.19.96:8989/api/v1/type/wdnn/predict/' + networkId + '/'   
             }})     
     }   
 
@@ -143,6 +171,12 @@ export default class PredictResultWDNNComponent extends React.Component {
         return (
             <article>
          <div className="container paddingT10">
+                <div className="tblBtnArea">
+                    <FileUpload options={this.state.fileUploadOption} >
+                        <button ref="chooseAndUpload">File Upload</button>
+                        {/* <button ref="uploadBtn">upload</button> */}
+                    </FileUpload>        
+                </div>
                 <table className="form-table align-left">
                     <colgroup>
                         <col width="10%"/>
@@ -161,25 +195,26 @@ export default class PredictResultWDNNComponent extends React.Component {
                             </td>
                             <th>제목</th>
                             <td className="left">{this.state.networkTitle}</td>
-                            <td>           
+                            <td>   
                             </td>
                         </tr>
                     </thead>
                 </table>
+                {/*
                 <div className="wdnn-dropzone">
                                 <DropzoneComponent config={this.state.dropzoneConfig}
                                         eventHandlers={eventHandlers}
                                         djsConfig={djsConfig} 
                                         />
                 </div>
-                <div className="table marginT10 predict-box-wrap">
+                */}
+
                      <Table rows ={this.state.rows} className="table marginT10"
                                        settings={this.state.settings}
                                        onClickCell={onClickCell}
                                    
                                    />
                       
-                </div>          
             </div>
 
 {/*               
