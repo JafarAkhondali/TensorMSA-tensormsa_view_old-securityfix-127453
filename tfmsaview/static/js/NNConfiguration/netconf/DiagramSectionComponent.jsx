@@ -138,7 +138,12 @@ export default class DiagramSectionComponent extends React.Component {
                 }
                 else {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = new Array(tr[j].querySelector('td:nth-child(2) > input[type=text]').value.split(","));
+                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').value.split(",");
+
+                    for(var i=0; i < propValue.length; i++)
+                    {
+                        propValue[i] = parseInt(propValue[i]); 
+                    }
 
                     layerObj[propName] = propValue;
                 }
