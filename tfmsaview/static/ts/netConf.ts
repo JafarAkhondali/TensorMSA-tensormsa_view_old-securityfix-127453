@@ -346,10 +346,8 @@ function makeGUI() {
     .call(xAxis);
 
   // Listen for css-responsive changes and redraw the svg network.
-
   window.addEventListener("resize", () => {
-    let newWidth = document.querySelector("#main-part")
-      .getBoundingClientRect().width;
+    let newWidth = document.querySelector("#main-part").getBoundingClientRect().width;
     if (newWidth !== mainWidth) {
       mainWidth = newWidth;
       drawNetwork(network);
@@ -460,7 +458,8 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
         updateHoverCard(null);
       });
   }
-    /*
+  
+  /*
   let selectedNodeType = getTypeOfSelectedNode(Number(nodeId));
 
   console.log(selectedNodeType);
@@ -553,7 +552,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape", disabled: false });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape"});
             }
             else
             {
@@ -563,16 +562,16 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           else if(selectedNodeTypeSeqRemoved === "OUT" ) {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: false });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out"});
             }
             else if(entry === 'node_in_out') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "32,4", disabled: false });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "32,4"});
             }
             else if(entry === 'padding') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: false });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME"});
             }     
             else if(entry === 'active') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "softmax", disabled: false });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "softmax"});
             }                    
             else
             {
@@ -582,7 +581,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           else if(selectedNodeTypeSeqRemoved === "DROP"){
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: false  });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop"});
             }
             else if(entry === 'active') {
               newTr.append("td").append("input").attr({ type: "text", size: "8", value: "relu"});
@@ -603,7 +602,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           else {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: false  });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn" });
             }
             else if(entry === 'active') {
               newTr.append("td").append("input").attr({ type: "text", size: "8", value: "relu"});
@@ -612,15 +611,14 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
               newTr.append("td").append("input").attr({ type: "text", size: "8", value: "2,2"});
             }   
             else if(entry === 'padding') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: false });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME" });
             }
             else if(entry === 'node_in_out') {
-              console.log(selectedNodeType);
               if(selectedNodeType ==='CNN1') {
-                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "1,16", disabled: false });
+                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "1,16"});
               }
               else {
-                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "16,32", disabled: false });
+                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "16,32"});
               }
               
             }                 
