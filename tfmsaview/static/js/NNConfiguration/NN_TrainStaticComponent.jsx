@@ -31,10 +31,9 @@ export default class NN_TrainStaticComponent extends React.Component {
         this.threadFlag = false;
     }
 
-
     checkNeuralNet(){
         this.props.reportRepository.postNeuralNetCheck(this.context.NN_ID, "").then((data) => {
-            
+        
         });
     }
 
@@ -60,11 +59,10 @@ export default class NN_TrainStaticComponent extends React.Component {
             if(this.threadFlag == true){
                 this.setState({searchDisable : true});
                 this.renderGraphs(data);
-                console.log("Tracking setTimeout");
                 setTimeout(this.getNeuralNetStat.bind(this), 15000);    
             }else{
                 this.threadFlag = true
-                this.setState({searchDisable : false});
+                //this.setState({searchDisable : false});
             }
         });
     }
@@ -73,19 +71,17 @@ export default class NN_TrainStaticComponent extends React.Component {
         let labelData = data['detail']
         let lossData = data['loss']
         let summaryData = data['summary']
-        console.log(data['thread'])
+
         this.threadFlag = data['thread']=='Y'?true:false
         let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
         let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
 
-        //console.log(labelData)
         this.setState({graphLoss : <RealTimeLineChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
         this.setState({graphSummary : <dd><span>{accuracy}%</span></dd>})
         this.setState({graphSummaryDetail : <dd><span>{summatDetail}</span></dd>})
     }
-
 
     render() {
         return (

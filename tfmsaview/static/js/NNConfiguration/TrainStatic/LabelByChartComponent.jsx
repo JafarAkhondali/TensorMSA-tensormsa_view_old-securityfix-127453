@@ -49,7 +49,7 @@ export default class LabelByChartComponent extends React.Component {
 
     createChart(section, allData){
             let data = allData[section];
-            let chart = dc.pieChart('#_' + section);
+            let chart = dc.pieChart('#_' + section,'_' + section);
             let ndx           = crossfilter(data);
             let Dimension  = ndx.dimension(function(d) {return d.label;});
             let dataGroup = Dimension.group().reduceSum(function(d) {return d.value;});
@@ -61,7 +61,7 @@ export default class LabelByChartComponent extends React.Component {
                 .dimension(Dimension)
                 .transitionDuration(1500) //add animation speed
                 .group(dataGroup);
-            chart.render();
+            chart.render('_' + section);
     }
 
     render() {

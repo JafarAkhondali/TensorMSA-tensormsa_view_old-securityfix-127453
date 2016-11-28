@@ -21,8 +21,7 @@ export default class RealTimeLineChartComponent extends React.Component {
             let startTime = 0;
             let cf = crossfilter([{date: startTime, lossValue: 0}]);
             let lossData = this.props.currData;
-            console.log("loss data");
-                        console.log(lossData);
+
             AddData();
             
             let timeDimension = cf.dimension(function(d){ return d.date; });
@@ -36,16 +35,22 @@ export default class RealTimeLineChartComponent extends React.Component {
                 .x(d3.scale.linear().domain([0, lossData.length-1]))
                 .dimension(timeDimension)
                 .group(totalGroup);
-
+                
                let loop = setInterval(function(){
                 AddData();
                     if(lossData.length == startTime){
                         clearInterval(loop);
                     }
                 lineChart.x(d3.scale.linear().domain([0, lossData.length-1]));
-                dc.renderAll("lossChart");
+                lineChart.render("lossChart");
                 }, 1000);
-
+                /*
+                lossData.forEach(function(element) {
+                    AddData();
+                    lineChart.x(d3.scale.linear().domain([0, lossData.length-1]));
+                    lineChart.render("lossChart");
+                });
+                */
             function AddData(){
                 let lossValue = lossData[startTime];
                 cf.add( [{date: startTime++, lossValue: lossValue}]);  
