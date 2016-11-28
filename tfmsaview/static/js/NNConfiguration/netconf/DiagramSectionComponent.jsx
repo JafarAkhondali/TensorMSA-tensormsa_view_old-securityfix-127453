@@ -25,7 +25,6 @@ export default class DiagramSectionComponent extends React.Component {
     //1
     componentWillMount(){
         this._getNetConfigBasicInfo(this.context.NN_ID);
-
     }
 
     componentDidMount(){
@@ -89,10 +88,9 @@ export default class DiagramSectionComponent extends React.Component {
     _getDataObject() {
         let dataObj = {}; 
         
-        console.log(this.state.nnConfigBasicInfoField);
         dataObj.datalen = this.state.nnConfigFormatInfoField.x_size*this.state.nnConfigFormatInfoField.y_size;
         dataObj.taglen = JSON.parse(this.state.nnConfigBasicInfoField.datasets).length;
-        dataObj.matrix = [this.state.nnConfigFormatInfoField.x_size,this.state.nnConfigFormatInfoField.y_size];
+        dataObj.matrix = [parseInt(this.state.nnConfigFormatInfoField.x_size),parseInt(this.state.nnConfigFormatInfoField.y_size)];
         dataObj.learnrate = 0.01;
         dataObj.label = JSON.parse(this.state.nnConfigBasicInfoField.datasets);
         dataObj.epoch = 10;
@@ -156,16 +154,16 @@ export default class DiagramSectionComponent extends React.Component {
 
     render() {
         return (
-                <section id='netconf-diagram'>
+                <section >
                     <ul className="tabHeader">
-                        <li className='current'><a href="#">CNN</a></li>
+                        <li className="current"><a href="#cnn_panel">CNN</a></li>
                         <div className="btnArea">
                             <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                             <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
-                        <li><a href="#">WDNN</a></li>
+                        <li><a href="#wdnn_panel">WDNN</a></li>
                     </ul> 
-                        <div className="container tabBody">                 
+                        <div id='netconf-diagram' className="container tabBody">                 
                             <div id="main-part" className="l--page">
                                 {/* Data Column */}
                                 <div className="column data">
@@ -285,6 +283,10 @@ export default class DiagramSectionComponent extends React.Component {
                                                        nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
                                 />
                             }
+                    </div>
+                    <div id="wdnn_panel" className="container tabBody">                    
+                        <p> TEST </p>
+                        <button type="button" onClick={this._clickSaveButton.bind(this)}>Wdnn</button>
                     </div>
                 </section>
         )
