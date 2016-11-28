@@ -2,6 +2,7 @@ import React from 'react';
 import StepArrowComponent from './../NNLayout/common/StepArrowComponent';
 import LabelByChartComponent from './TrainStatic/LabelByChartComponent'
 import TrainRealTimeChartComponent from './TrainStatic/TrainRealTimeChartComponent'
+import RealTimeLineChartComponent from './TrainStatic/RealTimeLineChartComponent'
 import ReportRepository from './../repositories/ReportRepository'
 import Api from './../utils/Api'
 
@@ -16,13 +17,14 @@ export default class NN_TrainStaticComponent extends React.Component {
                 graphLoss : null,
                 graphSummary : null,
                 graphSummaryDetail : null,
-                graphLabel : null
+                graphLabel : null,
+                searchDisable : false
             };
     }
 
     componentDidMount(){
-        this.getNeuralNetStat();
         this.threadFlag = true;
+        this.getNeuralNetStat();
     }
 
     componentWillUnmount(){
@@ -31,29 +33,38 @@ export default class NN_TrainStaticComponent extends React.Component {
 
 
     checkNeuralNet(){
-        this.props.reportRepository.postNeuralNetCheck(this.context.NN_TYPE, this.context.NN_ID, "").then((data) => {
-      //      this.setState({data: data})
+        this.props.reportRepository.postNeuralNetCheck(this.context.NN_ID, "").then((data) => {
+            
         });
     }
 
     trainNeuralNet(){
         this.props.reportRepository.postNeuralNetTrain(this.context.NN_TYPE, this.context.NN_ID, "").then((data) => {
-           // this.setState({data: data})
+           this.threadFlag = true;
+           this.getNeuralNetStat();
         });
     }
 
     evalNeuralNet(){
         var params = {samplenum : '1' , samplemethod : 'random'}
         this.props.reportRepository.postNeuralNetEval(this.context.NN_TYPE, this.context.NN_ID, params).then((data) => {
-        //    this.setState({data: data})
+            this.setState({graphSummary : <dd><span>0%</span></dd>})
+            this.setState({graphSummaryDetail : <dd><span>0/0</span></dd>})
+            this.threadFlag = true;
+            this.getNeuralNetStat();
         });
     }
 
     getNeuralNetStat(){
         this.props.reportRepository.getNeuralNetStat(this.context.NN_ID).then((data) => { 
             if(this.threadFlag == true){
+                this.setState({searchDisable : true});
                 this.renderGraphs(data);
-                setTimeout(this.getNeuralNetStat.bind(this), 3000);    
+                console.log("Tracking setTimeout");
+                setTimeout(this.getNeuralNetStat.bind(this), 15000);    
+            }else{
+                this.threadFlag = true
+                this.setState({searchDisable : false});
             }
         });
     }
@@ -62,10 +73,13 @@ export default class NN_TrainStaticComponent extends React.Component {
         let labelData = data['detail']
         let lossData = data['loss']
         let summaryData = data['summary']
+        console.log(data['thread'])
+        this.threadFlag = data['thread']=='Y'?true:false
         let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
         let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
 
-        this.setState({graphLoss : <TrainRealTimeChartComponent historyData={this.historyData} currData={lossData}/>})
+        //console.log(labelData)
+        this.setState({graphLoss : <RealTimeLineChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
         this.setState({graphSummary : <dd><span>{accuracy}%</span></dd>})
@@ -84,11 +98,11 @@ export default class NN_TrainStaticComponent extends React.Component {
                     </div>
                 </ul>
                 <div className="container tabBody">
-                <div className="btnArea">
+                <div className="inner-btnArea">
                     <button type="button" className="search" onClick={this.checkNeuralNet.bind(this)}>Error Check</button>
                     <button type="button" className="search" onClick={this.trainNeuralNet.bind(this)}>Train</button>
                     <button type="button" className="search" onClick={this.evalNeuralNet.bind(this)}>Eval</button>    
-                    <button type="button" className="search" onClick={this.getNeuralNetStat.bind(this)}>Search</button>    
+                    <button type="button" className="search" onClick={this.getNeuralNetStat.bind(this)} disabled={this.state.searchDisable}>Search</button>    
                 </div>
                     <article className="train">
                         <section className="train-result">

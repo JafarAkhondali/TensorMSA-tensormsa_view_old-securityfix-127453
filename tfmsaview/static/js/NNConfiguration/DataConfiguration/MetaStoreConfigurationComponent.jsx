@@ -35,11 +35,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     }
     //when page called on first 
     componentDidMount(){
-        
-        //this.getDataBaseOnDataConfig();
         this.setState({nnid: this.context.NN_ID})
         this.networkId = this.context.NN_ID
-        //networkId = this.context.NN_ID
         this.initDataBaseLov()
         console.log(this.state.dataBaseList)
         search_btn()
@@ -68,7 +65,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             let table = nnBaseInfo['result'][0]['fields']['table'];   
             this.setState({baseDom : base});
             this.setState({tableDom : table});
-            
+            this.search_btn() 
         });
     }
     // init table lov
@@ -76,14 +73,16 @@ export default class MetaStoreConfigurationComponent extends React.Component {
 
 
 
-    search_btn(params){
+    search_btn(){
         let limit_cnt = {}
         limit_cnt["limits"] = 0
         //let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/'
         let opt_url =  this.state.baseDom + '/table/' + this.state.tableDom + '/data/'
         this.props.reportRepository.getWdnnTableDataFromHbase(opt_url).then((tableData) => {
             console.log('data configuration search end')
-        this.setState({WdnnTableData: tableData['result']})
+        if(tableData['status'] == '200'){
+            this.setState({WdnnTableData: tableData['result']})
+        }
         });
         console.log('dataframepost results end')
         //this.getDataFrameType() WdnnTableColumnType
@@ -230,15 +229,15 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                             <div id="tab1">
                                 <article>
                                 <div className="inner-btnArea">
-                                <button type="button" onClick={() => this.search_btn()} className="img-btn save">Search</button>
-                                                {this.state.tableName}
-                                                <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="img-btn save">Format Save</button>
-                                                <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
-                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
-                                                <button type="button" className="img-btn save" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
-                                                <button type="button" className="btn-sm" onClick = {() => this.wdnnEvalPost()}>wdnn eval</button>
-                                                <button type="button" className="btn-sm" onClick = {() => this.getDataframeColumnOnDataConfig()}>get_type</button>
-                                                <button type="button" className="btn-sm" onClick = {() => this.child_check_Column_dataType()}>check_child_col_type</button>
+                                    <button type="button" onClick={() => this.search_btn()} className="">Search</button>
+                                    {this.state.tableName}
+                                    <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="">Format Save</button>
+                                    <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
+                                    <button type="button" className="" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
+                                    <button type="button" className="" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
+                                    <button type="button" className="" onClick = {() => this.wdnnEvalPost()}>wdnn eval</button>
+                                    <button type="button" className="" onClick = {() => this.getDataframeColumnOnDataConfig()}>get_type</button>
+                                    <button type="button" className="" onClick = {() => this.child_check_Column_dataType()}>check_child_col_type</button>
                                 </div>
                                     <table className="form-table align-left">
                                         <colgroup>

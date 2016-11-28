@@ -170,7 +170,7 @@ export default class ImagesConfigurationComponent extends React.Component {
                                         {this.state.setBtn}
                                         <button onClick={this.openModal.bind(this ,'table')}>table</button>
                                         <button onClick={this.openModal.bind(this ,'label')}>label</button>
-                                        <button type="button" onClick={() => this.searchBtn()} className="img-btn save">Search</button>
+                                        <button type="button" onClick={() => this.searchBtn()}>Search</button>
                                     </td>
                                 </tr>
                             </tbody>

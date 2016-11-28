@@ -11,6 +11,8 @@ import NN_PredictResultComponent from './NNConfiguration/NN_PredictResultCompone
 import NN_ModalComponent from './NNLayout/NN_ModalComponent';
 import MainSectionComponent from './NNLayout/MainSectionComponent';
 import NN_PreProcessingComponent from './NNConfiguration/NN_PreProcessingComponent'
+import ReportRepository from './repositories/ReportRepository';
+import Api from './utils/Api';
 
 export default class HomeComponent extends React.Component {
     constructor(props) {
@@ -52,22 +54,33 @@ export default class HomeComponent extends React.Component {
     }
 
     getHeaderEvent(i){
-        switch (i) {
-            case 0:
-                return this.getMainInfo(); 
-            case 1:
-                return this.getNetInfo();
-            case 2:
-                return this.getPreProcessing(); 
-            case 3:
-                return this.setDataConfiguration();  
-            case 4:
-                return this.setNetConfiguration(); 
-            case 5:
-                return this.getTimeStatistics();
-            case 6:
-                return this.getPredictResult(); 
-            }
+        this.props.reportRepository.getNetBaseInfo(this.state.NN_ID).then((nnBaseInfo) => {
+          if(nnBaseInfo && nnBaseInfo['result'].length > 0){
+            this.setState({NN_TYPE : nnBaseInfo['result'][0]['fields']['type']});
+            this.setState({NN_DATAVALID : nnBaseInfo['result'][0]['fields']['datavaild']});
+            this.setState({NN_CONFIG : nnBaseInfo['result'][0]['fields']['config']});
+            this.setState({NN_CONFVALID : nnBaseInfo['result'][0]['fields']['confvaild']});
+            this.setState({NN_TRAIN : nnBaseInfo['result'][0]['fields']['train']});
+            this.setState({NN_DATATYPE : nnBaseInfo['result'][0]['fields']['preprocess']});
+          }
+            
+          switch (i) {
+          case 0:
+              return this.getMainInfo(); 
+          case 1:
+              return this.getNetInfo();
+          case 2:
+              return this.getPreProcessing(); 
+          case 3:
+              return this.setDataConfiguration();  
+          case 4:
+              return this.setNetConfiguration(); 
+          case 5:
+              return this.getTimeStatistics();
+          case 6:
+              return this.getPredictResult(); 
+          }
+        });  
     }
 
     getMainInfo(){
@@ -83,31 +96,31 @@ export default class HomeComponent extends React.Component {
     }
 
     getPreProcessing(){
-        if(this.state.NN_ID){
+        if(this.state.NN_ID && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_PreProcessingComponent getHeaderEvent={this.getHeaderEvent}/> });  
         } 
     }
     
     setDataConfiguration(){
-        if(this.state.NN_ID){
+        if(this.state.NN_ID && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_DataConfigurationComponent getHeaderEvent={this.getHeaderEvent}/> });   
         }
     }
 
     setNetConfiguration(){
-        if(this.state.NN_DATAVALID){
+        if(this.state.NN_DATAVALID && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_NetworkConfigurationComponent getHeaderEvent={this.getHeaderEvent}/> });  
         }
     }
 
     getTimeStatistics(){
-        if(this.state.NN_CONFIG){
+        if(this.state.NN_CONFIG && this.state.NN_TYPE != 'cifar'){
             this.setState({NN_InfoList: <NN_TrainStaticComponent getHeaderEvent={this.getHeaderEvent}/> }); 
         }  
     }
 
     getPredictResult(){
-        if(this.state.NN_TRAIN){
+        if(this.state.NN_TRAIN || this.state.NN_TYPE == 'cifar'){
             this.setState({NN_InfoList: <NN_PredictResultComponent getHeaderEvent={this.getHeaderEvent}/> });   
         }
     }
@@ -143,4 +156,8 @@ HomeComponent.contextTypes = {
     NN_CONFVALID : React.PropTypes.string,
     NN_TRAIN     : React.PropTypes.string,
     NN_DATATYPE  : React.PropTypes.string
+};
+
+HomeComponent.defaultProps = {
+    reportRepository: new ReportRepository(new Api())
 };

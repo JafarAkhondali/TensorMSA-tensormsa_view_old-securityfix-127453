@@ -16,23 +16,23 @@ export default class NN_HeaderComponent extends React.Component {
             case 1:
             	return this.props.getHeaderEvent(1); //call Net Info
             case 2:
-            	if(this.context.NN_ID){
+            	if(this.context.NN_ID && this.context.NN_TYPE != 'cifar'){
             		return this.props.getHeaderEvent(2);
             	}
             case 3:
-            	if(this.context.NN_ID){
+            	if(this.context.NN_ID && this.context.NN_TYPE != 'cifar'){
             		return this.props.getHeaderEvent(3);
             	}
             case 4:
-            	if(this.context.NN_DATAVALID){
+            	if(this.context.NN_DATAVALID && this.context.NN_TYPE != 'cifar'){
             		return this.props.getHeaderEvent(4);
             	}
             case 5:
-            	if(this.context.NN_CONFIG){
+            	if(this.context.NN_CONFIG && this.context.NN_TYPE != 'cifar'){
 	                return this.props.getHeaderEvent(5); 
             	}
             case 6:
-            	if(this.context.NN_TRAIN){
+            	if(this.context.NN_TRAIN || this.context.NN_TYPE == 'cifar'){
 	                return this.props.getHeaderEvent(6); 
 	            }
 	        
@@ -40,31 +40,31 @@ export default class NN_HeaderComponent extends React.Component {
     }
 
     isActive(value){
+        //console.log(this.context.NN_TYPE == 'cifar')
     	switch (value) {
             case 1:
         		this.checkPrerequirement = 1;
             	return ((value===this.state.selected) ? 'current':'');
             case 2:
-            	if(this.context.NN_ID){
+            	if(this.context.NN_ID && this.context.NN_TYPE != 'cifar'){
             		return ((value===this.state.selected) ? 'current':'');
             	}
             case 3:
-            	if(this.context.NN_ID){
+            	if(this.context.NN_ID && this.context.NN_TYPE != 'cifar'){
             		return ((value===this.state.selected) ? 'current':'');
             	}
             case 4:
-            	if(this.context.NN_DATAVALID){
+            	if(this.context.NN_DATAVALID && this.context.NN_TYPE != 'cifar'){
             		return ((value===this.state.selected) ? 'current':'');
             	}
             case 5:
-            	if(this.context.NN_CONFIG){
+            	if(this.context.NN_CONFIG && this.context.NN_TYPE != 'cifar'){
 	                return ((value===this.state.selected) ? 'current':'');
             	}
             case 6:
-            	if(this.context.NN_TRAIN){
+            	if(this.context.NN_TYPE == 'cifar' || this.context.NN_TRAIN){
 	                return ((value===this.state.selected) ? 'current':'');
 	            }
-	        
         }   	
     }
 

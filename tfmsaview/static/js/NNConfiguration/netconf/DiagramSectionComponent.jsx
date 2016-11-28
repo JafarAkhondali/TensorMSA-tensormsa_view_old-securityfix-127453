@@ -25,7 +25,6 @@ export default class DiagramSectionComponent extends React.Component {
     //1
     componentWillMount(){
         this._getNetConfigBasicInfo(this.context.NN_ID);
-
     }
 
     componentDidMount(){
@@ -89,10 +88,9 @@ export default class DiagramSectionComponent extends React.Component {
     _getDataObject() {
         let dataObj = {}; 
         
-        console.log(this.state.nnConfigBasicInfoField);
         dataObj.datalen = this.state.nnConfigFormatInfoField.x_size*this.state.nnConfigFormatInfoField.y_size;
         dataObj.taglen = JSON.parse(this.state.nnConfigBasicInfoField.datasets).length;
-        dataObj.matrix = [this.state.nnConfigFormatInfoField.x_size,this.state.nnConfigFormatInfoField.y_size];
+        dataObj.matrix = [parseInt(this.state.nnConfigFormatInfoField.x_size),parseInt(this.state.nnConfigFormatInfoField.y_size)];
         dataObj.learnrate = 0.01;
         dataObj.label = JSON.parse(this.state.nnConfigBasicInfoField.datasets);
         dataObj.epoch = 10;
@@ -111,7 +109,6 @@ export default class DiagramSectionComponent extends React.Component {
     _postNNNetConfigInfo(){
         console.log(this.context.NN_ID);
         let layerArray = [];
-        let layerObj = {};
         let postObj = {};
         let propName;
         let propValue;
@@ -126,45 +123,48 @@ export default class DiagramSectionComponent extends React.Component {
 
         for(let i=0; i < domHiddenTable.length; i++)
         {
-            var tr = (domHiddenTable[i]).querySelectorAll('#CNN1 > tbody > tr')
+            var tr = (domHiddenTable[i]).querySelectorAll('tbody > tr');
+            let layerObj = {};
 
             for(let j=0; j < tr.length; j++)
             {
                 if([0,1,7,8,9].indexOf(j) >= 0)
                 {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').innerText;
+                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').value;
 
                     layerObj[propName] = propValue;
                     
                 }
                 else {
                     propName = tr[j].querySelector('td:nth-child(1)').innerText;
-                    propValue = new Array(tr[j].querySelector('td:nth-child(2) > input[type=text]').innerText);
+                    propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').value.split(",").map(Number);
 
                     layerObj[propName] = propValue;
+                    
                 }
             }
 
-            layerArray.push(layerObj);
+            layerArray[i] = layerObj;
         }
 
         postObj.layer = layerArray;
+
+        this.props.reportRepository.postNNNetConfigInfo(this.context.NN_ID, postObj);
     }    
 
     render() {
         return (
-            <section>
-                <section id='netconf-diagram'>
+                <section >
                     <ul className="tabHeader">
-                        <li className='current'><a href="#">CNN</a></li>
+                        <li className="current"><a href="#cnn_panel">CNN</a></li>
                         <div className="btnArea">
                             <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                             <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
-                        <li><a href="#">WDND</a></li>
+                        <li><a href="#wdnn_panel">WDNN</a></li>
                     </ul> 
-                        <div className="container tabBody">                 
+                        <div id='netconf-diagram' className="container tabBody">                 
                             <div id="main-part" className="l--page">
                                 {/* Data Column */}
                                 <div className="column data">
@@ -278,14 +278,18 @@ export default class DiagramSectionComponent extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
+                            {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
+                                <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
+                                                       nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
+                                />
+                            }
+                    </div>
+                    <div id="wdnn_panel" className="container tabBody">                    
+                        <p> TEST </p>
+                        <button type="button" onClick={this._clickSaveButton.bind(this)}>Wdnn</button>
                     </div>
                 </section>
-                {this.state.nnConfigBasicInfoField !== null && this.state.nnConfigFormatInfoField !== null &&
-                    <TableSectionComponent nnConfigBasicInfoField={this.state.nnConfigBasicInfoField}
-                                           nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
-                    />
-                }
-            </section>
         )
     }
 }
@@ -295,5 +299,21 @@ DiagramSectionComponent.defaultProps = {
 }
 
 DiagramSectionComponent.contextTypes = {
-    NN_ID: React.PropTypes.string
+    NN_ID        : React.PropTypes.string,
+    NN_TYPE      : React.PropTypes.string,
+    NN_DATAVALID : React.PropTypes.string,
+    NN_CONFIG    : React.PropTypes.string,
+    NN_CONFVALID : React.PropTypes.string,
+    NN_TRAIN     : React.PropTypes.string,
+    NN_DATATYPE  : React.PropTypes.string
 };
+
+DiagramSectionComponent.childContextTypes = {
+  NN_ID        : React.PropTypes.string,
+  NN_TYPE      : React.PropTypes.string,
+  NN_DATAVALID : React.PropTypes.string,
+  NN_CONFIG    : React.PropTypes.string,
+  NN_CONFVALID : React.PropTypes.string,
+  NN_TRAIN     : React.PropTypes.string,
+  NN_DATATYPE  : React.PropTypes.string
+}

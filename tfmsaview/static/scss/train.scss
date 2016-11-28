@@ -10,13 +10,14 @@
 
 .train-result {
     width: 100%;
-    height: 340px;
+    height: 280px;
     background: #eaecf0;
     border-radius: 10px 10px 0 0;
     @include box-sizing(border-box);
     padding: 10px;
     border: 1px solid #c9cdd5;
     border-bottom: none;
+    margin-top:30px;
     .train-wrap-top {
         // margin: 0 auto;
         width: 870px;
@@ -43,16 +44,28 @@
             width: 610px;
         }
         .test-result {
-            width: 220px;
+            width: 250px;
             margin-left: 10px;
+
             dd {
                 text-align: center;
+                @inlude box-sizing(border-box);
+                height:50%;
                 span {
                     color: #ed4d64;
                     font-size: 60px;
                     margin-top: 30px;
                     display: inline-block;
                 }
+                &:nth-child(3){
+                    span{
+                        font-size:20px !important;
+                        color:#333 !important;
+                    }
+                    
+                    
+                    
+                };
             }
         }
     }
@@ -61,12 +74,12 @@
 .graph {
     @include box-sizing(border-box);
     width: 100%;
-    height: calc(100% - 10px);
+    height: calc(100% - 30px);
     background: #fff;
     border: 1px solid #c9cdd5;
     border-radius: 0 0 10px 10px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-x:hidden;
+    overflow-y:hidden;
     padding: 20px 10px;
     .train-wrap-bottom {
         height: 100%;

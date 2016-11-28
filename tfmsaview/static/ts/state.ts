@@ -144,7 +144,7 @@ export class State {
   collectStats = false;
   numHiddenLayers = 1;
   hiddenLayerControls: any[] = [];
-  networkShape: number[] = [1, 1, 1, 1];
+  networkShape: number[] = [1, 1, 1, 1, 1];
   x = true;
   y = true;
   // xTimesY = false;

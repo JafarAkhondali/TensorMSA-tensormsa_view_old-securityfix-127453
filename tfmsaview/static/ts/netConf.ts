@@ -542,6 +542,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
         let nodeHiddenTbody = d3.select("#"+selectedNodeType+".hidden_table > tbody");
         let rowLen = 8;
         let propArray = ['type', 'active', 'cnnfilter', 'cnnstride', 'maxpoolmatrix', 'maxpoolstride', 'node_in_out', 'regualizer', 'padding', 'droprate'];
+        let matrixPropArray = ["cnnfilter","cnnstride","maxpoolmatrix","maxpoolstride","node_in_out"];
         let selectedNodeTypeSeqRemoved = selectedNodeType.replace(/[0-9]/g, '');
 
         for (let entry of propArray) {
@@ -552,44 +553,86 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape", disabled: false });
             }
             else
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8"});
             }
           }
           else if(selectedNodeTypeSeqRemoved === "OUT" ) {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: false });
             }
+            else if(entry === 'node_in_out') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "32,4", disabled: false });
+            }
+            else if(entry === 'padding') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: false });
+            }     
+            else if(entry === 'active') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "softmax", disabled: false });
+            }                    
             else
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8" });
             }
           }
           else if(selectedNodeTypeSeqRemoved === "DROP"){
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: true  });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: false  });
             }
-            else if(entry === 'active' || entry === 'droprate') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8" });
+            else if(entry === 'active') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "relu"});
+            }
+            else if(entry === 'droprate') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "0.5"});
             }
             else {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", disabled: true });
+              if(matrixPropArray.indexOf(entry) >= 0)
+              {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "x,y"});
+              }
+              else {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "string"});
+              }
             }
           }
           else {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: true  });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: false  });
             }
+            else if(entry === 'active') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "relu"});
+            }
+            else if(entry === 'cnnfilter' || entry === 'cnnstride' || entry === 'maxpoolmatrix' || entry === 'maxpoolstride') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "2,2"});
+            }   
+            else if(entry === 'padding') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: false });
+            }
+            else if(entry === 'node_in_out') {
+              console.log(selectedNodeType);
+              if(selectedNodeType ==='CNN1') {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "1,16", disabled: false });
+              }
+              else {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "16,32", disabled: false });
+              }
+              
+            }                 
             else {
-              newTr.append("td").append("input").attr({ type: "text", size: "8" });
+              if(matrixPropArray.indexOf(entry) >= 0)
+              {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "x,y"});
+              }
+              else {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", placeholder: "string"});
+              }
             }
-            
           }
         }
       }

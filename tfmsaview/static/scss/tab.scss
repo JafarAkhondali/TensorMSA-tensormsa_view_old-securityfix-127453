@@ -31,6 +31,9 @@
                 background: $tab-active-bg-color;
             }
         }
+        &.not_current {
+            display: none;
+        }
         &.current {
             a {
                 color: $tab-current-color;
@@ -44,4 +47,7 @@
             }
         }
     }
+}
+.container{
+    overflow:auto;
 }

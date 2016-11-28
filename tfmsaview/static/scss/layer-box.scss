@@ -29,9 +29,15 @@ dl.layer-box {
     >dd {
         width: 100%;
         background: $layer-box-bg;
-        height: calc(100% - 30px);
+        min-height: calc(100% - 30px);
         @include box-sizing(border-box);
         padding: 10px;
         border-radius: 0 0 $layer-box-border-radius $layer-box-border-radius;
+        *zoon:1;
+        &:after {
+            display:block;
+            clear:both;
+            content:'';
+        }
     }
 }
