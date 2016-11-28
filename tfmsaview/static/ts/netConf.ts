@@ -553,7 +553,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "reshape", disabled: false });
             }
             else
             {
@@ -563,14 +563,17 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           else if(selectedNodeTypeSeqRemoved === "OUT" ) {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: false });
             }
             else if(entry === 'node_in_out') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "32,4", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "32,4", disabled: false });
             }
             else if(entry === 'padding') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: true });
-            }            
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: false });
+            }     
+            else if(entry === 'active') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "softmax", disabled: false });
+            }                    
             else
             {
               newTr.append("td").append("input").attr({ type: "text", size: "8" });
