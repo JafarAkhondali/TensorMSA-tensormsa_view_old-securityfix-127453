@@ -159,12 +159,11 @@ export default class DiagramSectionComponent extends React.Component {
         return (
                 <section >
                     <ul className="tabHeader">
-                        <li className="current"><a onClick={this._isActive('CNN')}>CNN</a></li>
+                        <li className="current"><a href="#">{(this.context.NN_TYPE).toUpperCase()}</a></li>
                         <div className="btnArea">
                             <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                             <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
-                        <li><a onClick={this._isActive('WDNN')}>WDNN</a></li>
                     </ul> 
                         <div id='netconf-diagram' className="container tabBody">                 
                             <div id="main-part" className="l--page">
@@ -286,11 +285,7 @@ export default class DiagramSectionComponent extends React.Component {
                                                        nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
                                 />
                             }
-                        </div>
-
-                        <div id="wdnn_panel" className="container tabBody">                    
-                            <button type="button" onClick={this._clickSaveButton.bind(this)}>Wdnn</button>
-                        </div>                   
+                        </div>                
                 </section>
         )
     }
