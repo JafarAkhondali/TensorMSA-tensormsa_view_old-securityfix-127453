@@ -111,7 +111,6 @@ export default class DiagramSectionComponent extends React.Component {
     _postNNNetConfigInfo(){
         console.log(this.context.NN_ID);
         let layerArray = [];
-        let layerObj = {};
         let postObj = {};
         let propName;
         let propValue;
@@ -127,6 +126,7 @@ export default class DiagramSectionComponent extends React.Component {
         for(let i=0; i < domHiddenTable.length; i++)
         {
             var tr = (domHiddenTable[i]).querySelectorAll('tbody > tr');
+            let layerObj = {};
 
             for(let j=0; j < tr.length; j++)
             {
@@ -146,12 +146,12 @@ export default class DiagramSectionComponent extends React.Component {
                 }
             }
 
-            layerArray.push(layerObj);
+            layerArray[i] = layerObj;
         }
 
         postObj.layer = layerArray;
 
-        this.props.reportRepository.postNNNetConfigInfo(this.context.NN_ID, params);
+        this.props.reportRepository.postNNNetConfigInfo(this.context.NN_ID, postObj);
     }    
 
     render() {
@@ -163,7 +163,7 @@ export default class DiagramSectionComponent extends React.Component {
                             <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                             <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
-                        <li><a href="#">WDND</a></li>
+                        <li><a href="#">WDNN</a></li>
                     </ul> 
                         <div className="container tabBody">                 
                             <div id="main-part" className="l--page">

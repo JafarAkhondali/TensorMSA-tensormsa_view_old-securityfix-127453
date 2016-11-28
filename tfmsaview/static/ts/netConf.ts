@@ -557,7 +557,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
             }
             else
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "" ,disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8"});
             }
           }
           else if(selectedNodeTypeSeqRemoved === "OUT" ) {
@@ -565,18 +565,27 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
             {
               newTr.append("td").append("input").attr({ type: "text", size: "8", value: "out", disabled: true });
             }
+            else if(entry === 'node_in_out') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "32,4", disabled: true });
+            }
+            else if(entry === 'padding') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: true });
+            }            
             else
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "", disabled: true });
+              newTr.append("td").append("input").attr({ type: "text", size: "8" });
             }
           }
           else if(selectedNodeTypeSeqRemoved === "DROP"){
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: true  });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "drop", disabled: false  });
             }
-            else if(entry === 'active' || entry === 'droprate') {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "" });
+            else if(entry === 'active') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "relu"});
+            }
+            else if(entry === 'droprate') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "0.5"});
             }
             else {
               if(matrixPropArray.indexOf(entry) >= 0)
@@ -591,8 +600,27 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
           else {
             if(entry === 'type')
             {
-              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: true  });
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "cnn", disabled: false  });
             }
+            else if(entry === 'active') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "relu"});
+            }
+            else if(entry === 'cnnfilter' || entry === 'cnnstride' || entry === 'maxpoolmatrix' || entry === 'maxpoolstride') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "2,2"});
+            }   
+            else if(entry === 'padding') {
+              newTr.append("td").append("input").attr({ type: "text", size: "8", value: "SAME", disabled: false });
+            }
+            else if(entry === 'node_in_out') {
+              console.log(selectedNodeType);
+              if(selectedNodeType ==='CNN1') {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "1,16", disabled: false });
+              }
+              else {
+                newTr.append("td").append("input").attr({ type: "text", size: "8", value: "16,32", disabled: false });
+              }
+              
+            }                 
             else {
               if(matrixPropArray.indexOf(entry) >= 0)
               {
