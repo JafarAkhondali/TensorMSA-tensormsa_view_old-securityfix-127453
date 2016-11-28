@@ -42,6 +42,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         //networkId = this.context.NN_ID
         this.initDataBaseLov()
         console.log(this.state.dataBaseList)
+        search_btn()
         
     }
     saveModal(base, table) { 
@@ -195,6 +196,9 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         this.props.reportRepository.postWdnnConf(_url).then((resultData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: resultData['result']})
+            if(resultData['status'] == "200"){
+                alert("정상 처리 되었습니다.")
+            }
         });
     }
     wdnnTrainPost(){
