@@ -4,10 +4,7 @@ import FileUpload from 'react-fileupload';
 export default class ImagePreviewLayout extends React.Component {
 	constructor(props) {
         super(props)
-        this.state={
-        		imageArea : null,
-        		rate : null,
-        	    fileUploadSettings : {
+        this.fileUploadSettings = {
                     baseUrl : null,
                     param:
                     {
@@ -15,44 +12,68 @@ export default class ImagePreviewLayout extends React.Component {
                     },
                     multiple:true,
                     chooseAndUpload:true,
-                    doUpload : function(files,mill){
-                        console.log('you just uploaded',typeof files == 'string' ? files : files[0].name)
-                    },
-                    uploading : function(progress){
-                        this.setState({rate : progress.loaded/progress.total})
-                        console.log('loading...',progress.loaded/progress.total+'%')
-                    },
-                    uploadSuccess : function(resp){
-                        console.log('upload success..!')
-                    },
-                    uploadError : function(err){
-                        alert(err.message)
-                    },
-                    uploadFail : function(resp){
-                        alert(resp)
-                    }
+                    doUpload : this._handleDoUpload.bind(),
+                    uploading : this._handleUploading.bind(this),
+                    uploadSuccess : this._handleUploadSuccess.bind(this),
+                    uploadError : this._handleUploadError.bind(this),
+                    uploadFail : this._handleUploadFail.bind(this)
                 }
+        this.state={
+        		rate : 'Upload'
         }
+    }
+
+    _handleUploadError(err){
+        this.setState({rate:'Error'})
+    }
+
+    _handleUploadFail(resp){
+        this.setState({rate:'Fail'})
+    }
+
+    _handleUploadSuccess(progress, mill){
+        this.setState({rate:'Upload'})
+    }
+
+    _handleDoUpload(progress, mill){
+        this.setState({rate:'Upload'})
+    }
+
+    _handleUploading(progress, mill){
+        let rate_round = Math.round(progress.loaded/progress.total * 100)
+        this.setState({rate:rate_round})
+    }
+
+    componentDidMount(){
+        console.log("componentDidMount")
+    }
+
+    componentDidUpdate(){
+        console.log("componentDidUpdate")
+    }
+
+    shouldComponentUpdate(){
+        console.log("shouldComponentUpdate")
+        return true;
     }
 
     // return ftp upload rest api url
     setFormUrl(label){
-        let testIp = "http://52.78.19.96:8989"  // will be deleted on jango server
+        let testIp = "http://52.78.179.14:8989"  // will be deleted on jango server
         let uploadUrl = "/api/v1/type/imagefile/base/" + this.props.imageDataSet.baseDom + "/table/" + 
         this.props.imageDataSet.tableDom + "/label/" + label +"/data/"+ this.props.netId +"/"
         testIp = testIp + uploadUrl
         this.setState({formAction: testIp})
 
-        let fileUploadSettings = this.state.fileUploadSettings
-        fileUploadSettings.baseUrl = testIp
-
-        this.setState({fileUploadSettings:fileUploadSettings})
+        let fileUploadSettings = this.fileUploadSettings
+        this.fileUploadSettings.baseUrl = testIp 
     }
 
     render() {
     	if (!this.props.imageDataSet.imagePaths) {return null;}
     	let rows2 = [];
-    	let fileUploadOptions = this.state.fileUploadSettings;
+    	let fileUploadOptions = this.fileUploadSettings;
+        console.log(fileUploadOptions)
     	let i=0, j=0;
     	let key_set = Object.keys(this.props.imageDataSet.imagePaths);
 
@@ -62,14 +83,14 @@ export default class ImagePreviewLayout extends React.Component {
 			let rows = [];
 			let clickEvent = this.setFormUrl.bind(this, key)
 			for(let path_info of imagePaths_info){
-				let path = "http://52.78.19.96:8989" + path_info;
+				let path = "http://52.78.179.14:8989" + path_info;
 				rows.push(<div><img src= {path} key={i++} width='200' height='200'/></div>)
 			}
 			rows2.push(<dl className='img-box'>
 						   <dt>
 						   		<h1 className="circle-blue">{key}</h1>
 						   		<FileUpload options={fileUploadOptions}>
-					           		<button onClick={clickEvent} className="upload" ref="chooseAndUpload">Upload</button>
+					           		<button onClick={clickEvent} className="upload" ref="chooseAndUpload">{this.state.rate}</button>
 					       		</FileUpload>
 						   </dt>
 						   <dd>

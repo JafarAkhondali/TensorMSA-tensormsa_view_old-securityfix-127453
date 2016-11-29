@@ -116,7 +116,7 @@ export default class ImagesConfigurationComponent extends React.Component {
             this.setState({selModalView : <ModalViewTableCreate saveModal={this.saveModal} closeModal={this.closeModal}/>} )
         }
         else if (type == 'label'){
-            this.setState({selModalView : <ModalViewLabelCreate networkId={this.networkId} closeModal={this.closeModal}/>})
+            this.setState({selModalView : <ModalViewLabelCreate networkId={this.networkId} closeModal={this.closeModal.bind(this)} searchBtn={this.searchBtn.bind(this)}/>})
         }
         this.setState({open: true})
     }

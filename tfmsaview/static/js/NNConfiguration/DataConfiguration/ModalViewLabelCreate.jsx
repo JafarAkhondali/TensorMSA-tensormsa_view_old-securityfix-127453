@@ -60,6 +60,10 @@ export default class ModalViewLabelCreate extends React.Component {
         });
     }
 
+    searchBtn(){
+        this.props.searchBtn(this.props.networkId);
+        this.props.closeModal();
+    }
 
     render() {
         return (   
@@ -104,6 +108,7 @@ export default class ModalViewLabelCreate extends React.Component {
                     </div>
                 </div>
                 <span className="modal-footer">
+                    <button onClick={this.searchBtn.bind(this)}>Load</button>
                     <button onClick={this.props.closeModal}>Close</button>
                 </span>
             </div>
