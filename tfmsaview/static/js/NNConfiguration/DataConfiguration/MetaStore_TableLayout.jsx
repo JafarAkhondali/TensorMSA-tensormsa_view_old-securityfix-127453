@@ -1,6 +1,7 @@
 import React from 'react'
 import ReportRepository from './../../repositories/ReportRepository'
 import Api from './../../utils/Api'
+import SpinnerComponent from './../../NNLayout/common/SpinnerComponent'
 
 export default class MetaStore_TableLayout extends React.Component {
 	constructor(props) {
@@ -91,31 +92,6 @@ export default class MetaStore_TableLayout extends React.Component {
         selectCellFeature['label'] = selectDataFormatLabel
         this.setState({cellfeature : selectCellFeature}) 
         this.celHeaderSelectBoxValue2 = selectCellFeature;
-        //this.state.selectValue = 
-        //this.setState({selectValue : selectedValue}) 
-
-        //this.setState({ this.props.: selectDataFormatType})
-        //this.props.DataframeType
-        //this.state.dataFormatType[selectedValue.target.id] = selectedValue.target.value
-        //this.setState({dataFormatType[selectedValue.target.id]:selectedValue.target.value})
-        //dataFormatType[selectedValue.target.id] = selectedValue.target.value
-        //this.setState({selectValue:selectedValue})
-        //console.log(this.state.dataFormatTypes)
-        //JSON.stringify(params)
-        console.log(this.celHeaderSelectBoxValue)
-	    //let key_set = Object.keys(this.state.cellfeature)
-        //cell_feature
-
-        // for(let key of key_set){
-        //     console.log(key );
-        //     for( let sub_key of key){
-        //     //console.log("lookup dictionary")
-        //     //console.log(selectedValue.target.value)
-        //     //console.log(key);
-        //         console.log(key + ":" +sub_key +"---->"+ this.state.cellfeature[key][sub_key]);
-        //     }
-         //}
-         //this.refs.s1.forceUpdate()
     }
     dataFramePost(opt_url){
 
@@ -148,9 +124,6 @@ export default class MetaStore_TableLayout extends React.Component {
             console.log(k)
             console.log(v)
         } 
-
-        //console.log(doubles)
-
     }
     getDataFrameType () {
         console.log("ChildGetDataFrameType"); 
@@ -163,59 +136,6 @@ export default class MetaStore_TableLayout extends React.Component {
         
      }
 
-    shouldComponentUpdate(nextProps, nextState){
-        //console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
-        return true;
-    }
-//     getDataFrameType () {
-//         let results = {};
-//         console.log("getDataFrameType")
-        
-//         this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
-//             console.log('dataframepost results')
-//             // this.setState({selectdataFormatTypes: resultData['result']}, function(){
-//             //          for (let[k,v] of Object.entries(this.state.selectdataFormatTypes)){
-//             //              //console.log(k); 
-//             //              //console.log(v);
-//             //             }
-                    
-//             //     
-//             this.setState({selectdataFormatTypes: resultData['result']})
-//             results = resultData['result']
-//             // debugger
-//             for (let[k,v] of Object.entries(results)){
-//                 console.log(k); 
-//                 console.log(v);
-//             }
-
-//             //console.log(results["SI"]["column_type"])
-          
-//         //      for (let[k,v] of Object.entries(results)){
-//         //                  console.log(k); 
-//         //                  console.log(v);
-//         //                 }
-//         //  console.log( "asdasdasdasdasd")
-//         //  console.log(results)
-//         //  console.log( results.SI)
-//         // //console.log( results['SI'][0])
-//         //  console.log( results[0])
-//         //  console.log( JSON.stringify(results))
-//         // console.log( "asdasdasdasdasd  end")
-                       
-//         });
-//         debugger
-//         return results;
- 
-//         //console.log('what is SI')
-
-//        // console.log(results['SI'])
-        
-//         //results[""]
-//    // getColumnType = getDataFrameType();
-
-
-//         //return resuts
-//     }
     setWdnnTableColumnType()
     {
         console.log("setWdnnTableColumnType")
@@ -378,10 +298,10 @@ export default class MetaStore_TableLayout extends React.Component {
 
 
     render() {
-    	if (!this.props.WdnnTableData) {return null;}
+    	if (!this.props.WdnnTableData) {return <SpinnerComponent />;}
     	
     	console.log("calling MetaStore_Table")
-        let rowssdfsdf = [];
+        let metaStoreTableContent = [];
     	let i=0;
         let j=0;
         let k=0;
@@ -526,13 +446,13 @@ export default class MetaStore_TableLayout extends React.Component {
             }
 		}
         //add table 
-        rowssdfsdf.push(<thead key={j++}>{tableHeader}</thead>)
-        rowssdfsdf.push(<tbody key={j++} className="center">{tableData}</tbody>)
+        metaStoreTableContent.push(<thead key={j++}>{tableHeader}</thead>)
+        metaStoreTableContent.push(<tbody key={j++} className="center">{tableData}</tbody>)
         
         return (   
             <div>
                 <table className="table marginT10">
-                    {rowssdfsdf}
+                    {metaStoreTableContent}
                 </table>
             </div>        
         )
