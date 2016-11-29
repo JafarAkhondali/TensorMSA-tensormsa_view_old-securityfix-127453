@@ -13,7 +13,8 @@ export default class DiagramSectionComponent extends React.Component {
             nnConfigFormatInfoField : null,
             saveBtnClickFlag: false,
             stepBack : 3,
-            stepForward : 5
+            stepForward : 5,
+            selected : null
         };
 
         this._getNetConfigBasicInfo = this._getNetConfigBasicInfo.bind(this);
@@ -99,7 +100,9 @@ export default class DiagramSectionComponent extends React.Component {
     }
 
     _isActive(value){
-        return ((value===this.state.selected) ? 'current':'');
+        //this.setState({selected: value});
+        console.log(value);
+        //return ((value===this.state.selected) ? 'current':'');
     }
 
     _clickSaveButton(){
@@ -141,7 +144,6 @@ export default class DiagramSectionComponent extends React.Component {
                     propValue = tr[j].querySelector('td:nth-child(2) > input[type=text]').value.split(",").map(Number);
 
                     layerObj[propName] = propValue;
-                    
                 }
             }
 
@@ -157,12 +159,11 @@ export default class DiagramSectionComponent extends React.Component {
         return (
                 <section >
                     <ul className="tabHeader">
-                        <li className="current"><a href="#cnn_panel">CNN</a></li>
+                        <li className="current"><a href="#">{(this.context.NN_TYPE).toUpperCase()}</a></li>
                         <div className="btnArea">
                             <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                             <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
-                        <li><a href="#wdnn_panel">WDNN</a></li>
                     </ul> 
                         <div id='netconf-diagram' className="container tabBody">                 
                             <div id="main-part" className="l--page">
@@ -284,11 +285,7 @@ export default class DiagramSectionComponent extends React.Component {
                                                        nnConfigFormatInfoField={this.state.nnConfigFormatInfoField}
                                 />
                             }
-                    </div>
-                    <div id="wdnn_panel" className="container tabBody">                    
-                        <p> TEST </p>
-                        <button type="button" onClick={this._clickSaveButton.bind(this)}>Wdnn</button>
-                    </div>
+                        </div>                
                 </section>
         )
     }
