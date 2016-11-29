@@ -59,3 +59,22 @@ StepArrowComponent.contextTypes = {
 18.Git sync master
 - git fetch origin
 - git reset --hard origin/master
+
+19. Use Spinner
+
+export default class AirFlowRateReportComponent extends React.Component {
+    renderTest() {
+        if (this.props.data != null) {
+            return (<div>test</div>);
+        } else {
+            return (<SpinnerComponent/>);
+        }
+    }
+    render() {
+        return(<div>
+            {this.renderTest()}
+        </div>)
+    }
+}
+in the render function ->
+    if (!this.props.WdnnTableData) {return <SpinnerComponent />;}

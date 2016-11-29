@@ -59,6 +59,7 @@ export default class LabelByChartComponent extends React.Component {
                 .height(200)
                 .innerRadius(0)
                 .dimension(Dimension)
+                .ordinalColors(['#2E8B57', '#DC143C'])
                 .transitionDuration(1500) //add animation speed
                 .group(dataGroup);
             chart.render('_' + section);
