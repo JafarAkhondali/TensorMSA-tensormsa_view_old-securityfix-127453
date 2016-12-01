@@ -298,7 +298,7 @@ export default class MetaStore_TableLayout extends React.Component {
 
 
     render() {
-    	if (!this.props.WdnnTableData) {return <SpinnerComponent />;}
+    	if (!this.props.WdnnTableData) {return <SpinnerComponent flag="true"/>;}
     	
     	console.log("calling MetaStore_Table")
         let metaStoreTableContent = [];
