@@ -245,12 +245,8 @@ export default class ReportRepository {
            return data;
         });
     }
-    getDataFrameOnNetworkConfig(opt_url, params) {
-
-        //opt_url = 'nn0000102/type/cell_feature/'
-        //opt_url = 'nn0000102/type/label/'
-        //opt_url = 'nn0000102/type/all/'
-        let url='/api/v1/type/dataframe/format/'+opt_url
+    getDataFrameOnNetworkConfig(opt_url, nnId) {
+        let url='/api/v1/type/dataframe/format/'+ nnId +'/type/' +opt_url + '/'
         console.log(url)
         return this.api.get(url).then((data) => {
             data = JSON.parse(data);
@@ -341,7 +337,7 @@ export default class ReportRepository {
         });
     }
     
-    getNetConfigBasicInfo(nnid) {
+    getNetConfigCommonInfo(nnid) {
         console.log(nnid);
         let url = '/api/v1/type/common/nninfo/'+ nnid +'/category//subcate//'
         return this.api.get(url).then((data) => {

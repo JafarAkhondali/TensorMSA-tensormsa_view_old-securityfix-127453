@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class TableSectionComponent extends React.Component {
+export default class CnnTableSectionComponent extends React.Component {
     constructor(props){
         super(props);
 
@@ -10,12 +10,12 @@ export default class TableSectionComponent extends React.Component {
     }
 
     componentWillMount(){
-        if(typeof this.props.nnConfigBasicInfoField.datasets === 'string')
+        if(typeof this.props.nnConfigFeatureInfoField.datasets === 'string')
         {
-            this.setState({datasets: JSON.parse(this.props.nnConfigBasicInfoField.datasets)});
+            this.setState({datasets: JSON.parse(this.props.nnConfigFeatureInfoField.datasets)});
         }
         else {
-            this.setState({datasets: this.props.nnConfigBasicInfoField.datasets});
+            this.setState({datasets: this.props.nnConfigFeatureInfoField.datasets});
         }
     }
 
@@ -35,8 +35,8 @@ export default class TableSectionComponent extends React.Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{this.props.nnConfigFormatInfoField.x_size}</td>
-                                        <td>{this.props.nnConfigFormatInfoField.y_size}</td>
+                                        <td>{this.props.nnConfigLabelInfoField.x_size}</td>
+                                        <td>{this.props.nnConfigLabelInfoField.y_size}</td>
                                     </tr>
                                 </tbody>
                             </table>
