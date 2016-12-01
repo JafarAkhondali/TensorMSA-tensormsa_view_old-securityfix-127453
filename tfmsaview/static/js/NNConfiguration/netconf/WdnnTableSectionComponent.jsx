@@ -10,7 +10,6 @@ export default class WdnnTableSectionComponent extends React.Component {
     }
 
     componentWillMount(){
-        
         if(typeof this.props.nnConfigFeatureInfoField === 'string')
         {
             this.setState({datasets: JSON.parse(this.props.nnConfigFeatureInfoField)});
@@ -59,8 +58,13 @@ export default class WdnnTableSectionComponent extends React.Component {
                                     <tr>
                                         <th>Label</th>
                                     </tr>
-                                </thead>                                
+                                </thead>
                                 <tbody>
+                                    {
+                                        this.props.nnConfigLabelInfoField.map((label) =>
+                                            <tr key={label}><td>{label}</td></tr>
+                                        )
+                                    }
                                 </tbody>
                             </table>
                         </dd>

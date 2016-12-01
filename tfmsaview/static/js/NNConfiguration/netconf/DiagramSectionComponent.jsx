@@ -168,15 +168,28 @@ export default class DiagramSectionComponent extends React.Component {
         this.props.reportRepository.getDataFrameOnNetworkConfig('all', nnId).then((tableData) => {
             if(typeof tableData === 'object')
             {
-                var nnConfigDataframeInfoJson = JSON.parse(JSON.stringify(tableData));
+                var nnConfigWdnnFeatureInfoJson = JSON.parse(JSON.stringify(tableData));
             }
             else 
             {
-                var nnConfigDataframeInfoJson = JSON.parse(tableData);
+                var nnConfigWdnnFeatureInfoJson = JSON.parse(tableData);
             }
             
-            this.setState({nnConfigFeatureInfoField: nnConfigDataframeInfoJson.result});
-        });        
+            this.setState({nnConfigFeatureInfoField: nnConfigWdnnFeatureInfoJson.result});
+        }); 
+
+        this.props.reportRepository.getDataFrameOnNetworkConfig('labels', nnId).then((tableData) => {
+            if(typeof tableData === 'object')
+            {
+                var nnConfigWdnnLabelInfoJson = JSON.parse(JSON.stringify(tableData));
+            }
+            else 
+            {
+                var nnConfigWdnnLabelInfoJson = JSON.parse(tableData);
+            }
+            
+            this.setState({nnConfigLabelInfoField: nnConfigWdnnLabelInfoJson.result});
+        });                 
     }
 
     render() {
@@ -306,16 +319,17 @@ export default class DiagramSectionComponent extends React.Component {
 
                             {/* CNN */}
                             {
-                                (this.context.NN_TYPE).toUpperCase() ===  'CNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
+                                (this.context.NN_TYPE).toUpperCase() === 'CNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
                                 <CnnTableSectionComponent nnConfigFeatureInfoField={this.state.nnConfigFeatureInfoField}
-                                                       nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
+                                                          nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
                                 />
                             }
 
                             {/* WDNN */}
                             {
-                                (this.context.NN_TYPE).toUpperCase() ===  'WDNN' && this.state.nnConfigFeatureInfoField !== null &&
+                                (this.context.NN_TYPE).toUpperCase() === 'WDNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
                                 <WdnnTableSectionComponent nnConfigFeatureInfoField={this.state.nnConfigFeatureInfoField}
+                                                           nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
                                 />
                             }
 
