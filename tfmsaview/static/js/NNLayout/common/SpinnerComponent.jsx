@@ -6,15 +6,19 @@ export default class SpinnerComponent extends React.Component {
     }
 
     render(){
+        let spinnerIcon = null;
         let spinnerContent = null;
         if(this.props.flag){
-            spinnerContent = <div className="loader">Loading...</div> 
+            spinnerIcon = <div className="loading"></div> 
+            spinnerContent = <div id="loading-text">Loading</div>
         }else{
-            spinnerContent = null
+            spinnerIcon = null
+            spinnerContent = null 
         }
 
         return(
-            <div>
+            <div class="loading-container">
+               {spinnerIcon}
                {spinnerContent}
             </div>
         );

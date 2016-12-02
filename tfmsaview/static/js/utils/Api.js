@@ -12,12 +12,20 @@ export default class Api {
         let spinnerElement = React.createElement(SpinnerComponent, {
             flag : flag
         });
-        render(spinnerElement, document.getElementById('loadingSpinner'));
+        if(flag == false){
+            setTimeout(() => {
+            render(spinnerElement, document.getElementById('loadingSpinner'));
+            }, 1000);
+        }else{
+            render(spinnerElement, document.getElementById('loadingSpinner'));
+        }
+        
     }
 
     get (url, params) {
         console.log(EnvConstants.getApiServerUrl() + url + params);
         this.setLoading(true);
+        //debugger;
         return fetch(
         EnvConstants.getApiServerUrl() + url + params,
         {
@@ -38,6 +46,7 @@ export default class Api {
 
 post(url, params) {
     console.log(EnvConstants.getApiServerUrl());
+    this.setLoading(true);
     return fetch(
         EnvConstants.getApiServerUrl() + url,
         {
@@ -52,13 +61,14 @@ post(url, params) {
         return response.json();
     }).then(function(json) {
         return json;
-    }).catch(function(e) {
+    }).then(this.setLoading(false)).catch(function(e) {
         console.log("An Error has occurred :" +e);
     });
 };
 
 put(url, params) {
     console.log(EnvConstants.getApiServerUrl());
+    this.setLoading(true);
     return fetch(
         EnvConstants.getApiServerUrl() + url,
         {
@@ -73,13 +83,14 @@ put(url, params) {
         return response.json();
     }).then(function(json) {
         return json;
-    }).catch(function() {
+    }).then(this.setLoading(false)).catch(function() {
         console.log("An Error has occurred");
     });
 };
 
-delete  (url, params) {
+delete(url, params) {
     console.log(EnvConstants.getApiServerUrl());
+    this.setLoading(true);
     return fetch(
         EnvConstants.getApiServerUrl() + url,
         {
@@ -94,7 +105,7 @@ delete  (url, params) {
         return response.json();
     }).then(function(json) {
         return json;
-    }).catch(function() {
+    }).then(this.setLoading(false)).catch(function() {
         console.log("An Error has occurred");
     });
 };
