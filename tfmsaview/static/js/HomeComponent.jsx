@@ -54,17 +54,27 @@ export default class HomeComponent extends React.Component {
     }
 
     getHeaderEvent(i){
-        this.props.reportRepository.getNetBaseInfo(this.state.NN_ID).then((nnBaseInfo) => {
-          if(nnBaseInfo && nnBaseInfo['result'].length > 0){
-            this.setState({NN_TYPE : nnBaseInfo['result'][0]['fields']['type']});
-            this.setState({NN_DATAVALID : nnBaseInfo['result'][0]['fields']['datavaild']});
-            this.setState({NN_CONFIG : nnBaseInfo['result'][0]['fields']['config']});
-            this.setState({NN_CONFVALID : nnBaseInfo['result'][0]['fields']['confvaild']});
-            this.setState({NN_TRAIN : nnBaseInfo['result'][0]['fields']['train']});
-            this.setState({NN_DATATYPE : nnBaseInfo['result'][0]['fields']['preprocess']});
-          }
-            
-          switch (i) {
+
+        if(this.state.NN_ID){
+            this.props.reportRepository.getNetBaseInfo(this.state.NN_ID).then((nnBaseInfo) => {
+              if(nnBaseInfo && nnBaseInfo['result'].length > 0){
+                this.setState({NN_TYPE : nnBaseInfo['result'][0]['fields']['type']});
+                this.setState({NN_DATAVALID : nnBaseInfo['result'][0]['fields']['datavaild']});
+                this.setState({NN_CONFIG : nnBaseInfo['result'][0]['fields']['config']});
+                this.setState({NN_CONFVALID : nnBaseInfo['result'][0]['fields']['confvaild']});
+                this.setState({NN_TRAIN : nnBaseInfo['result'][0]['fields']['train']});
+                this.setState({NN_DATATYPE : nnBaseInfo['result'][0]['fields']['preprocess']});
+              }
+              this.getHeaderSwitch(i);
+              
+            });  
+        }else{
+            this.getHeaderSwitch(i);
+        }
+    }
+
+    getHeaderSwitch(i){
+        switch (i) {
           case 0:
               return this.getMainInfo(); 
           case 1:
@@ -80,7 +90,6 @@ export default class HomeComponent extends React.Component {
           case 6:
               return this.getPredictResult(); 
           }
-        });  
     }
 
     getMainInfo(){

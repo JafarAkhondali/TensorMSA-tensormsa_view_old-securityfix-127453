@@ -49,7 +49,11 @@ export default class ImagesConfigurationComponent extends React.Component {
             let table = nnBaseInfo['result'][0]['fields']['table'];   
             this.setState({baseDom : base});
             this.setState({tableDom : table});
-            this.initTableLov(base, table);
+            if(base && table){
+                this.initTableLov(base, table); 
+            }else{
+                this.initTableLov('all', 'all'); 
+            }
         });
     }
 
@@ -111,7 +115,6 @@ export default class ImagesConfigurationComponent extends React.Component {
 
     //route modal view 
     openModal(type){
-        console.log(type)
         if(type == 'table'){
             this.setState({selModalView : <ModalViewTableCreate saveModal={this.saveModal} closeModal={this.closeModal}/>} )
         }

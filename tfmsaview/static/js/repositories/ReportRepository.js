@@ -4,13 +4,13 @@ export default class ReportRepository {
     }
 
     getConfigs(param) {
-        return this.api.get(`/config/nn/${param}/param`).then((data) => {
+        return this.api.get('/config/nn/${param}/param').then((data) => {
             return data;
         });
     }
 
     getCommonNNInfo(params) {
-        return this.api.get(`/api/v1/type/common/nninfo//category//subcate//`, "").then((data) => {
+        return this.api.get('/api/v1/type/common/nninfo/all/', '').then((data) => {
            data = JSON.parse(data);
            return data.result;
         });
@@ -165,7 +165,15 @@ export default class ReportRepository {
     }
 
     getNetBaseInfo(opt_url, params) {
-        let url='/api/v1/type/common/nninfo/' + opt_url + '/category//subcate//';
+        let url='/api/v1/type/common/nninfo/' + opt_url + '/';
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+           return data;
+        });
+    }
+
+    getAllNetBaseInfo(opt_url, params) {
+        let url='/api/v1/type/common/nninfo/all/';
         return this.api.get(url, "").then((data) => {
             data = JSON.parse(data);
            return data;
@@ -311,7 +319,7 @@ export default class ReportRepository {
 
 
     getCategoryList() {
-        let url='/api/v1/type/common/item/category//';
+        let url='/api/v1/type/common/item/category/all/';
         return this.api.get(url, "").then((data) => {
             data = JSON.parse(data);
             console.log(data);
@@ -338,10 +346,8 @@ export default class ReportRepository {
     }
     
     getNetConfigCommonInfo(nnid) {
-        console.log(nnid);
-        let url = '/api/v1/type/common/nninfo/'+ nnid +'/category//subcate//'
+        let url = '/api/v1/type/common/nninfo/'+ nnid +'/'
         return this.api.get(url).then((data) => {
-            console.log(data);
            return data;
         });
     }

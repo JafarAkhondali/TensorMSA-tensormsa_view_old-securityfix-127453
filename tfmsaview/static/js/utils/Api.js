@@ -25,8 +25,6 @@ export default class Api {
     get (url, params) {
         console.log(EnvConstants.getApiServerUrl() + url + params);
         this.setLoading(true);
-        alert("!!")
-        debugger;
         return fetch(
         EnvConstants.getApiServerUrl() + url + params,
         {

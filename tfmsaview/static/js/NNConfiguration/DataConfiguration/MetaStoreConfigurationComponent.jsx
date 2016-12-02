@@ -38,9 +38,7 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         this.setState({nnid: this.context.NN_ID})
         this.networkId = this.context.NN_ID
         this.initDataBaseLov()
-        console.log(this.state.dataBaseList)
-        search_btn()
-        
+        console.log(this.state.dataBaseList)       
     }
     saveModal(base, table) { 
         this.databaseName = base
@@ -65,7 +63,10 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             let table = nnBaseInfo['result'][0]['fields']['table'];   
             this.setState({baseDom : base});
             this.setState({tableDom : table});
-            this.search_btn() 
+            if(base && table){
+                this.search_btn() ;
+            }
+            
         });
     }
     // init table lov

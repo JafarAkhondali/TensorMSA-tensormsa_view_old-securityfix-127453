@@ -28,7 +28,7 @@ export default class MetaStore_TableLayout extends React.Component {
     //     // Use Materialize custom select input
     //     calWdnnTableColumnType()
     //     //this.refs.s1.forceUpdate();
-            this.getCategoryType3(this.props.WdnnTableColumnType)
+           this.getCategoryType3(this.props.WdnnTableColumnType)
     }
     setWdnnTableColumnType()
     {
@@ -322,7 +322,9 @@ export default class MetaStore_TableLayout extends React.Component {
 
 
         //getColumnType =    this.getDataFrameType()
-
+        if(!this.props.WdnnTableData){
+            return (<div></div>)
+        }
 
 		for(let rows of this.props.WdnnTableData){
 

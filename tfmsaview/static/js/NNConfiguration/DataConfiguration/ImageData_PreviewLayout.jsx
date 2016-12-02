@@ -59,7 +59,7 @@ export default class ImagePreviewLayout extends React.Component {
 
     // return ftp upload rest api url
     setFormUrl(label){
-        let testIp = "http://52.78.179.14:8989"  // will be deleted on jango server
+        let testIp = "http://52.78.19.96:8989"  // will be deleted on jango server
         let uploadUrl = "/api/v1/type/imagefile/base/" + this.props.imageDataSet.baseDom + "/table/" + 
         this.props.imageDataSet.tableDom + "/label/" + label +"/data/"+ this.props.netId +"/"
         testIp = testIp + uploadUrl
@@ -83,7 +83,7 @@ export default class ImagePreviewLayout extends React.Component {
 			let rows = [];
 			let clickEvent = this.setFormUrl.bind(this, key)
 			for(let path_info of imagePaths_info){
-				let path = "http://52.78.179.14:8989" + path_info;
+				let path = "http://52.78.19.96:8989" + path_info;
 				rows.push(<div><img src= {path} key={i++} width='200' height='200'/></div>)
 			}
 			rows2.push(<dl className='img-box'>
