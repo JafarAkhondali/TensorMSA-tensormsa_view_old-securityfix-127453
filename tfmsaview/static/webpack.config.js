@@ -55,6 +55,11 @@ module.exports = {
                 test: /\.png$/,
                 loader: "url-loader"
             }
+            ,
+            {
+                test: /\.jpg$/,
+                loader: "url-loader"
+            }
         ]
     },
     ts : { // set compiler which is used by ts-loader

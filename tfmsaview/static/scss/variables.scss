@@ -119,8 +119,10 @@ $layer-box-border-radius: 8px;
 $layer-box-title-bg: #dce2e5;
 $layer-box-bg: $data-box-bg;
 //login-section
-$login-bg1-url:url("#{$img-route}login-bg1.png");
-$login-bg2-url:url("#{$img-route}login-bg2.png");
+$login-section-bg-url:url("#{$img-route}bg_login.jpg");
+$bg-dim-url:url("#{$img-route}bg_dim.png");
+$bg-copyright-url:url("#{$img-route}bg_copyright.png");
+
 //img-box
 $img-box-btn-url:url("#{$img-route}btnIcon.png");
 //predict-box

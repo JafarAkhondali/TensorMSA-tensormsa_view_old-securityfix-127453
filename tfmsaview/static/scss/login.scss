@@ -1,85 +1,78 @@
+
+
+@keyframes login_bg {
+    0%     {background-position-x:0px;}
+    100% {background-position-x:-1610px;}
+}
 #login-section {
-    background: #f0f0f0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    min-height: 300px;
-    dl {
-        height: 250px;
-        width: 370px;
-        box-sizing: border-box;
-        margin: 0 auto;
-        top: calc(50% - 150px);
-        position: relative;
-        &:before {
-            content: '';
-            display: block;
-            position: absolute;
-            background: $login-bg1-url no-repeat;
-            width: 133px;
-            height: 76px;
-            left: -90px;
-            top: -15px;
-        }
-        dl:after {
-            content: '';
-            display: block;
-            position: absolute;
-            background: $login-bg2-url no-repeat;
-            width: 100px;
-            height: 99px;
-            right: -90px;
-            bottom: 10px;
-        }
-        dt,
-        dd {
-            height: 40px;
-            display: inline-block;
-            box-sizing: border-box;
-            font-size: 15px;
-            float: left
-        }
-        dt {
-            color: #757575;
-            width: 55px;
-            text-align: right;
-            box-sizing: border-box;
-            padding: 8px 10px;
-            display: inline-block;
-            font-weight: bold;
-        }
-        dd {
-            width: calc(100% - 55px);
-            padding: 2px 0;
-            input {
-                width: 100%;
-                height: 100%;
-                background: #fff;
-                padding-left: 4px;
-                border: none;
+    background:$login-section-bg-url repeat 0 bottom;
+    animation:login_bg 150s linear infinite;
+    display:inline-block;
+    width:100%;
+    height:100%;
+    .login_container {
+        margin:-175px auto 0 auto;
+        position:relative;
+        top:40%;
+        .login_desc {
+            font-size:25px;
+            color:#f7f7f7;
+            text-align:center;
+            margin-bottom:74px;
+            letter-spacing:-0.1px;
+            strong {
+                display:block;
+                font-size:36px;
+                color:#f7f7f7;
+                margin-bottom:2px;
+                letter-spacing:-0.1px;
+                font-weight:normal;
             }
         }
-        >span {
-            color: #0556c6;
-            display: inline-block;
-            width: 315px;
-            height: 40px;
-            margin-left: 55px;
-            background: url(../images/login-logo.png) no-repeat;
-            margin-bottom: 10px;
+        .login_area {
+            box-sizing:border-box;
+            width:410px; height:185px;
+            padding:24px 70px 40px 70px;
+            border-radius:8px;
+            margin:0 auto; 
+            background:$bg-dim-url repeat 0 0;
+            box-shadow:5px 5px 10px #000;
+            .login_title {
+                color:#fff; font-size:33px; font-weight:bold;
+                text-align:left;
+            }
+            .login_form {
+                overflow:hidden; margin:15px 0 0 2px;
+                .login_input {
+                    float:left; width:197px;
+                }
+                .login_btn {
+                    float:left; margin-left:10px;
+                }
+                input[type="text"],
+                input[type="password"] {
+                    box-sizing:border-box; width:100%; height:27px; padding:4px 9px;
+                    border:1px solid #8c8390; border-radius:0px; margin-bottom:8px; background:#d5d3d7; color:#555;
+                }
+                input[type="button"] {
+                    box-sizing:border-box; width:60px; height:60px; padding:0px; background:#423d8e; color:#fff;
+                    border:0px; border-radius:4px; outline:none; font-size:15px;
+                }
+                input::-webkit-input-placeholder{
+                    color:#555; letter-spacing:-0.1px; padding:0px;
+                }
+            }
         }
     }
-    button {
-        color: #fff;
-        background: #4f90cc;
-        display: inline-block;
-        float: right;
-        width: 315px;
-        height: 40px;
-        font-size: 16px;
-        font-weight: bold;
-        margin-top: 10px;
-        border: none;
+    .copyright_area {
+        position:absolute;
+         bottom:0px;
+        box-sizing:border-box; 
+        width:100%; 
+        height:40px; 
+        padding:12px 0; 
+        text-align:center; 
+        background:$bg-copyright-url repeat 0 0; 
+        color:#fff;
     }
-}
+ }
