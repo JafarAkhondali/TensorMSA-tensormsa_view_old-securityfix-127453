@@ -145,9 +145,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     }
     getDataframeColumnOnDataConfig(){
         //let request
-        let _url  = this.state.nnid+"/type/all/"
         let col_type = {}
-        this.props.reportRepository.getDataFrameOnNetworkConfig(_url).then((column_type) => {
+        this.props.reportRepository.getDataFrameOnNetworkConfig("all", this.context.NN_ID).then((column_type) => {
             let optionRows = [];
             let i=0;
             console.log(column_type['result'])

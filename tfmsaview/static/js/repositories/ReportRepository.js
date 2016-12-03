@@ -256,7 +256,7 @@ export default class ReportRepository {
     getDataFrameOnNetworkConfig(opt_url, nnId) {
         let url='/api/v1/type/dataframe/format/'+ nnId +'/type/' +opt_url + '/'
         console.log(url)
-        return this.api.get(url).then((data) => {
+        return this.api.get(url, "").then((data) => {
             data = JSON.parse(data);
             console.log(data);
            return data;
