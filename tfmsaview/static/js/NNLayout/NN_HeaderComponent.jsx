@@ -71,13 +71,10 @@ export default class NN_HeaderComponent extends React.Component {
     render() {
         return (   
 			<header className="mainHeader">
-				<a href="#" onClick={() => this.props.getHeaderEvent(0)}>
+				<div className="mainHeader_area">
 					<h1 className="logo">
-					<span className="hidden">HOYA</span>	
-					<span className="logo-image"></span>
-					<span className="system-logo"></span>
-					</h1>
-				</a>		
+						<a href="#" onClick={() => this.props.getHeaderEvent(0)}><img src={"../../imgages/h1_logo.png"} alt="HOYA"/></a>
+					</h1>	
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
@@ -89,17 +86,13 @@ export default class NN_HeaderComponent extends React.Component {
 						<li className={this.isActive(6)}><a href="#" onClick={this.setFilter.bind(this, 6)}>Predict Test</a></li>
 					</ul>
 				</nav>
-				<dl className="utilMenu">
-					<dt>Menu</dt>
-					<dd className="utilMenu-help"><a href="#"><span>help</span></a></dd>
-					<dd className="utilMenu-logout"><a href="#"><span>logout</span></a></dd>
-					<dd className="utilMenu-user-info">
-						<a href="#">
-						<span className="user-name">Suk Jae-Ho</span>
-						<span> welcome!</span>
-						</a>
-					</dd>
-				</dl>
+					<dl className="utilMenu">
+						<dt>Menu</dt>
+						<dd className="utilMenu-user-info"><a href="#"><span className="user-name">Suk Jae-Ho</span></a></dd>
+						<dd className="utilMenu-help"><a href="#"><span>Help</span></a></dd>
+						<dd className="utilMenu-logout"><a href="#"><span>Logout</span></a></dd>
+					</dl>
+				</div>
 			</header>
         )
     }
