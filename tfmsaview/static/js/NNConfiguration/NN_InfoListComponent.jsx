@@ -126,7 +126,8 @@ export default class NN_InfoListComponent extends React.Component {
                                                row.config,
                                                row.confvaild,
                                                row.train,
-                                               row.preprocess);
+                                               row.preprocess,
+                                               row.name);
         }
 
         const selectRowProp = {
