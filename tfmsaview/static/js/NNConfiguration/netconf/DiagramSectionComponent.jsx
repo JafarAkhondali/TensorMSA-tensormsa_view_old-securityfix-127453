@@ -14,8 +14,7 @@ export default class DiagramSectionComponent extends React.Component {
             nnConfigLabelInfoField : null,
             saveBtnClickFlag: false,
             stepBack : 3,
-            stepForward : 5,
-            selected : null
+            stepForward : 5
         };
         
         // CNN
@@ -35,7 +34,7 @@ export default class DiagramSectionComponent extends React.Component {
         (this.context.NN_TYPE).toUpperCase() ===  'CNN' ? this._getNetConfigCommonInfo(this.context.NN_ID):this._getNetConfigDataframeInfo(this.context.NN_ID)
     }
 
-    componentDidMount(){
+    componentDidUpdate(){
         const libScript = document.createElement("script");
         const tsScript = document.createElement("script");
 
@@ -70,13 +69,14 @@ export default class DiagramSectionComponent extends React.Component {
     //2
     _getNetConfigCommonInfo(params) {
         this.props.reportRepository.getNetConfigCommonInfo(params).then((tableData) => {
+            var nnConfigCommonInfoJson;
             if(typeof tableData === 'object')
             {
-                var nnConfigCommonInfoJson = JSON.parse(JSON.stringify(tableData));
+                nnConfigCommonInfoJson = JSON.parse(JSON.stringify(tableData));
             }
             else 
             {
-                var nnConfigCommonInfoJson = JSON.parse(tableData);
+                nnConfigCommonInfoJson = JSON.parse(tableData);
             }            
 
             for(let i=0; i < nnConfigCommonInfoJson.result.length; i++) 
@@ -87,7 +87,6 @@ export default class DiagramSectionComponent extends React.Component {
                     break;
                 }
             }
-            debugger;             
         });
     }
 
@@ -162,17 +161,20 @@ export default class DiagramSectionComponent extends React.Component {
         this.props.reportRepository.postNNNetConfigInfo(this.context.NN_ID, postObj);
     }
 
-
     // WDNN
     _getNetConfigDataframeInfo(nnId) {
+        var nnConfigWdnnFeatureInfoJson;
+        var nnConfigWdnnLabelInfoJson;
+        var nnConfigWdnnConfJson;
+
         this.props.reportRepository.getDataFrameOnNetworkConfig('all', nnId).then((tableData) => {
             if(typeof tableData === 'object')
             {
-                var nnConfigWdnnFeatureInfoJson = JSON.parse(JSON.stringify(tableData));
+                nnConfigWdnnFeatureInfoJson = JSON.parse(JSON.stringify(tableData));
             }
             else 
             {
-                var nnConfigWdnnFeatureInfoJson = JSON.parse(tableData);
+                nnConfigWdnnFeatureInfoJson = JSON.parse(tableData);
             }
             
             this.setState({nnConfigFeatureInfoField: nnConfigWdnnFeatureInfoJson.result});
@@ -181,15 +183,28 @@ export default class DiagramSectionComponent extends React.Component {
         this.props.reportRepository.getDataFrameOnNetworkConfig('labels', nnId).then((tableData) => {
             if(typeof tableData === 'object')
             {
-                var nnConfigWdnnLabelInfoJson = JSON.parse(JSON.stringify(tableData));
+                nnConfigWdnnLabelInfoJson = JSON.parse(JSON.stringify(tableData));
             }
             else 
             {
-                var nnConfigWdnnLabelInfoJson = JSON.parse(tableData);
+                nnConfigWdnnLabelInfoJson = JSON.parse(tableData);
             }
             
             this.setState({nnConfigLabelInfoField: nnConfigWdnnLabelInfoJson.result});
-        });                 
+        }); 
+
+        this.props.reportRepository.getWdnnConf(nnId).then((tableData) => {
+            if(typeof tableData === 'object')
+            {
+                nnConfigWdnnConfJson = JSON.parse(JSON.stringify(tableData));
+            }
+            else 
+            {
+                nnConfigWdnnConfJson = JSON.parse(tableData);
+            }
+
+            localStorage.setItem('wdnn_config', nnConfigWdnnConfJson.result[0]);
+        });              
     }
 
     render() {

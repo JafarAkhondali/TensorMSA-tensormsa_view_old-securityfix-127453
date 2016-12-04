@@ -262,6 +262,14 @@ export default class ReportRepository {
            return data;
         });
     }
+    getWdnnConf(nnId) {
+        let url='/api/v1/type/wdnn/conf/'+ nnId +'/';
+        return this.api.get(url, "").then((data) => {
+            data = JSON.parse(data);
+            console.log(data);
+           return data;
+        });
+    }
     postWdnnConf(opt_url, params) {
         params = {}
         params["layer"] = [20,20,30,20]

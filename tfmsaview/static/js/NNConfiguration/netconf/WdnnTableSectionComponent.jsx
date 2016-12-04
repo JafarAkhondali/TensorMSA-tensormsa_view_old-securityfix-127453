@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default class WdnnTableSectionComponent extends React.Component {
     constructor(props){
@@ -17,8 +17,6 @@ export default class WdnnTableSectionComponent extends React.Component {
         else {
             this.setState({datasets: this.props.nnConfigFeatureInfoField});
         }
-
-        debugger;
     }
 
     render() {
