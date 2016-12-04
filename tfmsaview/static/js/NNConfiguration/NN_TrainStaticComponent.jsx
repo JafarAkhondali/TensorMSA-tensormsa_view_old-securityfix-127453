@@ -18,7 +18,8 @@ export default class NN_TrainStaticComponent extends React.Component {
                 graphSummary : null,
                 graphSummaryDetail : null,
                 graphLabel : null,
-                searchDisable : false
+                searchDisable : false,
+                trainSteps : null
             };
     }
 
@@ -57,12 +58,10 @@ export default class NN_TrainStaticComponent extends React.Component {
     getNeuralNetStat(){
         this.props.reportRepository.getNeuralNetStat(this.context.NN_ID).then((data) => { 
             if(this.threadFlag == true){
-                this.setState({searchDisable : true});
                 this.renderGraphs(data);
                 setTimeout(this.getNeuralNetStat.bind(this), 15000);    
             }else{
                 this.threadFlag = true
-                //this.setState({searchDisable : false});
             }
         });
     }
@@ -71,16 +70,19 @@ export default class NN_TrainStaticComponent extends React.Component {
         let labelData = data['detail']
         let lossData = data['loss']
         let summaryData = data['summary']
+        let jobparm = data['jobparm']
 
-        this.threadFlag = data['thread']=='Y'?true:false
+        this.threadFlag = jobparm['status']=='3'?true:false
         let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
         let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
+        let trainSteps = jobparm['datapointer'] + "/" + jobparm['endpointer']
 
         this.setState({graphLoss : <RealTimeLineChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
         this.setState({graphSummary : <dd><span>{accuracy}%</span></dd>})
         this.setState({graphSummaryDetail : <dd><span>{summatDetail}</span></dd>})
+        this.setState({trainSteps : <dd><span>{trainSteps}</span></dd>})
     }
 
     render() {
@@ -112,6 +114,10 @@ export default class NN_TrainStaticComponent extends React.Component {
                                     <dt><span className="circle-yellow">Train Summary Result</span></dt>
                                     {this.state.graphSummary}
                                     {this.state.graphSummaryDetail}
+                                </dl>
+                                <dl className="test-step">
+                                    <dt><span className="circle-yellow">Train Steps</span></dt>
+                                        {this.state.trainSteps}
                                 </dl>
                             </div>
                         </section>
