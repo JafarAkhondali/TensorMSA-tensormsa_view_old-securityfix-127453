@@ -94,6 +94,7 @@ let HIDABLE_CONTROLS = [
 ];
 
 let nodeTypeArray: string[] = [];
+let networkType: string = localStorage.getItem('nn_type');
 
 class Player {
     private timerIndex = 0;
@@ -246,7 +247,7 @@ function makeGUI() {
     });
 
     d3.select("#remove-layers").on("click", () => {
-        if (state.numHiddenLayers <= 4) { // In case CNN
+        if (networkType === 'CNN' && state.numHiddenLayers <= 4) { // In case CNN
             return;
         }
         state.numHiddenLayers--;
@@ -1046,15 +1047,17 @@ export function getOutputWeights(network: nn.Node[][]): number[] {
 function reset() {
     state.serialize();
     player.pause();
-
+    
+    localStorage.getItem("init_flag") === 'true' ? chooseNetworkShape(): "";
     let suffix = state.numHiddenLayers !== 1 ? "s" : "";
+
     d3.select("#layers-label").text("Hidden layer" + suffix);
     d3.select("#num-layers").text(state.numHiddenLayers);
 
     // Make a simple network.
     iter = 0;
     let numInputs = constructInput(0, 0).length;
-    chooseNetworkShape();
+
     let shape = [numInputs].concat(state.networkShape).concat([1]);
     let outputActivation = (state.problem == Problem.REGRESSION) ?
         nn.Activations.LINEAR : nn.Activations.TANH;
@@ -1064,24 +1067,37 @@ function reset() {
     lossTest = getLoss(network, testData);
     drawNetwork(network);
     updateUI(true);
+    updateLocalStorage();
 };
+
+function updateLocalStorage(){
+    if (networkType === 'WDNN') {
+        let networkShape = state.networkShape.map((num)=> {return num*10});
+        localStorage.setItem('wdnn_config', '{"layer":'+JSON.stringify(networkShape)+'}'); 
+    }
+}
 
 function chooseNetworkShape() {
     // check whether CNN or WDNN
-    let networkType = d3.select('.tabHeader a').html();
     if (networkType === 'CNN') {
 
     }
     else if (networkType === 'WDNN') {
-        debugger;
         let wdnnNetwork: Array<number> = JSON.parse(localStorage.getItem("wdnn_config"));
-        for(let wdnnNetworkIdx = 0; wdnnNetwork.length; wdnnNetworkIdx++)
-        {
-            wdnnNetwork[wdnnNetworkIdx] = wdnnNetwork[wdnnNetworkIdx]/10;
-        }
 
-        state.networkShape = wdnnNetwork;
+        if(wdnnNetwork.hasOwnProperty('layer'))
+        {
+            for(let wdnnNetworkIdx = 0; wdnnNetworkIdx < wdnnNetwork['layer'].length; wdnnNetworkIdx++)
+            {
+                wdnnNetwork['layer'][wdnnNetworkIdx] = wdnnNetwork['layer'][wdnnNetworkIdx]/10;
+            }
+            state.numHiddenLayers = wdnnNetwork['layer'].length;
+            state.networkShape = wdnnNetwork['layer'];
+            
+        }
     }
+
+    localStorage.setItem('init_flag', 'false');
 }
 
 function initTutorial() {
@@ -1207,8 +1223,6 @@ function generateData(firstTime = false) {
 }
 
 function reGrantNodeType() {
-    console.log("reGrantNodeType");
-
     let nodeType: string;
     var k: number = 0;
 

@@ -12,7 +12,6 @@ export default class DiagramSectionComponent extends React.Component {
         this.state = {
             nnConfigFeatureInfoField : null,
             nnConfigLabelInfoField : null,
-            saveBtnClickFlag: false,
             stepBack : 3,
             stepForward : 5
         };
@@ -31,6 +30,7 @@ export default class DiagramSectionComponent extends React.Component {
     // execute just once
     componentWillMount(){
         // choose CNN or WDNN
+        localStorage.setItem('nn_type', (this.context.NN_TYPE).toUpperCase());
         (this.context.NN_TYPE).toUpperCase() ===  'CNN' ? this._getNetConfigCommonInfo(this.context.NN_ID):this._getNetConfigDataframeInfo(this.context.NN_ID)
     }
 
@@ -50,7 +50,7 @@ export default class DiagramSectionComponent extends React.Component {
 
     // 3!
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField === null) || this.state.saveBtnClickFlag === true;
+        return (this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField === null);
     }    
 
     //4!
@@ -58,12 +58,7 @@ export default class DiagramSectionComponent extends React.Component {
         if(this.state.nnConfigFeatureInfoField !== null && this.state.saveBtnClickFlag === false)
         {           
             this._getNetConfigFormatInfo(this.state.nnConfigFeatureInfoField, this.context.NN_ID);
-        }   
-
-        if(this.state.saveBtnClickFlag === true)
-        {           
-            this._postNNNetConfigInfo();
-        }        
+        }
     }
 
     //2
@@ -112,7 +107,21 @@ export default class DiagramSectionComponent extends React.Component {
     }
 
     _clickSaveButton(){
-        this.setState({saveBtnClickFlag: true});
+        console.log("click post!!");
+        if((this.context.NN_TYPE).toUpperCase() === 'CNN')
+        {
+            this._postNNNetConfigInfo();
+        }
+        else if((this.context.NN_TYPE).toUpperCase() === 'WDNN')
+        {
+            this._postNNNetConfigWdnnInfo();
+        }
+    }
+
+    _postNNNetConfigWdnnInfo(){
+        console.log(this.context.NN_ID);
+
+        this.props.reportRepository.postWdnnConf(this.context.NN_ID, JSON.parse(localStorage.wdnn_config));
     }
 
     _postNNNetConfigInfo(){
@@ -202,8 +211,8 @@ export default class DiagramSectionComponent extends React.Component {
             {
                 nnConfigWdnnConfJson = JSON.parse(tableData);
             }
-
             localStorage.setItem('wdnn_config', nnConfigWdnnConfJson.result[0]);
+            localStorage.setItem('init_flag', 'true');
         });              
     }
 

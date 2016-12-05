@@ -271,8 +271,6 @@ export default class ReportRepository {
         });
     }
     postWdnnConf(opt_url, params) {
-        params = {}
-        params["layer"] = [20,20,30,20]
         //opt_url = "nn0000102/"
         console.log(params)
         let key_set = Object.keys(params)
