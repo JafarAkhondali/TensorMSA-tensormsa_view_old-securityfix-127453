@@ -124,6 +124,7 @@ export default class DiagramSectionComponent extends React.Component {
         this.props.reportRepository.postWdnnConf(this.context.NN_ID, JSON.parse(localStorage.wdnn_config));
     }
 
+
     _postNNNetConfigInfo(){
         console.log(this.context.NN_ID);
         let layerArray = [];
