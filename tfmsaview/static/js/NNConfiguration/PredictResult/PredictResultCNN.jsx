@@ -21,6 +21,8 @@ export default class NN_PredictResultComponent extends React.Component {
     componentDidMount(){
         console.log("CNN did mounted!!!!!")
         console.log('NN_ID : ' + this.context.NN_ID)   
+        this.setDropZoneUrl(this.context.NN_ID)
+        console.log('networkID_call..... : ' ) 
     }    
 
     updateResult(result) {

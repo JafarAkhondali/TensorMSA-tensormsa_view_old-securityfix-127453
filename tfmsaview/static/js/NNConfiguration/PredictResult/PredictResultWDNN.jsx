@@ -15,11 +15,12 @@ export default class PredictResultWDNNComponent extends React.Component {
             result:' wdnn 결과',
             // NN_TableData: null,
             selModalView: null,
+           // networkID: null,
             rows: [["파일을 업로드 하세요"]],
             settings : {
                 header: false
                         }  ,
-            // NN_ID : '',
+            // NN_ID : this.context.NN_ID,
             // networkList: null,
             // networkTitle: '',
             dropzoneConfig: {
@@ -43,12 +44,19 @@ export default class PredictResultWDNNComponent extends React.Component {
         console.log("WDNN did mount!!!!")
         // this.getNetworkList();
         console.log('NN_ID : ' + this.context.NN_ID)   
+        
+        //var networkID =  this.context.NN_ID
+        //console.log('networkID_new : ' + networkID) 
+        this.setFileUploadUrl(this.context.NN_ID)
+        console.log('networkID_call..... : ' ) 
 
         
     }    
 
     updateResult(result) {
         var resultData;
+
+        console.log("data" + result);
         try {
             resultData = JSON.parse(JSON.parse(result));
         } catch (e) {
@@ -113,7 +121,7 @@ export default class PredictResultWDNNComponent extends React.Component {
     setFileUploadUrl(networkId) {
         this.setState({
             fileUploadOption: {
-                    baseUrl:'http://52.78.19.96:8989/api/v1/type/wdnn/predict/' + networkId + '/',
+                    baseUrl:'http://52.78.179.14:8989/api/v1/type/wdnn/predict/' + networkId + '/',
                     fileFieldName(file) {
                         return "file"
                     },
