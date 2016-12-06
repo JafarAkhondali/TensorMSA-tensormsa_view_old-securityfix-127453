@@ -1084,7 +1084,7 @@ function chooseNetworkShape() {
     }
     else if (networkType === 'WDNN') {
 
-        let wdnnNetwork: any = localStorage.getItem("wdnn_config") === 'object' ? JSON.parse(localStorage.getItem("wdnn_config")) : {};
+        let wdnnNetwork: any = typeof localStorage.getItem("wdnn_config") === 'object' ? JSON.parse(localStorage.getItem("wdnn_config")) : {};
 
         if(wdnnNetwork.hasOwnProperty('layer'))
         {
