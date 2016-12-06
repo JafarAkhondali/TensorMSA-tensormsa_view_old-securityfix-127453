@@ -1083,7 +1083,7 @@ function chooseNetworkShape() {
 
     }
     else if (networkType === 'WDNN') {
-        let wdnnNetwork: Array<number> = JSON.parse(localStorage.getItem("wdnn_config"));
+        let wdnnNetwork: any = JSON.parse(localStorage.getItem("wdnn_config"));
 
         if(wdnnNetwork.hasOwnProperty('layer'))
         {
@@ -1093,7 +1093,10 @@ function chooseNetworkShape() {
             }
             state.numHiddenLayers = wdnnNetwork['layer'].length;
             state.networkShape = wdnnNetwork['layer'];
-            
+        }
+        else {
+            state.numHiddenLayers = 4;
+            state.networkShape = [1,2,3,4];
         }
     }
 
