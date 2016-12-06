@@ -59,7 +59,7 @@ export default class ReportRepository {
             console.log(data);
            return data;
         });
-    }
+    }J
 
     putConfigNnCnn(params) {
         return this.api.put(`/api/v1/type/cnn/config/`, params).then((data) => {
@@ -404,6 +404,20 @@ export default class ReportRepository {
         return this.api.get(url, "").then((data) => {
             data = JSON.parse(data);
             return data.result;
+        });
+    } 
+
+    getJobInfo(netId) {
+        let url='/api/v1/type/common/job/' + netId + '/'; 
+        return this.api.get(url, "").then((data) => {
+            return JSON.parse(data);
+        });
+    } 
+
+    setJobInfo(netId, parm) {
+        let url='/api/v1/type/common/job/' + netId + '/'; 
+        return this.api.post(url, parm).then((data) => {
+            return JSON.parse(data);
         });
     } 
 }
