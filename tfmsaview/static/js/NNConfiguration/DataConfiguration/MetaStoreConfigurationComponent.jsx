@@ -192,7 +192,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     wdnnconfPost(opt_url){
         console.log("dataframpost")
           let _url =  this.state.nnid+"/"
-        this.props.reportRepository.postWdnnConf(_url).then((resultData) => {
+          let wdnn_conf = [50,70,100]
+        this.props.reportRepository.postWdnnConf(_url,wdnn_conf).then((resultData) => {
             console.log('dataframepost results')
             this.setState({dataFramePost: resultData['result']})
             if(resultData['status'] == "200"){
