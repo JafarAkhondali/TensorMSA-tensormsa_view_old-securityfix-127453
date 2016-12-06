@@ -75,12 +75,6 @@ export default class LabelByChartComponent extends React.Component {
         let temp = selData[0];
         let domain = []
 
-        for(let i = 0 ; i < selData.length ; i++){
-            if(selData[i].label == section){
-                selData[0] = selData[i]
-                selData[i] = temp
-            } 
-        }
         for(let data of selData){
             domain.push(data.label)
         }
@@ -89,10 +83,13 @@ export default class LabelByChartComponent extends React.Component {
 
     createColorArray(section, allData){
         let data = allData[section]
-        let color = ['#6699FF'];
+        let color = [];
         let wrong = ['#B3B0B0', '#CCCCCC'] 
-        for(let i = 1 ; i < data.length; i++){
-            if(i%2 == 0){
+        for(let i = 0 ; i < data.length; i++){
+
+            if(data.label == section){
+                color.push('#6699FF')
+            }else if(i%2 == 0){
                 color.push(wrong[0])
             }else{
                 color.push(wrong[1])

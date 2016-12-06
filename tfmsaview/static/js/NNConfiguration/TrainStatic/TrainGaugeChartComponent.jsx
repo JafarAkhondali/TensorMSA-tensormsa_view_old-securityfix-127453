@@ -191,7 +191,6 @@ export default class TrainGaugeChartComponent extends React.Component {
                     <article>
                         <style>{css}</style>
 	                	<div className="chart-gauge">
-                        <dd><span>{this.props.datapointer} / {this.props.endpointer}</span></dd>
                         </div>
                     </article>
         )
