@@ -310,7 +310,9 @@ export default class ReportRepository {
         let url='/api/v1/type/wdnn/train/' + opt_url; 
         //let url = '/api/v1/type/wdnn/train/'
         return this.api.post(url, params).then((data) => {
-            //data = JSON.parse(data);
+           data = JSON.parse(data);
+           console.log(data)
+           return data;
         });
     }
 

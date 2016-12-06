@@ -192,14 +192,15 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     wdnnconfPost(opt_url){
         console.log("dataframpost")
           let _url =  this.state.nnid+"/"
-          let wdnn_conf = [50,70,100]
+          let wdnn_conf = {}
+          wdnn_conf['layer'] = [50,70,50]
         this.props.reportRepository.postWdnnConf(_url,wdnn_conf).then((resultData) => {
             console.log('dataframepost results')
-            this.setState({dataFramePost: resultData['result']})
+            //this.setState({dataFramePost: resultData['result']})
             if(resultData['status'] == "200"){
                 alert("정상 처리 되었습니다.")
             }
-        });
+        }); 
     }
     wdnnTrainPost(){
         console.log("wdnnTrainPost")
@@ -208,7 +209,10 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         let _url =  this.state.nnid+"/"
         this.props.reportRepository.postWdnnTrain(_url).then((resultData) => {
             console.log('dataframepost results')
-            this.setState({dataFramePost: resultData['result']})
+            if(resultData['status'] == "200"){
+                alert("정상 처리 되었습니다.")
+            }
+            //this.setState({dataFramePost: resultData['result']})
         });
     }
     wdnnEvalPost(){
@@ -218,7 +222,10 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         let _url =  this.state.nnid+"/"
         this.props.reportRepository.postWdnnEval(_url).then((resultData) => {
             console.log('dataframepost results')
-            this.setState({dataFramePost: resultData['result']})
+            if(resultData['status'] == "200"){
+                alert("정상 처리 되었습니다.")
+            }
+            //this.setState({dataFramePost: resultData['result']})
         });
     }
 

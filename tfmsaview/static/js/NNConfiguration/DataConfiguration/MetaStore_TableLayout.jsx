@@ -97,9 +97,12 @@ export default class MetaStore_TableLayout extends React.Component {
 
         //error check assert
         console.log("dataframpost")
-        this.props.reportRepository.postWdnnDataFrameFormat(opt_url,this.state.cellfeature).then((tableData) => {
+        this.props.reportRepository.postWdnnDataFrameFormat(opt_url,this.state.cellfeature).then((resultData) => {
             console.log('dataframepost results')
-            this.setState({dataFramePost: tableData['result']})
+            if(resultData['status'] == "200"){
+                alert("정상 처리 되었습니다.")
+            }
+            //this.setState({dataFramePost: tableData['result']})
         });
     }
     checkColumnDataType(){
