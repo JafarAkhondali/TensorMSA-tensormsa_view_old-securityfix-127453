@@ -49,20 +49,56 @@ export default class LabelByChartComponent extends React.Component {
 
     createChart(section, allData){
             let data = allData[section];
+            let domianList = this.arraySwap(section, allData);
+            let colorList = this.createColorArray(section, allData);
             let chart = dc.pieChart('#_' + section,'_' + section);
-            let ndx           = crossfilter(data);
+            let ndx = crossfilter(data);
             let Dimension  = ndx.dimension(function(d) {return d.label;});
             let dataGroup = Dimension.group().reduceSum(function(d) {return d.value;});
+            let colorScale = d3.scale.ordinal().domain(domianList).range(colorList);
 
             chart
                 .width(200)
                 .height(200)
                 .innerRadius(0)
                 .dimension(Dimension)
-                .ordinalColors(['#2E8B57', '#DC143C'])
-                .transitionDuration(1500) //add animation speed
+                .colors(function(d){
+                    return colorScale(d)
+                })
+                .transitionDuration(1500) 
                 .group(dataGroup);
             chart.render('_' + section);
+    }
+
+    arraySwap(section, allData){
+        let selData = allData[section];
+        let temp = selData[0];
+        let domain = []
+
+        for(let i = 0 ; i < selData.length ; i++){
+            if(selData[i].label == section){
+                selData[0] = selData[i]
+                selData[i] = temp
+            } 
+        }
+        for(let data of selData){
+            domain.push(data.label)
+        }
+        return domain;
+    }
+
+    createColorArray(section, allData){
+        let data = allData[section]
+        let color = ['#6699FF'];
+        let wrong = ['#B3B0B0', '#CCCCCC'] 
+        for(let i = 1 ; i < data.length; i++){
+            if(i%2 == 0){
+                color.push(wrong[0])
+            }else{
+                color.push(wrong[1])
+            }
+        }
+        return color;
     }
 
     render() {
