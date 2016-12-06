@@ -9,7 +9,7 @@ export default class NN_PredictResultComponent extends React.Component {
         super(props);
         this.state = {
             result:'cifar 결과',
-            selModalView: null,
+            selModalView: null,            
             dropzoneConfig: {
             //    iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
@@ -20,7 +20,9 @@ export default class NN_PredictResultComponent extends React.Component {
 
     componentDidMount(){
         console.log("CIFA did mounted!!!!")
-        console.log('NN_ID : ' + this.context.NN_ID)   
+        console.log('NN_ID... : ' + this.context.NN_ID)   
+        this.setDropZoneUrl(this.context.NN_ID);
+
     }    
 
     updateResult(result) {
@@ -41,6 +43,7 @@ export default class NN_PredictResultComponent extends React.Component {
     }
 
     setDropZoneUrl(networkId) {
+        console.log('dropzonurl');
         this.setState({dropzoneConfig: {
                 iconFiletypes: ['.jpg', '.png', '.gif'],
                 showFiletypeIcon: true,
