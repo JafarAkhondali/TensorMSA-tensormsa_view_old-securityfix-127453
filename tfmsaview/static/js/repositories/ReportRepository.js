@@ -277,7 +277,7 @@ export default class ReportRepository {
         for(let key of key_set){
             console.log(key +"---->"+ params[key]);
          }
-        let url='/api/v1/type/wdnn/conf/' + opt_url; 
+        let url='/api/v1/type/wdnn/conf/' + opt_url +'/'; 
         //let url = '/api/v1/type/dataframe/base/' + databaseName + '/table/' + tableName + '/format/' + nnid + '/'
         return this.api.post(url, params).then((data) => {
             data = JSON.parse(data);
