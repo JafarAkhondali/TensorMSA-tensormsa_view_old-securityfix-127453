@@ -5,6 +5,7 @@ import TrainRealTimeChartComponent from './TrainStatic/TrainRealTimeChartCompone
 import RealTimeLineChartComponent from './TrainStatic/RealTimeLineChartComponent'
 import ReportRepository from './../repositories/ReportRepository'
 import ModalViewTrainParm from './TrainStatic/ModalSetTrainParmComponent'
+import TrainGaugeChartComponent from './TrainStatic/TrainGaugeChartComponent'
 import Modal from 'react-modal';
 import Api from './../utils/Api'
 
@@ -97,14 +98,14 @@ export default class NN_TrainStaticComponent extends React.Component {
         this.threadFlag = jobparm['status']=='3'?true:false
         let accuracy = Math.round(parseInt(summaryData['testpass'],10)/(parseInt(summaryData['testpass'],10) + parseInt(summaryData['testfail'],10)) * 100)
         let summatDetail = summaryData['testpass'] + "/" + (parseInt(summaryData['testfail']) + parseInt(summaryData['testpass']))
-        let trainSteps = jobparm['datapointer'] + "/" + jobparm['endpointer']
+        //let trainSteps = jobparm['datapointer'] + "/" + jobparm['endpointer']
 
         this.setState({graphLoss : <RealTimeLineChartComponent historyData={this.historyData} currData={lossData}/>})
         this.historyData = lossData;
         this.setState({graphLabel : <LabelByChartComponent data={labelData}/>})
         this.setState({graphSummary : <dd><span>{accuracy}%</span></dd>})
         this.setState({graphSummaryDetail : <dd><span>{summatDetail}</span></dd>})
-        this.setState({trainSteps : <dd><span>{trainSteps}</span></dd>})
+        this.setState({trainSteps : <TrainGaugeChartComponent datapointer={jobparm['datapointer']} endpointer={jobparm['endpointer']}/>})
     }
  
     render() {
