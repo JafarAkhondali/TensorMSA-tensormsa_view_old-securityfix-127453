@@ -21,10 +21,10 @@ export default class WdnnTableSectionComponent extends React.Component {
 
     render() {
         return (
-            <section id='netconf-table'>                    
+            <div id='netconf-table'>                                  
                 <div className='l--body'>
                     <dl className="layer-box">
-                        <dt><span className="circle-blue">Network Config Layer</span></dt>
+                        <dt><span className="circle-blue">Network Config</span></dt>
                         <dd>
                             <table id='input_table' className='form-table align-center'>
                                 <thead>
@@ -49,7 +49,7 @@ export default class WdnnTableSectionComponent extends React.Component {
                     <dl>
                     </dl>
                     <dl className="layer-box">
-                        <dt><span className="circle-blue">Label Layer</span></dt>
+                        <dt><span className="circle-blue">Label</span></dt>
                         <dd>
                             <table id='output_table' className='form-table align-center'>
                                 <thead>
@@ -68,7 +68,7 @@ export default class WdnnTableSectionComponent extends React.Component {
                         </dd>
                     </dl>    
                 </div>                
-            </section>
+            </div>
         )
     }
 }

@@ -24,4 +24,4 @@
  - http://52.78.19.96:8989/api/v1/type/dataframe/format/scm_default_wdnn_92741/type/all/  ==> getDataFrameOnNetworkConfig
  - http://52.78.19.96:8989/api/v1/type/dataframe/format/scm_default_wdnn_92741/type/labels/ ==> getDataFrameOnNetworkConfig
  - http://52.78.19.96:8989/api/v1/type/wdnn/conf/nnid/json/ ==> postWDNNConfig
- - http://52.78.19.96:8989/api/v1/type/wdnn/conf/nnid/ ==> getWDNNConfig
+//  - http://52.78.19.96:8989/api/v1/type/wdnn/conf/nnid/ ==> getWDNNConfig

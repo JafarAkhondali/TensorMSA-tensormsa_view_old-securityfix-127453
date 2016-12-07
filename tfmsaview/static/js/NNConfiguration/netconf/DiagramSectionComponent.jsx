@@ -231,16 +231,18 @@ export default class DiagramSectionComponent extends React.Component {
                     <ul className="tabHeader">
                         <li className="current"><a href="#">{(this.context.NN_TYPE).toUpperCase()}</a></li>
                         <div className="btnArea">
-                            <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
                             <StepArrowComponent getHeaderEvent={this.props.getHeaderEvent} stepBack={this.state.stepBack} stepForward={this.state.stepForward}/>
                         </div>                        
                     </ul> 
-                        <div id='netconf-diagram' className="container tabBody">                 
+                        <div id='netconf-diagram' className="container tabBody">
+                            <div className="btnArea">
+                                <button type="button" onClick={this._clickSaveButton.bind(this)}>Save</button>
+                            </div>
                             <div id="main-part" className="l--page">
                                 {/* Data Column */}
                                 <div className="column data">
                                     <h4>
-                                        <span>Data</span>
+                                        <span>CONFIG DATA</span>
                                     </h4>
                                     <div className="ui-dataset">
                                         <div className="dataset-list">
@@ -266,15 +268,9 @@ export default class DiagramSectionComponent extends React.Component {
                                     </div>
                                     <div>
                                         <div className="ui-percTrainData">
-                                            <label htmlFor="percTrainData">Ratio of training to test data:&nbsp;&nbsp;<span className="value">XX</span>%</label>
+                                            <label htmlFor="percTrainData">Learning&nbsp;Rate:&nbsp;&nbsp;<span className="value">XX</span>%</label>
                                             <p className="slider">
-                                                <input className="mdl-slider mdl-js-slider" type="range" id="percTrainData" min="10" max="90" step="10"/>
-                                            </p>
-                                        </div>
-                                        <div className="ui-noise">
-                                            <label htmlFor="noise">Noise:&nbsp;&nbsp;<span className="value">XX</span></label>
-                                            <p className="slider">
-                                                <input className="mdl-slider mdl-js-slider" type="range" id="noise" min="0" max="50" step="5"/>
+                                                <input className="mdl-slider mdl-js-slider" type="range" id="percTrainData" min="0" max="99" step="1"/>
                                             </p>
                                         </div>
                                         <div className="ui-batchSize">
@@ -348,25 +344,23 @@ export default class DiagramSectionComponent extends React.Component {
                                         <div id="linechart"></div>
                                     </div>
                                 </div>
+                                {/* CNN */}
+                                {
+                                    (this.context.NN_TYPE).toUpperCase() === 'CNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
+                                    <CnnTableSectionComponent nnConfigFeatureInfoField={this.state.nnConfigFeatureInfoField}
+                                                            nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
+                                    />
+                                }
+
+                                {/* WDNN */}
+                                {
+                                    (this.context.NN_TYPE).toUpperCase() === 'WDNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
+                                    <WdnnTableSectionComponent nnConfigFeatureInfoField={this.state.nnConfigFeatureInfoField}
+                                                            nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
+                                    />
+                                }                                
                             </div>
-
-                            {/* CNN */}
-                            {
-                                (this.context.NN_TYPE).toUpperCase() === 'CNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
-                                <CnnTableSectionComponent nnConfigFeatureInfoField={this.state.nnConfigFeatureInfoField}
-                                                          nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
-                                />
-                            }
-
-                            {/* WDNN */}
-                            {
-                                (this.context.NN_TYPE).toUpperCase() === 'WDNN' && this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField !== null &&
-                                <WdnnTableSectionComponent nnConfigFeatureInfoField={this.state.nnConfigFeatureInfoField}
-                                                           nnConfigLabelInfoField={this.state.nnConfigLabelInfoField}
-                                />
-                            }
-
-                        </div>                
+                        </div>   
                 </section>
         )
     }
