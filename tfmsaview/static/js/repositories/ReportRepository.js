@@ -393,11 +393,10 @@ export default class ReportRepository {
         });
     } 
 
-    postNeuralNetCheck(netId, params) {
-        let url='/api/v1/type/cnn/checker/' + netId + '/'; 
-        //let url = '/api/v1/type/wdnn/eval/'
+    postNeuralNetCheck(netType, netId, params) {
+        let url='/api/v1/type/'+ netType +'/checker/' + netId + '/'; 
         return this.api.post(url, "").then((data) => {
-            return data
+            return JSON.parse(data)
         });
     } 
 
