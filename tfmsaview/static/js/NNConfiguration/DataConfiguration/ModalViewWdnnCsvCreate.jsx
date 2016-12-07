@@ -88,7 +88,7 @@ export default class ModalViewWdnnCsvCreate extends React.Component {
             let rows = [];
             let i=0;
             for (let tableName of table_list['result']){
-                rows.push(<tr key={i++}><td><input id={tableName} name ="modal" onClick={this.setSaveTableName.bind(this, tableName)} type="radio"/></td><td>{tableName}</td></tr>)
+                rows.push(<tr key={i++}><td className="center"><input id={tableName} name ="modal" onClick={this.setSaveTableName.bind(this, tableName)} type="radio"/></td><td>{tableName}</td></tr>)
             }
             this.setState({tableRows : rows})
         });
@@ -250,27 +250,31 @@ export default class ModalViewWdnnCsvCreate extends React.Component {
                                 </tr>
                                 </tbody>
                             </table>
-                            <table className="table marginT10">
-                                <colgroup>
-                                    <col width="25" />
-                                    <col width="300" />
-                                </colgroup> 
-                                <thead>
-                                    <tr>
-                                        <th>chk</th>
-                                        <th>Table Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="center">      
-                                    {this.state.tableRows}  
-                                </tbody>
-                            </table>
+                            <div className="scroll-container">
+                                <div className="scroll-wrap">
+                                    <table className="table">
+                                        <colgroup>
+                                            <col width="15" />
+                                            <col width="300" />
+                                        </colgroup> 
+                                        <thead>
+                                            <tr>
+                                                <th><div>chk</div></th>
+                                                <th><div>Table Name</div></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>      
+                                            {this.state.tableRows}  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </article>
                     </div>
                 </div>
                 <span className="modal-footer">
                     {fileUploadCsvComponent}
-                     <button onClick={this.saveModal.bind(this)}>Save</button>
+                    <button onClick={this.saveModal.bind(this)}>Save</button>
                     <button onClick={this.props.closeModal}>Close</button>
                 </span>
             </div>

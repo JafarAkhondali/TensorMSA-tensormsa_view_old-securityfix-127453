@@ -125,7 +125,7 @@ export default class NN_TrainStaticComponent extends React.Component {
                     <button type="button" className="search" onClick={this.evalNeuralNet.bind(this)}>Eval</button>    
                     <button type="button" className="search" onClick={this.getNeuralNetStat.bind(this)} disabled={this.state.searchDisable}>Search</button>    
                 </div>
-                    <article className="train">
+                    <article className="train min-width-2">
                         <section className="train-result">
                             <div className="train-wrap-top">
                                 <dl className="statistics">

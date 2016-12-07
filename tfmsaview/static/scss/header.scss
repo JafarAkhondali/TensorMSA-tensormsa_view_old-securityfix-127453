@@ -8,11 +8,11 @@
     overflow: hidden;
     .logo {
         float: left;
-        width: $logo-width;
+        /*width: $logo-width;*/
         @include transition(width, 1s);
         height: 100%;
         float: left;
-        @include background(#9ec4e9, #78a4cf);
+        /*@include background(#9ec4e9, #78a4cf);*/
         .logo-image {
             display: inline-block;
             width: 44px;

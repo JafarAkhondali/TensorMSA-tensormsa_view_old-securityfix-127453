@@ -84,10 +84,10 @@ export default class LabelByChartComponent extends React.Component {
     createColorArray(section, allData){
         let data = allData[section]
         let color = [];
-        let wrong = ['#B3B0B0', '#CCCCCC'] 
+        let wrong = ['#3182bd', '#CCCCCC'] 
         for(let i = 0 ; i < data.length; i++){
             if(data[i].label == section){
-                color.push('#6699FF')
+                color.push('#6baed6')
             }else if(i%2 == 0){
                 color.push(wrong[0])
             }else{

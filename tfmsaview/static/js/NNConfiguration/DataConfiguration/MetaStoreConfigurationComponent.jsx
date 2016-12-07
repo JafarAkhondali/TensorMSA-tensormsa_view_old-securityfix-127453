@@ -237,13 +237,13 @@ export default class MetaStoreConfigurationComponent extends React.Component {
                             <div id="tab1">
                                 <article>
                                 <div className="inner-btnArea">
-                                    <button type="button" onClick={() => this.search_btn()} className="">Search</button>
+                                    <button type="button" className="btn imgBtn search" onClick={() => this.search_btn()} >Search</button>
                                     {this.state.tableName}
-                                    <button type="button" onClick={() => this.child_dataframe_format_post_btn(this)} className="">Format Save</button>
-                                    <button onClick={this.openModal.bind(this ,'table')}>Upload</button>
+                                    <button className="btn imgBtn save" type="button" onClick={() => this.child_dataframe_format_post_btn(this)} >Format Save</button>
+                                    <button className="btn imgBtn upload" onClick={this.openModal.bind(this ,'table')}>Upload</button>
                                     <button type="button" className="" onClick = {() => this.wdnnconfPost()}>wdnn conf</button>
                                     <button type="button" className="" onClick = {() => this.wdnnTrainPost()}>wdnn train</button>
-                                    <button type="button" className="" onClick = {() => this.wdnnEvalPost()}>wdnn eval</button>
+                                    <button type="button" className="search" onClick = {() => this.wdnnEvalPost()}>wdnn eval</button>
                                     <button type="button" className="" onClick = {() => this.getDataframeColumnOnDataConfig()}>get_type</button>
                                     <button type="button" className="" onClick = {() => this.child_check_Column_dataType()}>check_child_col_type</button>
                                 </div>

@@ -165,12 +165,12 @@ export default class TrainGaugeChartComponent extends React.Component {
         const css = `
   			.chart-gauge
 			{
-			  width: 400px;
+			  width: 300px;
 			  margin: 10px auto  
 			 } 
 			.chart-filled
 			{
-				fill: steelblue;
+				fill: #ed4d64;
 			}
 			.chart-empty
 			{

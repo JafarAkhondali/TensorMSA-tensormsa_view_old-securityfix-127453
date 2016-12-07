@@ -99,9 +99,14 @@ export default class NN_HeaderComponent extends React.Component {
 			<header className="mainHeader">
 				<div className="mainHeader_area">
 					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
-					<h1 className="logo">
-						<a href="#" onClick={() => this.props.getHeaderEvent(0)}><img src={"../../imgages/h1_logo.png"} alt="HOYA"/></a>
-					</h1>	
+					
+						<a href="#" onClick={() => this.props.getHeaderEvent(0)}>
+							<h1 className="logo">
+							<span className="hidden">HOYA</span>
+							<span className="logo-image"></span>
+							<span className="system-logo"></span>
+							</h1>
+						</a>
 				<nav>
 					<h1 className="hidden">Navigator</h1>
 					<ul>
