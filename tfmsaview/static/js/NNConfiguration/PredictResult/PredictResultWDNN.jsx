@@ -20,6 +20,8 @@ export default class PredictResultWDNNComponent extends React.Component {
             settings : {
                 header: false
                         }  ,
+            networkID: null,
+            nnid: null,            
             // NN_ID : this.context.NN_ID,
             // networkList: null,
             // networkTitle: '',
@@ -43,12 +45,14 @@ export default class PredictResultWDNNComponent extends React.Component {
     componentDidMount(){
         console.log("WDNN did mount!!!!")
         // this.getNetworkList();
-        console.log('NN_ID : ' + this.context.NN_ID)   
+        //console.log('NN_ID : ' + this.context.NN_ID)   
         
         //var networkID =  this.context.NN_ID
         //console.log('networkID_new : ' + networkID) 
-        this.setFileUploadUrl(this.context.NN_ID)
-        console.log('networkID_call..... : ' ) 
+        //this.setState({nnid: this.context.NN_ID})
+        //this.networkID = this.context.NN_ID
+        this.setFileUploadUrl( this.context.NN_ID)
+        console.log('networkID_call.....  nnid : ' +  this.context.NN_ID) 
 
         
     }    
@@ -119,9 +123,13 @@ export default class PredictResultWDNNComponent extends React.Component {
     } 
 */
     setFileUploadUrl(networkId) {
+        
+        console.log('networkId... setFileUploadUrl ' + networkId );
         this.setState({
+
+          
             fileUploadOption: {
-                    baseUrl:'http://52.78.179.14:8989/api/v1/type/wdnn/predict/' + networkId + '/',
+                    baseUrl:'http://52.78.19.96:8989/api/v1/type/wdnn/predict/' + networkId + '/',
                     fileFieldName(file) {
                         return "file"
                     },
