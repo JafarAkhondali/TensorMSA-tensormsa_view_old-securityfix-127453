@@ -212,7 +212,15 @@ export default class DiagramSectionComponent extends React.Component {
             {
                 nnConfigWdnnConfJson = JSON.parse(tableData);
             }
-            localStorage.setItem('wdnn_config', nnConfigWdnnConfJson.result[0]);
+
+            if(nnConfigWdnnConfJson.status === '404')
+            {
+                localStorage.setItem('wdnn_config', "{}");
+            }
+            else{
+                localStorage.setItem('wdnn_config', nnConfigWdnnConfJson.result[0]);
+            }
+            
             localStorage.setItem('init_flag', 'true');
         });              
     }
