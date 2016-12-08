@@ -31,18 +31,18 @@ export default class ModalViewWdnnCsvCreate extends React.Component {
                         console.log('you just uploaded',typeof files == 'string' ? files : files[0].name)
                     },
                     uploading : function(progress){
-                        this.setState({rate : progress.loaded/progress.total})
-                        console.log('loading...',progress.loaded/progress.total+'%')
+                        if(Math.round(progress.loaded/progress.total) == 50){
+                            msg.show(progress.loaded/progress.total)
+                        }
                     },
                     uploadSuccess : function(resp){
-                        console.log('upload success..!')
-                        alert("Csv File Upload Success")
+                        msg.show('Upload Finished')
                     },
                     uploadError : function(err){
-                        alert(err.message)
+                        msg.show('Upload Error')
                     },
                     uploadFail : function(resp){
-                    alert(resp)
+                        msg.show('Upload Fatil')
                     }
                 }               
                 };
