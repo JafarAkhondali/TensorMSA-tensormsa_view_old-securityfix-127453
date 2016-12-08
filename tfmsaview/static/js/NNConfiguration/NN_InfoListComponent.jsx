@@ -35,7 +35,7 @@ function signalFormatter(cell, row) {
 
 function precisionFormatter(cell, row) {
     //console.log(cell);
-  return (Number(cell).toPrecision(2) * 100 ) + '%';
+  return (Math.round(Number(cell).toPrecision(2) * 100,1) ) + '%';
 }
 
 export default class NN_InfoListComponent extends React.Component {
