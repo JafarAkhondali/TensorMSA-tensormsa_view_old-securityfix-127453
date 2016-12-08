@@ -96,11 +96,11 @@ export default class MetaStore_TableLayout extends React.Component {
     dataFramePost(opt_url){
 
         //error check assert
-        console.log("dataframpost")
+        msg.show("upload start")
         this.props.reportRepository.postWdnnDataFrameFormat(opt_url,this.state.cellfeature).then((resultData) => {
             console.log('dataframepost results')
             if(resultData['status'] == "200"){
-                alert("정상 처리 되었습니다.")
+                msg.show("upload Finished")
             }
             //this.setState({dataFramePost: tableData['result']})
         });

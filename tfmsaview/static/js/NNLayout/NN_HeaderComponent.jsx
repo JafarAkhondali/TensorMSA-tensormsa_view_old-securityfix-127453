@@ -104,7 +104,6 @@ export default class NN_HeaderComponent extends React.Component {
 							<h1 className="logo">
 							<span className="hidden">HOYA</span>
 							<span className="logo-image"></span>
-							<span className="system-logo"></span>
 							</h1>
 						</a>
 				<nav>

@@ -40,8 +40,13 @@ export default class NN_TrainStaticComponent extends React.Component {
     }
 
     checkNeuralNet(){
-        this.props.reportRepository.postNeuralNetCheck(this.context.NN_ID, "").then((data) => {
-        
+        this.props.reportRepository.postNeuralNetCheck(this.context.NN_TYPE , this.context.NN_ID, "").then((data) => {
+            if(data.status == '200'){
+                msg.show("Check Result OK")
+            }else{
+                msg.show("Error on Net config!!")
+            }
+            
         });
     }
     // close modal 
@@ -69,12 +74,14 @@ export default class NN_TrainStaticComponent extends React.Component {
     }
 
     evalNeuralNet(){
+        msg.show("Start Evaluation")
         var params = {samplenum : '1' , samplemethod : 'random'}
         this.props.reportRepository.postNeuralNetEval(this.context.NN_TYPE, this.context.NN_ID, params).then((data) => {
             this.setState({graphSummary : <dd><span>0%</span></dd>})
             this.setState({graphSummaryDetail : <dd><span>0/0</span></dd>})
             this.threadFlag = true;
             this.getNeuralNetStat();
+            msg.show("Finish Evaluation")
         });
     }
 
