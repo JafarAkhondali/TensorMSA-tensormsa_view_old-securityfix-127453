@@ -20,6 +20,9 @@ export default class WdnnTableSectionComponent extends React.Component {
     }
 
     render() {
+        console.log(this.props.nnConfigLabelInfoField)
+        console.log(this.state.datasets)
+
         return (
             <div id='netconf-table'>                                  
                 <div className='l--body'>

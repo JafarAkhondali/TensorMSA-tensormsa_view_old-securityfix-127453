@@ -34,30 +34,35 @@ export default class DiagramSectionComponent extends React.Component {
         (this.context.NN_TYPE).toUpperCase() ===  'CNN' ? this._getNetConfigCommonInfo(this.context.NN_ID):this._getNetConfigDataframeInfo(this.context.NN_ID)
     }
 
-    componentDidUpdate(){
-        const libScript = document.createElement("script");
-        const tsScript = document.createElement("script");
-
-        libScript.src = "../../../dist/lib.js";
-        libScript.async = false;
+    componentDidUpdate(prevProps,prevState){
         
-        tsScript.src = "../../../dist/NetConf.js";
-        tsScript.async = true;
-       
-        document.body.appendChild(libScript);
-        document.body.appendChild(tsScript);
+        if(prevState.nnConfigFeatureInfoField !== null && prevState.nnConfigLabelInfoField === null)
+        {           
+            const libScript = document.createElement("script");
+            const tsScript = document.createElement("script");
+
+            libScript.src = "../../../dist/lib.js";
+            libScript.async = false;
+            
+            tsScript.src = "../../../dist/NetConf.js";
+            tsScript.async = true;
+        
+            document.body.appendChild(libScript);
+            document.body.appendChild(tsScript);
+        }
     }
 
     // 3!
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.nnConfigFeatureInfoField !== null && this.state.nnConfigLabelInfoField === null);
+        return (nextState.nnConfigFeatureInfoField !== null && nextState.nnConfigLabelInfoField === null)
+            || (nextState.nnConfigFeatureInfoField !== null && nextState.nnConfigLabelInfoField !== null);
     }    
 
     //4!
     componentWillUpdate(nextProps, nextState){
-        if(this.state.nnConfigFeatureInfoField !== null && this.state.saveBtnClickFlag === false)
+        if(nextState.nnConfigFeatureInfoField !== null && nextState.nnConfigLabelInfoField === null && (this.context.NN_TYPE).toUpperCase() ===  'CNN') 
         {           
-            this._getNetConfigFormatInfo(this.state.nnConfigFeatureInfoField, this.context.NN_ID);
+            this._getNetConfigFormatInfo(nextState.nnConfigFeatureInfoField, this.context.NN_ID);
         }
     }
 
@@ -123,7 +128,6 @@ export default class DiagramSectionComponent extends React.Component {
 
         this.props.reportRepository.postWdnnConf(this.context.NN_ID, JSON.parse(localStorage.wdnn_config));
     }
-
 
     _postNNNetConfigInfo(){
         console.log(this.context.NN_ID);
