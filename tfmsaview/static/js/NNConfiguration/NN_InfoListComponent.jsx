@@ -8,16 +8,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import NN_BasicInfoComponent from './NN_BasicInfoComponent';
 import Modal from 'react-modal';
 
-function onAfterSaveCell(row, cellName, cellValue) {
-    console.log("Save cell '" + cellName + "' with value '" + cellValue + "'");
-    console.log("Thw whole row :");
-    console.log(row);
-}
-var cellEditProp = {
-    mode: "click",
-    blurToSave: true,
-    afterSaveCell: onAfterSaveCell
-}
+
 
 function signalFormatter(cell, row) {
     let color;
@@ -60,7 +51,6 @@ export default class NN_InfoListComponent extends React.Component {
     }
 
     getCommonNNInfo(params) {
-        //console.log("call getCommonNNInfo");
         this.props.reportRepository.getCommonNNInfo(params).then((tableData) => {
             this.setState({ NN_TableData: tableData })
         });
@@ -179,7 +169,7 @@ export default class NN_InfoListComponent extends React.Component {
                         </button>
                     </div>
                     <div className="net-info">
-                        <BootstrapTable data={result} options={ options } cellEdit={cellEditProp} 
+                        <BootstrapTable data={result} options={ options } 
                             striped={true}
                             hover={true}
                             condensed={true}
