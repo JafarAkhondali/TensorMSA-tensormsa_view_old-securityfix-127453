@@ -173,7 +173,7 @@ export default class NN_InfoListComponent extends React.Component {
                             striped={true}
                             hover={true}
                             condensed={true}
-                            pagination={false}
+                            pagination={true}
                             selectRow={selectRowProp}
                             deleteRow={false}
                             search={false}>

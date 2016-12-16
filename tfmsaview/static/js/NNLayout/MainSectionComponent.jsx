@@ -11,7 +11,7 @@ export default class MainSectionComponent extends React.Component {
 						</ul>
 						<div className="visual_txt_area">
 							<p className="visual_txt">
-								<strong>Hoya is a Machine Intelligence</strong>
+								<strong>HOYA is a Deep Learning Artificial Intelligence</strong>
 								Framework Based on Tensorflow
 							</p>
 							<a href="#none">JOB START!</a>
