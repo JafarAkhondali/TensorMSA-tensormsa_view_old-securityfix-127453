@@ -71,13 +71,9 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     }
     // init table lov
 
-
-
-
     search_btn(){
         let limit_cnt = {}
         limit_cnt["limits"] = 0
-        //let url = '/api/v1/type/dataframe/base/scm/table/tb_data_cokes100/data/'
         let opt_url =  this.state.baseDom + '/table/' + this.state.tableDom + '/data/'
         this.props.reportRepository.getWdnnTableDataFromHbase(opt_url).then((tableData) => {
             console.log('data configuration search end')
@@ -85,26 +81,12 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             this.setState({WdnnTableData: tableData['result']})
         }
         });
-        console.log('dataframepost results end')
-        //this.getDataFrameType() WdnnTableColumnType
-        console.log('categorical set')
-        let colum_type = this.getDataframeColumnOnDataConfig()
-        console.log(colum_type)
-        //this.setState({WdnnTableColumnType:colum_type })
-        console.log('categorical end')
-       
+
+        let colum_type = this.getDataframeColumnOnDataConfig()    
     }
 
     child_dataframe_format_post_btn(params){
-        //this.props.MetaStore_TableLayout.
-        console.log('child')
-        console.log(this.databaseName)
-        console.log(this.tableName)
-        console.log(this.state.nnid)
-
         let opt_url =  this.state.baseDom + '/table/' + this.state.tableDom + '/format/' + this.state.nnid + '/'
-        console.log(opt_url)
-
         this.refs.child.dataFramePost(opt_url)
     }
     child_check_Column_dataType(){
@@ -112,10 +94,8 @@ export default class MetaStoreConfigurationComponent extends React.Component {
     }
     openModal(type){
         this.setState({selModalView : <ModalViewWdnnCsvCreate saveModal={this.saveModal} closeModal={this.closeModal}/>})
-      
         this.setState({open: true})
     }
-      // close modal 
     closeModal () { this.setState({open: false}); }
         //get table list on seleceted base name
     getTableListOnDataConfig(){
@@ -149,24 +129,9 @@ export default class MetaStoreConfigurationComponent extends React.Component {
         this.props.reportRepository.getDataFrameOnNetworkConfig("all", this.context.NN_ID).then((column_type) => {
             let optionRows = [];
             let i=0;
-            console.log(column_type['result'])
-            // for (let [k,v] of Object.entries(column_type['result']))
-            // {
-            //     console.log(k)
-            //     console.log(v)
-            // }
+
             col_type = column_type['result']
-            this.setState({WdnnTableColumnType:col_type})
-            // for (let dbName of column_type['result']){
-            //     for(let col of dbName){
-            //         console.log("getDataframeColumnOnDataConfig")
-            //         console.log(col)
-            //     }
-            // }
-
-
-          
-            
+            this.setState({WdnnTableColumnType:col_type})  
         });
         return col_type
     }
@@ -195,8 +160,6 @@ export default class MetaStoreConfigurationComponent extends React.Component {
           let wdnn_conf = {}
           wdnn_conf['layer'] = [50,70,50]
         this.props.reportRepository.postWdnnConf(_url,wdnn_conf).then((resultData) => {
-            console.log('dataframepost results')
-            //this.setState({dataFramePost: resultData['result']})
             if(resultData['status'] == "200"){
                 alert("정상 처리 되었습니다.")
             }
@@ -228,8 +191,6 @@ export default class MetaStoreConfigurationComponent extends React.Component {
             //this.setState({dataFramePost: resultData['result']})
         });
     }
-
-
 
     render() {
         return (

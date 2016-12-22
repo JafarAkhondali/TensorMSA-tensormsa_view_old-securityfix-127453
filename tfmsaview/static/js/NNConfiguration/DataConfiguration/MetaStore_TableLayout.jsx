@@ -9,13 +9,12 @@ export default class MetaStore_TableLayout extends React.Component {
         this.state = {
             selectValue:[],//initail lodaing is meta
             cellfeature:{},
-            label:{},
             dataFormatTypes:{},
             dataFormatTypesLabel:{},
             dataFramePost:null,
-            selectdataFormatTypes:{},
             celStateHeaderSelectBoxValue:{},
-            WdnnTableColumnType:{}
+            WdnnTableColumnType:{},
+            //selectedStyle : {}
             };
         this.celHeaderSelectBoxValue = {};
         this.celHeaderSelectBoxValue2 = {};
@@ -26,9 +25,9 @@ export default class MetaStore_TableLayout extends React.Component {
     }
     setWdnnTableColumnType()
     {
-            console.log("setWdnnTableColumnType  true")
             this.first_time = true;
     }
+    /*
     calWdnnTableColumnType()
     {
         console.log("calWdnnTableColumnTypechild")
@@ -40,10 +39,12 @@ export default class MetaStore_TableLayout extends React.Component {
         }
 
     }
+
     shouldComponentUpdate(nextProps, nextState){
         console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
         return true;
     }
+    */
     handleChange(selectedValue){
         let selectDataFormatType = this.state.dataFormatTypes
         let selectDataFormatLabel = this.state.dataFormatTypesLabel
@@ -58,22 +59,25 @@ export default class MetaStore_TableLayout extends React.Component {
 
         //CONTINUOUS CATEGORICAL
         if ('CATEGORICAL' == selectedValue.target.value){
-            console.log(selectedValue.target.value)
             selectDataFormatTypeCell['column_type'] = selectedValue.target.value
             selectDataFormatType[selectedValue.target.id] = selectDataFormatTypeCell
             this.setState({dataFormatTypes : selectDataFormatType})
+            selectedValue.target.className = "selected"
         }
-        if ('CONTINUOUS' == selectedValue.target.value){
-            console.log(selectedValue.target.value)
+        else if ('CONTINUOUS' == selectedValue.target.value){
             selectDataFormatTypeCell['column_type'] = selectedValue.target.value
             selectDataFormatType[selectedValue.target.id] = selectDataFormatTypeCell
             this.setState({dataFormatTypes : selectDataFormatType})
+            selectedValue.target.className = "selected"
         }
-        if ('LABEL' == selectedValue.target.value){
-            console.log(selectedValue.target.value)
+        else if ('LABEL' == selectedValue.target.value){
             selectDataFormatTypeLabel['column_type'] = selectedValue.target.value
             selectDataFormatLabel[selectedValue.target.id] = selectDataFormatTypeLabel
             this.setState({dataFormatTypesLabel : selectDataFormatLabel})
+            selectedValue.target.className = "selected"
+        }
+        else if ('NONE' == selectedValue.target.value){
+            selectedValue.target.className = ""
         }
         selectCellFeature['cell_feature'] = selectDataFormatType
         selectCellFeature['label'] = selectDataFormatLabel
@@ -84,12 +88,12 @@ export default class MetaStore_TableLayout extends React.Component {
         //error check assert
         msg.show("upload start")
         this.props.reportRepository.postWdnnDataFrameFormat(opt_url,this.state.cellfeature).then((resultData) => {
-            console.log('dataframepost results')
             if(resultData['status'] == "200"){
                 msg.show("upload Finished")
             }
         });
     }
+/*
     checkColumnDataType(){
         var numbers = [1, 4, 9];
         var dic_number = {"one":1, "two":2, "three":3}
@@ -101,6 +105,7 @@ export default class MetaStore_TableLayout extends React.Component {
             console.log(v)
         } 
     }
+
     getDataFrameType () {
         console.log("ChildGetDataFrameType"); 
         if (!this.props.WdnnTableColumnType) {return null;}
@@ -111,11 +116,10 @@ export default class MetaStore_TableLayout extends React.Component {
             }
         
      }
-
+     */
     setWdnnTableColumnType()
     {
         this.props.reportRepository.getDataFrameOnNetworkConfig().then((resultData) => {
-            console.log('dataframepost results end');
             this.setState({WdnnTableColumnType: resultData['result']});
             this.celHeaderSelectBoxValue = resultData['result'];
         });
@@ -127,12 +131,10 @@ export default class MetaStore_TableLayout extends React.Component {
         let _celHeaderSelectBoxValue = {}
         let _celHeaderSelectBox = {}
         let _WdnnTableColumnType = {}
-        console.log(this.first_time)
+
         if (this.first_time == true){
-            console.log("WdnnTableColumnType true")
             _WdnnTableColumnType = WdnnTableColumnType
         }else{
-            console.log("celHeaderSelectBoxValue false")
             _WdnnTableColumnType = this.celHeaderSelectBoxValue
         }
 
@@ -142,8 +144,6 @@ export default class MetaStore_TableLayout extends React.Component {
             _celHeaderSelectBoxValue["column_type"] = _WdnnTableColumnType[columnValues]["column_type"]
             }catch(e)
             {
-                console.log("catch")
-                console.log(columnValues)
             _celHeaderSelectBoxValue["column_type"] = "NONE"
             }
             _celHeaderSelectBox[columnValues] = _celHeaderSelectBoxValue
@@ -151,37 +151,32 @@ export default class MetaStore_TableLayout extends React.Component {
         }
         this.celHeaderSelectBoxValue = _celHeaderSelectBox
         this.first_time =false
-        console.log("it should be false")
-        console.log(this.first_time)
+
         return this.celHeaderSelectBoxValue
     }
     getCategoryType3(WdnnTableColumnType)
     {
+
         if (!this.props.WdnnTableColumnType) {
-            console.log("props.WdnnTableColumnType is null")
             let column_type = {}
             let row_column_type = {}
             this.celHeaderSelectBoxValue2 = null
         }
         else{
-            console.log("console.log( props.WdnnTableColumnType is null has value")
             let _celHeaderSelectBoxValue = {}
             let _celHeaderSelectBox = {}
             let _WdnnTableColumnType = {}
-            console.log(this.first_time)
+
             if (this.first_time == true){
-                console.log("WdnnTableColumnType true")
                 _WdnnTableColumnType = this.props.WdnnTableColumnType
             }else{
-                console.log("celHeaderSelectBoxValue false")
                 _WdnnTableColumnType = this.celHeaderSelectBoxValue
             }
 
             this.first_time =false
-            console.log("it should be false")
-            console.log(this.first_time)
             this.celHeaderSelectBoxValue2 = _WdnnTableColumnType 
         }
+
         return this.celHeaderSelectBoxValue2
     }
 
@@ -220,28 +215,27 @@ export default class MetaStore_TableLayout extends React.Component {
                     let celHeaderCategoryTypelabel = [];
 
                     if (this.celHeaderSelectBoxValue2 && this.celHeaderSelectBoxValue2[columnValues]){
-
-                  
                      celHeaderCategory.push(    <td key={k++}>
                                                     <div className="option-select">
                                                     <select ref="s1" onChange={this.handleChange.bind(this)}
-                                                           id={columnValues} defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]}>
+                                                           id={columnValues} defaultValue={this.celHeaderSelectBoxValue2[columnValues]["column_type"]} className={this.celHeaderSelectBoxValue2[columnValues]["column_type"]!="NONE"?"selected":null}>
                                                        <option value="NONE">None</option>
-                                                       <option  value="CATEGORICAL">Category Type</option>
+                                                       <option value="CATEGORICAL">Category Type</option>
                                                        <option value="CONTINUOUS">Continuous Type</option>
-                                                       <option  value="LABEL">Label</option>
+                                                       <option value="LABEL">Label</option>
                                                     </select>
                                                     </div>
                                                 </td>)
                     }else{
-                                  celHeaderCategory.push(    <td key={k++}>
+                                  celHeaderCategory.push(    
+                                                <td key={k++}>
                                                     <div className="option-select">
                                                     <select ref="s1" onChange={this.handleChange.bind(this)}
-                                                           id={columnValues} >
+                                                           id={columnValues}>
                                                        <option value="NONE">None</option>
-                                                       <option  value="CATEGORICAL">Category Type</option>
+                                                       <option value="CATEGORICAL">Category Type</option>
                                                        <option value="CONTINUOUS">Continuous Type</option>
-                                                       <option  value="LABEL">Label</option>
+                                                       <option value="LABEL">Label</option>
                                                     </select>
                                                     </div>
                                                 </td>)
@@ -260,10 +254,11 @@ export default class MetaStore_TableLayout extends React.Component {
                 tableData.push(<tr key={j++}>{celData}</tr>)
             }
 		}
+
         //add table 
         metaStoreTableContent.push(<thead key={j++}>{tableHeader}</thead>)
         metaStoreTableContent.push(<tbody key={j++} className="center">{tableData}</tbody>)
-        
+
         return (   
             <div>
                 <table className="table marginT10">
